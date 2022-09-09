@@ -14,7 +14,7 @@ const Ecosystem = () => {
       />
 
       <Row className="mt-5">
-        <Col md="4" className="mt-3 mt-md-0">
+        <Col md="6" lg="4" className="mt-3 mt-lg-0">
           <TokesSalesCard
             title="PinkMoon"
             description="The best launchpad for professional teams"
@@ -24,7 +24,7 @@ const Ecosystem = () => {
             description="The best launchpad for professional teams"
           /> */}
         </Col>
-        <Col md="4" className="mt-3 mt-md-0">
+        <Col md="6" lg="4" className="mt-3 mt-lg-0">
           <TokesSalesCard
             title="PinkMoon"
             description="The best launchpad for professional teams"
@@ -34,7 +34,7 @@ const Ecosystem = () => {
             description="The best launchpad for professional teams"
           /> */}
         </Col>
-        <Col md="4" className="mt-3 mt-md-0">
+        <Col md="6" lg="4" className="mt-3 mt-lg-0">
           <TokesSalesCard
             title="PinkMoon"
             description="The best launchpad for professional teams"

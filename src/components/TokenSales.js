@@ -13,21 +13,21 @@ const TokenSales = () => {
       />
 
       <Row className="mt-5">
-        <Col md="4" className="mt-3 mt-md-0">
+        <Col md="6" lg="4" className="mt-3 mt-lg-0">
           <TokesSalesCard
             title="Standard"
             description="Mint standard tokens on ETH,BSC,
             AVAX, Fantom, Polygon."
           />
         </Col>
-        <Col md="4" className="mt-3 mt-md-0">
+        <Col md="6" lg="4" className="mt-3 mt-lg-0">
           <TokesSalesCard
             title="Standard"
             description="Mint standard tokens on ETH,BSC,
  AVAX, Fantom, Polygon."
           />
         </Col>
-        <Col md="4" className="mt-3 mt-md-0">
+        <Col md="6" lg="4" className="mt-3 mt-lg-0">
           <TokesSalesCard
             title="Standard"
             description="Mint standard tokens on ETH,BSC,

@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import logo from "../assets/img/main-logo.png";
+import logoSmall from "../assets/img/logo_sm.png";
 import {
   Collapse,
   Navbar,
@@ -24,8 +25,9 @@ const Header = () => {
   return (
     <div className="header">
       <Navbar color="light" expand="md">
-        <NavbarBrand href="/">
-          <img src={logo} />
+        <NavbarBrand href="/" className={`mx-auto ${isOpen ? "mt-3" : ""}`}>
+          <img src={logo} className="d-none d-md-block" />
+          <img src={logoSmall} className="d-block d-md-none" />
         </NavbarBrand>
         {/* <NavbarToggler onClick={toggle} /> */}
         <NavbarToggler onClick={toggle} className="mx-auto">
@@ -40,7 +42,7 @@ const Header = () => {
           )}
         </NavbarToggler>
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="ml-auto" navbar>
+          <Nav className={`ml-auto ${isOpen ? "mt-2" : ""}`} navbar>
             <NavItem>
               <NavLink href="/components/">Home</NavLink>
             </NavItem>
@@ -48,14 +50,14 @@ const Header = () => {
               <NavLink>Launchpadlist</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
+              <NavLink>
                 <Button className="custome-btn">
                   <i className="fa fa-plus mr-2"></i> Create
                 </Button>
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
+              <NavLink>
                 <Button className="custome-btn">Connect</Button>
               </NavLink>
             </NavItem>

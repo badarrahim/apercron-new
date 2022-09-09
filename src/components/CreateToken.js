@@ -9,20 +9,41 @@ const { Step } = Steps;
 const CreateToken = () => {
   return (
     <div className="py-5">
-      <Steps current={0} responsive className="my-5 py-5">
-        <Step title="Verify Token" />
-        <Step
-          title="DeFi Launchpad Info"
-          description="Enter the launchpad information that you want to raise , that should be enter all details about your presale"
-        />
-        <Step
-          title="Add Additional Info"
-          description="Let people know who you are"
-        />
-        <Step title="Finish" description="Review your information" />
-      </Steps>
+      <div className="d-none d-lg-block">
+        <Steps current={0} responsive className="my-5 py-5 horizonal-step ">
+          <Step title="Verify Token" />
+          <Step
+            title="DeFi Launchpad Info"
+            description="Enter the launchpad information that you want to raise , that should be enter all details about your presale"
+          />
+          <Step
+            title="Add Additional Info"
+            description="Let people know who you are"
+          />
+          <Step title="Finish" description="Review your information" />
+        </Steps>
+      </div>
+      <div className="d-block d-lg-none">
+        <Steps
+          direction="vertical"
+          current={0}
+          responsive
+          className="my-5 py-3"
+        >
+          <Step title="Verify Token" />
+          <Step
+            title="DeFi Launchpad Info"
+            description="Enter the launchpad information that you want to raise , that should be enter all details about your presale"
+          />
+          <Step
+            title="Add Additional Info"
+            description="Let people know who you are"
+          />
+          <Step title="Finish" description="Review your information" />
+        </Steps>
+      </div>
 
-      <div className="create-token p-5 mt-5">
+      <div className="create-token p-4 p-md-5 mt-5">
         <Row>
           <Col xs="12">
             <span className="create-token__light">(*) is required field.</span>
@@ -83,7 +104,7 @@ const CreateToken = () => {
             <FormGroup check className="mt-1">
               <Label check>
                 <Input type="radio" name="radio1" />{" "}
-                <span>2% BNB raised + 2% token sold</span>
+                <span>2% BNB raised + 3% token sold</span>
               </Label>
             </FormGroup>
           </Col>
@@ -106,7 +127,7 @@ const CreateToken = () => {
 
           <Col
             xs="12"
-            className=" mt-3 create-token__bottom d-flex justify-content-center align-items-center p-3 p-md-5 my-5"
+            className="  mt-3 create-token__bottom d-flex justify-content-center align-items-center p-3 p-md-5 my-5"
           >
             <span>
               For auto listing, after you finalize the pool your token will be
@@ -118,7 +139,7 @@ const CreateToken = () => {
             xs="12"
             className=" d-flex justify-content-center align-items-center p-3 mb-5"
           >
-            <Button className="create-token__next-btn">Next</Button>
+            <Button className="custome-btn-lg">Next</Button>
           </Col>
         </Row>
       </div>

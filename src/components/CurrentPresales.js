@@ -41,7 +41,7 @@ const CurrentPresales = () => {
         </NavItem>
         <NavItem>
           <NavLink
-            className={`${activeTab == "2" ? "active" : ""}`}
+            className={`${activeTab == "2" ? "active" : ""} ml-md-4`}
             onClick={() => {
               toggle("2");
             }}
@@ -53,19 +53,19 @@ const CurrentPresales = () => {
       <TabContent activeTab={activeTab}>
         <TabPane tabId="1">
           <Row className="mt-5">
-            <Col xs="12" md="8">
+            <Col xs="12" lg="8">
               <Input
                 placeholder="Enter your token symbol"
                 className="token-input "
               />
             </Col>
-            <Col xs="6" md="2">
+            <Col xs="6" lg="2">
               <Label>Filter By</Label>
               <Input type="select" className="token-select">
                 <option default>All Status</option>
               </Input>
             </Col>
-            <Col xs="6" md="2">
+            <Col xs="6" lg="2">
               <Label>Sort By</Label>
               <Input type="select" className="token-select">
                 <option default>All Status</option>
