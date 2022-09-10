@@ -14,16 +14,16 @@ const LaunchpadProtocl = () => {
 
       <Row className="mt-5">
         <Col md="6" lg="3" className="mt-3 mt-lg-0">
-          <ProtocolCard title="$235.8M" description="Total Liquidity Raised" />
+          <ProtocolCard title="$235.8M" description="Total Funds Raised" />
         </Col>
         <Col md="6" lg="3" className="mt-3 mt-lg-0">
-          <ProtocolCard title="12345" description="Total Projects" />
+          <ProtocolCard title="$300M" description="Total Funds Locked" />
         </Col>
         <Col md="6" lg="3" className="mt-3 mt-lg-0">
-          <ProtocolCard title="1.3M" description="Total Participants" />
+          <ProtocolCard title="1000" description="Total Participants" />
         </Col>
         <Col md="6" lg="3" className="mt-3 mt-lg-0">
-          <ProtocolCard title="$299.8M" description="Total Values Locked" />
+          <ProtocolCard title="3454" description="Total Sales Created" />
         </Col>
       </Row>
     </div>
