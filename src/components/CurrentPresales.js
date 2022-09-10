@@ -91,11 +91,11 @@ const CurrentPresales = () => {
           className="d-flex justify-content-center align-items-center mt-5"
         >
           <span className="disclaimer">
-            Disclaimer: The information provided shall not in any way constitute
-            a recommendation as to whether you should invest in any product
-            discussed. We accept no liability for any loss occasioned to any
-            person acting or refraining from action as a result of any material
-            provided or published.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+            mollitia, molestiae quas vel sint commodi repudiandae consequuntur
+            voluptatum laborum numquam blanditiis harum quisquam eius sed odit
+            fugiat iusto fuga praesentium optio, eaque rerum! Provident
+            similique accusantium nemo autem.
           </span>
         </Col>
       </Row>

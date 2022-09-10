@@ -8,30 +8,28 @@ const TokenSales = () => {
   return (
     <div className="launchpad-protocol px-md-3 py-5 px-2">
       <SectionTitle
-        title="A Suite of Tools for Token Sales."
-        description="A suite of tools were built to help you create your own tokens and launchpads in a fast, simple and cheap way, with no prior code knowledge required and 100% decentralized!"
+        title="Lorem ipsum"
+        description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+        molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum."
       />
 
       <Row className="mt-5">
         <Col md="6" lg="4" className="mt-3 mt-lg-0">
           <TokesSalesCard
-            title="Standard"
-            description="Mint standard tokens on ETH,BSC,
-            AVAX, Fantom, Polygon."
+            title="Lorem ipsum"
+            description="Lorem ipsum dolor sit amet consectetur adipisicing elit"
           />
         </Col>
         <Col md="6" lg="4" className="mt-3 mt-lg-0">
           <TokesSalesCard
-            title="Standard"
-            description="Mint standard tokens on ETH,BSC,
- AVAX, Fantom, Polygon."
+            title="Lorem ipsum"
+            description="Lorem ipsum dolor sit amet consectetur adipisicing elit"
           />
         </Col>
         <Col md="6" lg="4" className="mt-3 mt-lg-0">
           <TokesSalesCard
-            title="Standard"
-            description="Mint standard tokens on ETH,BSC,
- AVAX, Fantom, Polygon."
+            title="Lorem ipsum"
+            description="Lorem ipsum dolor sit amet consectetur adipisicing elit"
           />
         </Col>
       </Row>

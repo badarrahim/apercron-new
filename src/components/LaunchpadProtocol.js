@@ -7,8 +7,9 @@ const LaunchpadProtocl = () => {
   return (
     <div className="launchpad-protocol px-md-3 py-5 px-2">
       <SectionTitle
-        title="The Launchpad Protocol for Everyone!"
-        description="PinkSale helps everyone to create their own tokens and token sales in few seconds. Tokens created on PinkSale will be verified and published on explorer websites."
+        title="Lorem ipsum"
+        description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+        molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum."
       />
 
       <Row className="mt-5">

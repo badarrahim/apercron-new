@@ -127,6 +127,8 @@ a.nav-link {
   line-height: 66px;
   /* identical to box height, or 138% */
 
+  margin-bottom: 25px !important;
+
   letter-spacing: 0.05em;
 
   color: #ffffff;
@@ -816,7 +818,7 @@ a.nav-link {
   font-family: "Public Sans", sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 26px;
+  font-size: 22px;
   /* line-height: 66px; */
   /* identical to box height, or 236% */
 
@@ -833,7 +835,7 @@ input[type="checkbox"] {
   width: 20px !important;
   height: 20px !important;
   background: none !important;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 .create-token__sub-label {
