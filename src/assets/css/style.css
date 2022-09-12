@@ -134,6 +134,20 @@ a.nav-link {
   color: #ffffff;
   text-align: center !important;
 }
+.section-title-locker {
+  font-family: "Poppins", sans-serif !important;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 40px;
+  /* line-height: 66px; */
+  /* identical to box height, or 138% */
+
+  letter-spacing: 0.05em;
+
+  color: #ffffff;
+  text-align: start !important;
+}
+
 .section-description {
   font-family: "Poppins", sans-serif !important;
   font-style: normal;
@@ -553,6 +567,9 @@ a.nav-link {
     font-size: 28px !important;
     line-height: 35px !important;
   }
+  .section-title-locker {
+    font-size: 22px !important;
+  }
   .section-description {
     font-size: 15px !important;
     line-height: 20px !important;
@@ -570,6 +587,7 @@ a.nav-link {
   .custome-btn {
     font-size: 15px !important;
   }
+
   .create-token__light {
     font-size: 18px !important;
   }
@@ -586,8 +604,7 @@ a.nav-link {
   .create-token__sub-label {
     font-size: 15px !important;
   }
-  input[type="radio"],
-  input[type="checkbox"] {
+  input[type="radio"] {
     margin-top: 3px !important;
   }
 
@@ -830,8 +847,7 @@ a.nav-link {
   margin-left: 15px !important;
 }
 
-input[type="radio"],
-input[type="checkbox"] {
+input[type="radio"] {
   width: 20px !important;
   height: 20px !important;
   background: none !important;
@@ -886,4 +902,58 @@ input[type="checkbox"] {
   letter-spacing: 0.05em;
 
   color: #ffffff;
+}
+
+.locker-section {
+  background: linear-gradient(0deg, #0a213a 0%, #08274ff2 90%) !important;
+}
+
+.locker-card {
+  background: rgba(3, 49, 108, 0.44) !important;
+  border-radius: 34px !important;
+}
+
+.locker-card .form-control {
+  border: 1px solid rgba(198, 198, 198, 0.6) !important;
+  filter: drop-shadow(0px 4px 90px rgba(0, 0, 0, 0.25)) !important;
+  border-radius: 10px;
+  background: none !important;
+}
+
+.locker-card span {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+
+  text-align: center;
+  color: rgba(255, 255, 255, 0.83);
+}
+
+.locker-card__heading {
+  font-family: "Public Sans" !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 24px !important;
+
+  letter-spacing: 0.05em !important;
+  color: #ffffff !important;
+}
+
+.locker-card .badge {
+  border-radius: 30px !important;
+  padding: 8px 20px !important;
+  background: rgba(90, 176, 255, 0.14) !important;
+}
+
+.locker-card .form-check-input {
+  position: relative !important;
+}
+
+.locker-card .form-check-label {
+  line-height: 0px !important;
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
 }

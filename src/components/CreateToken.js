@@ -58,7 +58,7 @@ const CreateToken = () => {
             <Button className="custome-btn">Create Token</Button>
           </Col>
           <Col xs="12" className="mt-3">
-            <Input placeholder="Ex. PinkMoon"></Input>
+            <Input placeholder="Apecron"></Input>
           </Col>
           <Col xs="12" className="mt-3">
             <span className="create-token__sub">Pool Creation free: 1 BNB</span>
@@ -104,7 +104,7 @@ const CreateToken = () => {
             <FormGroup check className="mt-1">
               <Label check>
                 <Input type="radio" name="radio1" />{" "}
-                <span>2% BNB raised + 3% token sold</span>
+                <span>2% BNB raised + 3% tokens</span>
               </Label>
             </FormGroup>
           </Col>
