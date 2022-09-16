@@ -18,6 +18,8 @@ import {
 } from "reactstrap";
 import SectionTitle from "../components/SectionTitle";
 
+import gold_badge from "../assets/img/gold_badge.png";
+
 const Locker = () => {
   const [activeTab, setActiveTab] = useState("1");
   const toggle = (tab) => {
@@ -26,12 +28,12 @@ const Locker = () => {
   return (
     <div className="locker-section py-5">
       <Container>
-        <p className="section-title-locker mb-0">
+        {/* <p className="section-title-locker mb-0">
           Smart Liquidity Locker and Token Vesting For Ethereum, Polygon and BSC
         </p>
-        <Button className="custome-btn-lg mt-3 mb-5">Get Started</Button>
+        <Button className="custome-btn-lg mt-3 mb-5">Get Started</Button> */}
 
-        <div className="py-5">
+        <div className="pb-5">
           <SectionTitle
             title="Liquidity Locker"
             description="Lock liquidity pool tokens. Supports Ethereum (Uniswap V2), Polygon(Quickswap), BSC(PancakeSwap)
@@ -65,6 +67,16 @@ const Locker = () => {
                 }}
               >
                 My Locks
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                className={`${activeTab == "3" ? "active" : ""} ml-md-4`}
+                onClick={() => {
+                  toggle("3");
+                }}
+              >
+                All Locks
               </NavLink>
             </NavItem>
           </Nav>
@@ -218,7 +230,131 @@ const Locker = () => {
                 </Col>
               </Row>
             </TabPane>
-            <TabPane tabId="2"></TabPane>
+            <TabPane tabId="2">
+              <Row className="mt-5">
+                <Col xs="12">
+                  <div className="lock-card px-3 px-md-4 pt-2 pb-4 pt-4 ">
+                    <div className="d-flex flex-column align-items-center flex-sm-row justify-content-center justify-content-sm-start lock-card__inner mb-2">
+                      <div className="lock-card__badge mt-2 mr-0 mr-sm-3">
+                        <img src={gold_badge} />
+                      </div>
+                      <div className="mt-2 d-flex flex-column justify-content-center">
+                        <p className="lock-card__title mb-0">
+                          SafeMoon (SAFEMOON)
+                        </p>
+                        <span className="lock-card__description">
+                          starts unlocking in 3 months ago
+                        </span>
+                      </div>
+                    </div>
+                    <div className="d-flex flex-column align-items-center flex-sm-row justify-content-center justify-content-sm-start lock-card__inner mb-2">
+                      <div className="lock-card__badge mt-2  mr-0 mr-sm-3">
+                        <img src={gold_badge} />
+                      </div>
+                      <div className="mt-2 d-flex flex-column justify-content-center">
+                        <p className="lock-card__title mb-0">
+                          BUSD Token (BUSD){" "}
+                        </p>
+                        <span className="lock-card__description">
+                          starts unlocking in 3 months ago
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="d-flex flex-column align-items-center flex-sm-row justify-content-center justify-content-sm-start lock-card__inner mb-2">
+                      <div className="lock-card__badge mt-2  mr-0 mr-sm-3">
+                        <img src={gold_badge} />
+                      </div>
+                      <div className="mt-2 d-flex flex-column justify-content-center">
+                        <p className="lock-card__title mb-0">
+                          BUSD Token (BUSD){" "}
+                        </p>
+                        <span className="lock-card__description">
+                          starts unlocking in 3 months ago
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="d-flex flex-column align-items-center flex-sm-row justify-content-center justify-content-sm-start lock-card__inner mb-2">
+                      <div className="lock-card__badge mt-2  mr-0 mr-sm-3">
+                        <img src={gold_badge} />
+                      </div>
+                      <div className="mt-2 d-flex flex-column justify-content-center">
+                        <p className="lock-card__title mb-0">
+                          BUSD Token (BUSD)
+                        </p>
+                        <span className="lock-card__description">
+                          starts unlocking in 2 months ago{" "}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            </TabPane>
+
+            <TabPane tabId="3">
+              <Row className="mt-5">
+                <Col xs="12">
+                  <div className="lock-card px-3 px-md-4 pt-2 pb-4 pt-4 ">
+                    <div className="d-flex flex-column align-items-center flex-sm-row justify-content-center justify-content-sm-start lock-card__inner mb-2">
+                      <div className="lock-card__badge mt-2 mr-0 mr-sm-3">
+                        <img src={gold_badge} />
+                      </div>
+                      <div className="mt-2 d-flex flex-column justify-content-center">
+                        <p className="lock-card__title mb-0">
+                          SafeMoon (SAFEMOON)
+                        </p>
+                        <span className="lock-card__description">
+                          starts unlocking in 3 months ago
+                        </span>
+                      </div>
+                    </div>
+                    <div className="d-flex flex-column align-items-center flex-sm-row justify-content-center justify-content-sm-start lock-card__inner mb-2">
+                      <div className="lock-card__badge mt-2  mr-0 mr-sm-3">
+                        <img src={gold_badge} />
+                      </div>
+                      <div className="mt-2 d-flex flex-column justify-content-center">
+                        <p className="lock-card__title mb-0">
+                          BUSD Token (BUSD){" "}
+                        </p>
+                        <span className="lock-card__description">
+                          starts unlocking in 3 months ago
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="d-flex flex-column align-items-center flex-sm-row justify-content-center justify-content-sm-start lock-card__inner mb-2">
+                      <div className="lock-card__badge mt-2  mr-0 mr-sm-3">
+                        <img src={gold_badge} />
+                      </div>
+                      <div className="mt-2 d-flex flex-column justify-content-center">
+                        <p className="lock-card__title mb-0">
+                          BUSD Token (BUSD){" "}
+                        </p>
+                        <span className="lock-card__description">
+                          starts unlocking in 3 months ago
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="d-flex flex-column align-items-center flex-sm-row justify-content-center justify-content-sm-start lock-card__inner mb-2">
+                      <div className="lock-card__badge mt-2  mr-0 mr-sm-3">
+                        <img src={gold_badge} />
+                      </div>
+                      <div className="mt-2 d-flex flex-column justify-content-center">
+                        <p className="lock-card__title mb-0">
+                          BUSD Token (BUSD)
+                        </p>
+                        <span className="lock-card__description">
+                          starts unlocking in 2 months ago{" "}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Col>
+              </Row>
+            </TabPane>
           </TabContent>
         </div>
       </Container>

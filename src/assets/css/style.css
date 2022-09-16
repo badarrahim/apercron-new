@@ -957,3 +957,33 @@ input[type="radio"] {
 ::-webkit-calendar-picker-indicator {
   filter: invert(1);
 }
+
+.lock-card {
+  background: rgba(3, 49, 108, 0.44) !important;
+  border-radius: 34px !important;
+}
+
+.lock-card__title {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  color: #ffffff !important;
+}
+
+.lock-card__description {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.83);
+}
+
+@media (max-width: 400px) {
+  .lock-card__title {
+    font-size: 20px !important;
+  }
+  .lock-card__description {
+    font-size: 13px !important;
+  }
+}
