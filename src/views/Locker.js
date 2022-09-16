@@ -36,15 +36,15 @@ const Locker = () => {
         <div className="pb-5">
           <SectionTitle
             title="Liquidity Locker"
-            description="Lock liquidity pool tokens. Supports Ethereum (Uniswap V2), Polygon(Quickswap), BSC(PancakeSwap)
-"
+            description="We are allowing lock with Ethereum and Cronos only."
+            // description="Lock liquidity pool tokens. Supports Ethereum (Uniswap V2), Polygon(Quickswap), BSC(PancakeSwap)"
           />
-          <div className="d-flex justify-content-center align-items-center flex-column flex-md-row">
+          {/* <div className="d-flex justify-content-center align-items-center flex-column flex-md-row">
             <Button className="custome-btn-lg">Connect Wallet</Button>
             <Button className="custome-btn-lg mt-2 mt-md-0 ml-md-3">
               Dodge
             </Button>
-          </div>
+          </div> */}
         </div>
 
         <div className="current-presales">
@@ -203,7 +203,8 @@ const Locker = () => {
                         <FormGroup check>
                           <Label check>
                             <Input type="checkbox" />{" "}
-                            <span>Flat Feet: 200 WDoge</span>
+                            <span>Flat Feet: 150 on cronos</span>
+                            {/* <span>Flat Feet: 200 WDoge</span> */}
                           </Label>
                         </FormGroup>
                       </Col>
@@ -211,7 +212,7 @@ const Locker = () => {
                         <FormGroup check>
                           <Label check>
                             <Input type="checkbox" />{" "}
-                            <span>Flat Feet: 0.3%</span>
+                            <span>Flat Feet: 0.01 on eth </span>
                           </Label>
                         </FormGroup>
                       </Col>
