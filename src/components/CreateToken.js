@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import { Stepper } from "react-form-stepper";
 
 import { Steps } from "antd";
@@ -7,10 +7,15 @@ import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
 const { Step } = Steps;
 
 const CreateToken = () => {
+  const [currentStep, setCurrentStep] = useState(0);
   return (
     <div className="py-5">
       <div className="d-none d-lg-block">
-        <Steps current={0} responsive className="my-5 py-5 horizonal-step ">
+        <Steps
+          current={currentStep}
+          responsive
+          className="my-5 py-5 horizonal-step "
+        >
           <Step title="Verify Token" />
           <Step
             title="DeFi Launchpad Info"
@@ -26,7 +31,7 @@ const CreateToken = () => {
       <div className="d-block d-lg-none">
         <Steps
           direction="vertical"
-          current={0}
+          current={currentStep}
           responsive
           className="my-5 py-3"
         >
@@ -44,104 +49,437 @@ const CreateToken = () => {
       </div>
 
       <div className="create-token p-4 p-md-5 mt-5">
-        <Row>
-          <Col xs="12">
-            <span className="create-token__light">(*) is required field.</span>
-          </Col>
-          <Col md="6" className="mt-2">
-            <span className="create-token__heading">Token Address*</span>
-          </Col>
-          <Col
-            md="6"
-            className="d-flex justify-content-start justify-content-md-end align-items-center mt-2"
-          >
-            <Button className="custome-btn">Create Token</Button>
-          </Col>
-          <Col xs="12" className="mt-3">
-            <Input placeholder="Apecron"></Input>
-          </Col>
-          {/* <Col xs="12" className="mt-3">
+        {currentStep == 0 && (
+          <Row>
+            <Col xs="12">
+              <span className="create-token__light">
+                (*) is required field.
+              </span>
+            </Col>
+            <Col md="6" className="mt-2">
+              <span className="create-token__heading">Token Address*</span>
+            </Col>
+            <Col
+              md="6"
+              className="d-flex justify-content-start justify-content-md-end align-items-center mt-2"
+            >
+              <Button className="custome-btn">Create Token</Button>
+            </Col>
+            <Col xs="12" className="mt-3">
+              <Input placeholder="Apecron"></Input>
+            </Col>
+            {/* <Col xs="12" className="mt-3">
             <span className="create-token__sub">Pool Creation free: 1 BNB</span>
           </Col> */}
 
-          <Col xs="12" className="mt-3">
-            <Label className="create-token__label">Currency</Label>
-            <FormGroup check className="mt-1">
-              <Label check>
-                <Input type="radio" name="radio1" />
-                <span>CRO</span>
-              </Label>
-            </FormGroup>
-            <FormGroup check className="mt-1">
-              <Label check>
-                <Input type="radio" name="radio1" /> <span>BUSD</span>
-              </Label>
-            </FormGroup>
-            <FormGroup check className="mt-1">
-              <Label check>
-                <Input type="radio" name="radio1" /> <span>USDT</span>
-              </Label>
-            </FormGroup>
-            <FormGroup check className="mb-3 mt-1">
-              <Label check>
-                <Input type="radio" name="radio1" /> <span>USDC</span>
-              </Label>
-            </FormGroup>
+            <Col xs="12" className="mt-3">
+              <Label className="create-token__label">Currency</Label>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />
+                  <span>CRO</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" /> <span>BUSD</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" /> <span>USDT</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mb-3 mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" /> <span>USDC</span>
+                </Label>
+              </FormGroup>
 
-            <span className="create-token__sub-label">
-              Users will pay with cro for your token
-            </span>
-          </Col>
+              <span className="create-token__sub-label">
+                Users will pay with cro for your token
+              </span>
+            </Col>
 
-          <Col xs="12" className="mt-3">
-            <Label className="create-token__label">Free options</Label>
-            <FormGroup check className="mt-1">
-              <Label check>
-                <Input type="radio" name="radio1" />
-                <span>3% cro raised only</span>
-              </Label>
-            </FormGroup>
-            <FormGroup check className="mt-1">
-              <Label check>
-                <Input type="radio" name="radio1" />{" "}
-                <span>2% cro raised + 3% tokens</span>
-              </Label>
-            </FormGroup>
-          </Col>
+            <Col xs="12" className="mt-3">
+              <Label className="create-token__label">Free options</Label>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />
+                  <span>3% cro raised only</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />{" "}
+                  <span>2% cro raised + 3% tokens</span>
+                </Label>
+              </FormGroup>
+            </Col>
 
-          <Col xs="12" className="mt-3">
-            <Label className="create-token__label">Free options</Label>
-            <FormGroup check className="mt-1">
-              <Label check>
-                <Input type="radio" name="radio1" />
-                <span>Auto Listening</span>
-              </Label>
-            </FormGroup>
-            <FormGroup check className="mt-1">
-              <Label check>
-                <Input type="radio" name="radio1" />{" "}
-                <span>Manual Listening</span>
-              </Label>
-            </FormGroup>
-          </Col>
+            <Col xs="12" className="mt-3">
+              <Label className="create-token__label">Free options</Label>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />
+                  <span>Auto Listening</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />{" "}
+                  <span>Manual Listening</span>
+                </Label>
+              </FormGroup>
+            </Col>
 
-          <Col
-            xs="12"
-            className="  mt-3 create-token__bottom d-flex justify-content-center align-items-center p-3 p-md-5 my-5"
-          >
-            <span>
-              For auto listing, after you finalize the pool your token will be
-              auto listed on DEX.
-            </span>
-          </Col>
+            <Col
+              xs="12"
+              className="  mt-3 create-token__bottom d-flex justify-content-center align-items-center p-3 p-md-5 my-5"
+            >
+              <span>
+                For auto listing, after you finalize the pool your token will be
+                auto listed on DEX.
+              </span>
+            </Col>
 
-          <Col
-            xs="12"
-            className=" d-flex justify-content-center align-items-center p-3 mb-5"
-          >
-            <Button className="custome-btn-lg">Next</Button>
-          </Col>
-        </Row>
+            <Col
+              xs="12"
+              className=" d-flex justify-content-center align-items-center p-3 mb-5"
+            >
+              <Button
+                onClick={() => setCurrentStep(1)}
+                className="custome-btn-lg"
+              >
+                Next
+              </Button>
+            </Col>
+          </Row>
+        )}
+
+        {currentStep == 1 && (
+          <Row>
+            <Col xs="12">
+              <span className="create-token__light">
+                (*) is required field.
+              </span>
+            </Col>
+            <Col md="6" className="mt-2">
+              <span className="create-token__heading">Token Address*</span>
+            </Col>
+            <Col
+              md="6"
+              className="d-flex justify-content-start justify-content-md-end align-items-center mt-2"
+            >
+              <Button className="custome-btn">Create Token</Button>
+            </Col>
+            <Col xs="12" className="mt-3">
+              <Input placeholder="Apecron"></Input>
+            </Col>
+            {/* <Col xs="12" className="mt-3">
+            <span className="create-token__sub">Pool Creation free: 1 BNB</span>
+          </Col> */}
+
+            <Col xs="12" className="mt-3">
+              <Label className="create-token__label">Currency</Label>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />
+                  <span>CRO</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" /> <span>BUSD</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" /> <span>USDT</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mb-3 mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" /> <span>USDC</span>
+                </Label>
+              </FormGroup>
+
+              <span className="create-token__sub-label">
+                Users will pay with cro for your token
+              </span>
+            </Col>
+
+            <Col xs="12" className="mt-3">
+              <Label className="create-token__label">Free options</Label>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />
+                  <span>3% cro raised only</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />{" "}
+                  <span>2% cro raised + 3% tokens</span>
+                </Label>
+              </FormGroup>
+            </Col>
+
+            <Col xs="12" className="mt-3">
+              <Label className="create-token__label">Free options</Label>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />
+                  <span>Auto Listening</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />{" "}
+                  <span>Manual Listening</span>
+                </Label>
+              </FormGroup>
+            </Col>
+
+            <Col
+              xs="12"
+              className="  mt-3 create-token__bottom d-flex justify-content-center align-items-center p-3 p-md-5 my-5"
+            >
+              <span>
+                For auto listing, after you finalize the pool your token will be
+                auto listed on DEX.
+              </span>
+            </Col>
+
+            <Col
+              xs="12"
+              className=" d-flex justify-content-center align-items-center p-3 mb-5"
+            >
+              <Button
+                onClick={() => setCurrentStep(2)}
+                className="custome-btn-lg"
+              >
+                Next
+              </Button>
+            </Col>
+          </Row>
+        )}
+
+        {currentStep == 2 && (
+          <Row>
+            <Col xs="12">
+              <span className="create-token__light">
+                (*) is required field.
+              </span>
+            </Col>
+            <Col md="6" className="mt-2">
+              <span className="create-token__heading">Token Address*</span>
+            </Col>
+            <Col
+              md="6"
+              className="d-flex justify-content-start justify-content-md-end align-items-center mt-2"
+            >
+              <Button className="custome-btn">Create Token</Button>
+            </Col>
+            <Col xs="12" className="mt-3">
+              <Input placeholder="Apecron"></Input>
+            </Col>
+            {/* <Col xs="12" className="mt-3">
+            <span className="create-token__sub">Pool Creation free: 1 BNB</span>
+          </Col> */}
+
+            <Col xs="12" className="mt-3">
+              <Label className="create-token__label">Currency</Label>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />
+                  <span>CRO</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" /> <span>BUSD</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" /> <span>USDT</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mb-3 mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" /> <span>USDC</span>
+                </Label>
+              </FormGroup>
+
+              <span className="create-token__sub-label">
+                Users will pay with cro for your token
+              </span>
+            </Col>
+
+            <Col xs="12" className="mt-3">
+              <Label className="create-token__label">Free options</Label>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />
+                  <span>3% cro raised only</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />{" "}
+                  <span>2% cro raised + 3% tokens</span>
+                </Label>
+              </FormGroup>
+            </Col>
+
+            <Col xs="12" className="mt-3">
+              <Label className="create-token__label">Free options</Label>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />
+                  <span>Auto Listening</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />{" "}
+                  <span>Manual Listening</span>
+                </Label>
+              </FormGroup>
+            </Col>
+
+            <Col
+              xs="12"
+              className="  mt-3 create-token__bottom d-flex justify-content-center align-items-center p-3 p-md-5 my-5"
+            >
+              <span>
+                For auto listing, after you finalize the pool your token will be
+                auto listed on DEX.
+              </span>
+            </Col>
+
+            <Col
+              xs="12"
+              className=" d-flex justify-content-center align-items-center p-3 mb-5"
+            >
+              <Button
+                onClick={() => setCurrentStep(3)}
+                className="custome-btn-lg"
+              >
+                Next
+              </Button>
+            </Col>
+          </Row>
+        )}
+
+        {currentStep == 3 && (
+          <Row>
+            <Col xs="12">
+              <span className="create-token__light">
+                (*) is required field.
+              </span>
+            </Col>
+            <Col md="6" className="mt-2">
+              <span className="create-token__heading">Token Address*</span>
+            </Col>
+            <Col
+              md="6"
+              className="d-flex justify-content-start justify-content-md-end align-items-center mt-2"
+            >
+              <Button className="custome-btn">Create Token</Button>
+            </Col>
+            <Col xs="12" className="mt-3">
+              <Input placeholder="Apecron"></Input>
+            </Col>
+            {/* <Col xs="12" className="mt-3">
+            <span className="create-token__sub">Pool Creation free: 1 BNB</span>
+          </Col> */}
+
+            <Col xs="12" className="mt-3">
+              <Label className="create-token__label">Currency</Label>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />
+                  <span>CRO</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" /> <span>BUSD</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" /> <span>USDT</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mb-3 mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" /> <span>USDC</span>
+                </Label>
+              </FormGroup>
+
+              <span className="create-token__sub-label">
+                Users will pay with cro for your token
+              </span>
+            </Col>
+
+            <Col xs="12" className="mt-3">
+              <Label className="create-token__label">Free options</Label>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />
+                  <span>3% cro raised only</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />{" "}
+                  <span>2% cro raised + 3% tokens</span>
+                </Label>
+              </FormGroup>
+            </Col>
+
+            <Col xs="12" className="mt-3">
+              <Label className="create-token__label">Free options</Label>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />
+                  <span>Auto Listening</span>
+                </Label>
+              </FormGroup>
+              <FormGroup check className="mt-1">
+                <Label check>
+                  <Input type="radio" name="radio1" />{" "}
+                  <span>Manual Listening</span>
+                </Label>
+              </FormGroup>
+            </Col>
+
+            <Col
+              xs="12"
+              className="  mt-3 create-token__bottom d-flex justify-content-center align-items-center p-3 p-md-5 my-5"
+            >
+              <span>
+                For auto listing, after you finalize the pool your token will be
+                auto listed on DEX.
+              </span>
+            </Col>
+
+            <Col
+              xs="12"
+              className=" d-flex justify-content-center align-items-center p-3 mb-5"
+            >
+              <Button
+                onClick={() => setCurrentStep(0)}
+                className="custome-btn-lg"
+              >
+                Finish
+              </Button>
+            </Col>
+          </Row>
+        )}
       </div>
 
       <Row>
