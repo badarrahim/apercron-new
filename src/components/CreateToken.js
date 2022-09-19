@@ -60,16 +60,16 @@ const CreateToken = () => {
           <Col xs="12" className="mt-3">
             <Input placeholder="Apecron"></Input>
           </Col>
-          <Col xs="12" className="mt-3">
+          {/* <Col xs="12" className="mt-3">
             <span className="create-token__sub">Pool Creation free: 1 BNB</span>
-          </Col>
+          </Col> */}
 
           <Col xs="12" className="mt-3">
             <Label className="create-token__label">Currency</Label>
             <FormGroup check className="mt-1">
               <Label check>
                 <Input type="radio" name="radio1" />
-                <span>BNB</span>
+                <span>CRO</span>
               </Label>
             </FormGroup>
             <FormGroup check className="mt-1">
@@ -89,7 +89,7 @@ const CreateToken = () => {
             </FormGroup>
 
             <span className="create-token__sub-label">
-              Users will pay with BNB for your token
+              Users will pay with cro for your token
             </span>
           </Col>
 
@@ -98,13 +98,13 @@ const CreateToken = () => {
             <FormGroup check className="mt-1">
               <Label check>
                 <Input type="radio" name="radio1" />
-                <span>5% BNB raised only</span>
+                <span>3% cro raised only</span>
               </Label>
             </FormGroup>
             <FormGroup check className="mt-1">
               <Label check>
                 <Input type="radio" name="radio1" />{" "}
-                <span>2% BNB raised + 3% tokens</span>
+                <span>2% cro raised + 3% tokens</span>
               </Label>
             </FormGroup>
           </Col>

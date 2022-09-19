@@ -36,10 +36,10 @@ function PresaleCard() {
         </Col>
 
         <Col xs="6">
-          <span className="presale-card__light">0 BNB</span>
+          <span className="presale-card__light">0 cro</span>
         </Col>
         <Col xs="6" className="d-flex justify-content-end align-items-center">
-          <span className="presale-card__light">50 BNB</span>
+          <span className="presale-card__light">50 cro</span>
         </Col>
         <Col xs="6">
           <span className="presale-card__light">Liquidity</span>
