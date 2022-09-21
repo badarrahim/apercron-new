@@ -1,0 +1,105 @@
+[debug] [2022-09-21T16:32:11.562Z] ----------------------------------------------------------------------
+[debug] [2022-09-21T16:32:11.566Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\badar rahim\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2022-09-21T16:32:11.567Z] CLI Version:   9.17.0
+[debug] [2022-09-21T16:32:11.567Z] Platform:      win32
+[debug] [2022-09-21T16:32:11.567Z] Node Version:  v14.17.6
+[debug] [2022-09-21T16:32:11.575Z] Time:          Wed Sep 21 2022 21:32:11 GMT+0500 (Pakistan Standard Time)
+[debug] [2022-09-21T16:32:11.575Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-09-21T16:32:11.949Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-09-21T16:32:11.949Z] > authorizing via signed-in user (badarabbasi293@gmail.com)
+[debug] [2022-09-21T16:32:11.950Z] [iam] checking project apercron-da8ac for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2022-09-21T16:32:11.955Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2022-09-21T16:32:11.956Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2022-09-21T16:32:12.572Z] <<< HTTP RESPONSE 200 {"cache-control":"no-cache, no-store, max-age=0, must-revalidate","pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","date":"Wed, 21 Sep 2022 16:32:12 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-09-21T16:32:12.611Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/apercron-da8ac:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2022-09-21T16:32:14.414Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 21 Sep 2022 16:32:14 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=1225","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-09-21T16:32:14.416Z] > refreshing access token with scopes: []
+[debug] [2022-09-21T16:32:14.416Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2022-09-21T16:32:14.899Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","expires":"Mon, 01 Jan 1990 00:00:00 GMT","date":"Wed, 21 Sep 2022 16:32:14 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-09-21T16:32:14.922Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/apercron-da8ac [none]
+[debug] [2022-09-21T16:32:15.868Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/apercron-da8ac 200
+[debug] [2022-09-21T16:32:15.868Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/apercron-da8ac {"projectId":"apercron-da8ac","projectNumber":"695074115297","displayName":"apercron","name":"projects/apercron-da8ac","resources":{"hostingSite":"apercron-da8ac"},"state":"ACTIVE","etag":"1_8f5722d3-6937-47ef-adb4-7c72dad39635"}
+[info] 
+[info] === Deploying to 'apercron-da8ac'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2022-09-21T16:32:15.879Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2022-09-21T16:32:15.879Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2022-09-21T16:32:16.508Z] <<< HTTP RESPONSE 200 {"expires":"Mon, 01 Jan 1990 00:00:00 GMT","pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Wed, 21 Sep 2022 16:32:16 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-09-21T16:32:16.552Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/apercron-da8ac/versions  
+ {"config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2022-09-21T16:32:18.803Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 21 Sep 2022 16:32:18 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting[apercron-da8ac]: beginning deploy... 
+[info] i  hosting[apercron-da8ac]: found 14 files in build 
+[debug] [2022-09-21T16:32:19.900Z] > refreshing access token with scopes: []
+[debug] [2022-09-21T16:32:19.901Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2022-09-21T16:32:19.904Z] [hosting] hash cache [YnVpbGQ] stored for 14 files
+[debug] [2022-09-21T16:32:19.904Z] [hosting][hash queue][FINAL] {"max":1043,"min":5,"avg":185.85714285714286,"active":0,"complete":14,"success":14,"errored":0,"retried":0,"total":14,"elapsed":1057}
+[debug] [2022-09-21T16:32:20.554Z] <<< HTTP RESPONSE 200 {"date":"Wed, 21 Sep 2022 16:32:20 GMT","pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-09-21T16:32:20.588Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/sites/apercron-da8ac/versions/a65129859d176a0b:populateFiles [none]
+[debug] [2022-09-21T16:32:20.589Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/sites/apercron-da8ac/versions/a65129859d176a0b:populateFiles {"files":{"/favicon.ico":"eae62e993eb980ec8a25058c39d5a51feab118bd2100c4deebb2a9c158ec11f9\r","/logo192.png":"3ee59515172ee198f3be375979df15ac5345183e656720a381b8872b2a39dc8b\r","/logo512.png":"ee7e2f3fdb8209c4b6fd7bef6ba50d1b9dba30a25bb5c3126df057e1cb6f5331\r","/manifest.json":"5c997de1364b8be939319fa9209abd77f2caf7f8844999a9e2e9173f844e7840\r","/robots.txt":"b2090cf9761ef60aa06e4fab97679bd43dfa5e5df073701ead5879d7c68f1ec5\r","/asset-manifest.json":"389783dff519ca6d847205b235687470504cdbc0ea6ffd30b25ed98b91071f3b","/index.html":"1435b9f64294093ea87c80dc41b33079d202cfad6f25b27ff1589ce2b089533f","/static/js/main.1511ab46.js.LICENSE.txt":"81c9fd7930c1a3d99befe6c7ee095b80033501543bc91a864cbc11f980692cd7","/static/media/presale-img.d1aa6991b761aa33cefe.png":"7a41e8e6828ca99daf705c128ac35bb7db904b7379247cf5373ef8a63d6a0a87","/static/media/token-sales.5897a8cbebc3225f47e2.png":"352b3229b2cd3afa0e695527e5ac764488257c1518cfef1f3422e356d1f76a7a","/static/js/main.1511ab46.js":"08dfc766f544d41cd601ca1f0490728a98b9103755afb155c948807528472624","/static/css/main.5e8cd71d.css":"21b9b326144fd7102bedf6b8f9199033e7b97c555a2aaa58f527244c1b61ebcd","/static/css/main.5e8cd71d.css.map":"60696de30c3afcb2bbaeec02c1561114e4746ee8744412a0c43a8ba2c7cd08c3","/static/js/main.1511ab46.js.map":"f9bd4fe30c35c62ec7e043e7a2df3b736464eb8caaeee3989b9ee884f66c3612"}}
+[debug] [2022-09-21T16:32:23.070Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/sites/apercron-da8ac/versions/a65129859d176a0b:populateFiles 200
+[debug] [2022-09-21T16:32:23.073Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/sites/apercron-da8ac/versions/a65129859d176a0b:populateFiles {"uploadRequiredHashes":["21b9b326144fd7102bedf6b8f9199033e7b97c555a2aaa58f527244c1b61ebcd","f9bd4fe30c35c62ec7e043e7a2df3b736464eb8caaeee3989b9ee884f66c3612","389783dff519ca6d847205b235687470504cdbc0ea6ffd30b25ed98b91071f3b","60696de30c3afcb2bbaeec02c1561114e4746ee8744412a0c43a8ba2c7cd08c3","1435b9f64294093ea87c80dc41b33079d202cfad6f25b27ff1589ce2b089533f","08dfc766f544d41cd601ca1f0490728a98b9103755afb155c948807528472624"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files"}
+[debug] [2022-09-21T16:32:23.085Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/21b9b326144fd7102bedf6b8f9199033e7b97c555a2aaa58f527244c1b61ebcd [none]
+[debug] [2022-09-21T16:32:23.086Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/21b9b326144fd7102bedf6b8f9199033e7b97c555a2aaa58f527244c1b61ebcd [stream]
+[debug] [2022-09-21T16:32:23.089Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/f9bd4fe30c35c62ec7e043e7a2df3b736464eb8caaeee3989b9ee884f66c3612 [none]
+[debug] [2022-09-21T16:32:23.090Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/f9bd4fe30c35c62ec7e043e7a2df3b736464eb8caaeee3989b9ee884f66c3612 [stream]
+[debug] [2022-09-21T16:32:23.092Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/389783dff519ca6d847205b235687470504cdbc0ea6ffd30b25ed98b91071f3b [none]
+[debug] [2022-09-21T16:32:23.093Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/389783dff519ca6d847205b235687470504cdbc0ea6ffd30b25ed98b91071f3b [stream]
+[debug] [2022-09-21T16:32:23.095Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/60696de30c3afcb2bbaeec02c1561114e4746ee8744412a0c43a8ba2c7cd08c3 [none]
+[debug] [2022-09-21T16:32:23.095Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/60696de30c3afcb2bbaeec02c1561114e4746ee8744412a0c43a8ba2c7cd08c3 [stream]
+[debug] [2022-09-21T16:32:23.097Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/1435b9f64294093ea87c80dc41b33079d202cfad6f25b27ff1589ce2b089533f [none]
+[debug] [2022-09-21T16:32:23.097Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/1435b9f64294093ea87c80dc41b33079d202cfad6f25b27ff1589ce2b089533f [stream]
+[debug] [2022-09-21T16:32:23.099Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/08dfc766f544d41cd601ca1f0490728a98b9103755afb155c948807528472624 [none]
+[debug] [2022-09-21T16:32:23.100Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/08dfc766f544d41cd601ca1f0490728a98b9103755afb155c948807528472624 [stream]
+[debug] [2022-09-21T16:32:23.102Z] [hosting][populate queue][FINAL] {"max":3185,"min":3185,"avg":3185,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":3202}
+[debug] [2022-09-21T16:32:23.103Z] [hosting] uploads queued: 6
+[debug] [2022-09-21T16:32:25.302Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/389783dff519ca6d847205b235687470504cdbc0ea6ffd30b25ed98b91071f3b 200
+[debug] [2022-09-21T16:32:25.303Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/389783dff519ca6d847205b235687470504cdbc0ea6ffd30b25ed98b91071f3b [stream]
+[debug] [2022-09-21T16:32:25.535Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/1435b9f64294093ea87c80dc41b33079d202cfad6f25b27ff1589ce2b089533f 200
+[debug] [2022-09-21T16:32:25.536Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/1435b9f64294093ea87c80dc41b33079d202cfad6f25b27ff1589ce2b089533f [stream]
+[debug] [2022-09-21T16:32:26.713Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/21b9b326144fd7102bedf6b8f9199033e7b97c555a2aaa58f527244c1b61ebcd 200
+[debug] [2022-09-21T16:32:26.713Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/21b9b326144fd7102bedf6b8f9199033e7b97c555a2aaa58f527244c1b61ebcd [stream]
+[debug] [2022-09-21T16:32:26.929Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/08dfc766f544d41cd601ca1f0490728a98b9103755afb155c948807528472624 200
+[debug] [2022-09-21T16:32:26.931Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/08dfc766f544d41cd601ca1f0490728a98b9103755afb155c948807528472624 [stream]
+[debug] [2022-09-21T16:32:26.936Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/60696de30c3afcb2bbaeec02c1561114e4746ee8744412a0c43a8ba2c7cd08c3 200
+[debug] [2022-09-21T16:32:26.937Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/60696de30c3afcb2bbaeec02c1561114e4746ee8744412a0c43a8ba2c7cd08c3 [stream]
+[debug] [2022-09-21T16:32:29.892Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/f9bd4fe30c35c62ec7e043e7a2df3b736464eb8caaeee3989b9ee884f66c3612 200
+[debug] [2022-09-21T16:32:29.892Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/apercron-da8ac/versions/a65129859d176a0b/files/f9bd4fe30c35c62ec7e043e7a2df3b736464eb8caaeee3989b9ee884f66c3612 [stream]
+[debug] [2022-09-21T16:32:29.892Z] [hosting][upload queue][FINAL] {"max":6814,"min":2222,"avg":3805,"active":0,"complete":6,"success":6,"errored":0,"retried":0,"total":6,"elapsed":6817}
+[info] +  hosting[apercron-da8ac]: file upload complete 
+[debug] [2022-09-21T16:32:29.893Z] [hosting] deploy completed after 11087ms
+[debug] [2022-09-21T16:32:29.899Z] [
+  {
+    "config": {
+      "public": "build",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "apercron-da8ac"
+    },
+    "site": "apercron-da8ac",
+    "version": "sites/apercron-da8ac/versions/a65129859d176a0b"
+  }
+]
+[info] i  hosting[apercron-da8ac]: finalizing version... 
+[debug] [2022-09-21T16:32:29.901Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2022-09-21T16:32:29.902Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2022-09-21T16:32:32.994Z] <<< HTTP RESPONSE 200 {"expires":"Mon, 01 Jan 1990 00:00:00 GMT","pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Wed, 21 Sep 2022 16:32:31 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-09-21T16:32:33.011Z] >>> HTTP REQUEST PATCH https://firebasehosting.googleapis.com/v1beta1/sites/apercron-da8ac/versions/a65129859d176a0b?updateMask=status  
+ {"status":"FINALIZED"}

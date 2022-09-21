@@ -200,6 +200,7 @@ a.nav-link {
   background: #0f1b28;
   box-shadow: 0px 4px 120px rgba(0, 0, 0, 0.25);
   border-radius: 30px !important;
+  height: 100% !important;
 }
 .token-sales-card__top {
   /* background: rgba(3, 49, 108, 0.75);
@@ -222,8 +223,9 @@ a.nav-link {
   font-family: "Raleway";
   font-style: normal;
   font-weight: 700;
-  font-size: 40px;
-  line-height: 140%;
+  /* font-size: 40px; */
+  font-size: 30px !important;
+  /* line-height: 140%; */
   /* identical to box height, or 56px */
 
   text-align: center;
@@ -595,7 +597,7 @@ a.nav-link {
     font-size: 18px !important;
   }
   .create-token__label {
-    font-size: 20px !important;
+    font-size: 18px !important;
   }
   .form-check-label {
     font-size: 13px !important;
@@ -606,6 +608,10 @@ a.nav-link {
   }
   input[type="radio"] {
     margin-top: 3px !important;
+  }
+
+  .create-token__last span {
+    font-size: 13px !important;
   }
 
   .presale-card__status span {
@@ -772,6 +778,15 @@ a.nav-link {
   border-radius: 34px !important;
 }
 
+.create-token__last span {
+  font-family: "Public Sans", sans-serif !important;
+  font-size: 20px;
+}
+
+.create-token__border-bottom {
+  border-bottom: 0.5px solid rgba(198, 198, 198, 0.6) !important;
+}
+
 .create-token__light {
   font-family: "Public Sans";
   font-style: normal;
@@ -821,8 +836,9 @@ a.nav-link {
 .create-token__label {
   font-family: "Public Sans", sans-serif;
   font-style: normal;
+  /* font-weight: 700 !important; */
   font-weight: 700 !important;
-  font-size: 28px;
+  font-size: 24px;
   /* line-height: 66px; */
   /* identical to box height, or 236% */
 
@@ -852,6 +868,21 @@ input[type="radio"] {
   height: 20px !important;
   background: none !important;
   margin-top: 8px;
+}
+
+input[type="checkbox"] {
+  width: 20px !important;
+  height: 20px !important;
+  background: none !important;
+  margin-top: 8px;
+}
+
+.create-token__danger {
+  color: #ff5c5c !important ;
+}
+
+.create-token__primary {
+  color: #cacedd !important;
 }
 
 .create-token__sub-label {

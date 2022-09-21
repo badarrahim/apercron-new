@@ -9,16 +9,16 @@ const Ecosystem = () => {
   return (
     <div className="launchpad-protocol px-md-3 py-5 px-2">
       <SectionTitle
-        title="Lorem ipsum"
-        description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-        molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum."
+        title="Create with Apecron"
+        description="Create a fully decentralized token or presale
+       "
       />
 
       <Row className="mt-5">
         <Col md="6" lg="4" className="mt-3 mt-lg-0">
           <TokesSalesCard
-            title="Lorem ipsum"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit"
+            title="Create Presale"
+            // description="Create Presale"
           />
           {/* <EcosystemCard
             title="PinkMoon"
@@ -27,8 +27,8 @@ const Ecosystem = () => {
         </Col>
         <Col md="6" lg="4" className="mt-3 mt-lg-0">
           <TokesSalesCard
-            title="Lorem ipsum"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit"
+            title="Create Fair Launch"
+            // description="Create Fair Launch"
           />
           {/* <EcosystemCard
             title="PinkMoon"
@@ -37,8 +37,8 @@ const Ecosystem = () => {
         </Col>
         <Col md="6" lg="4" className="mt-3 mt-lg-0">
           <TokesSalesCard
-            title="Lorem ipsum"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit"
+            title="Create Token"
+            // description="Create Token"
           />
           {/* <EcosystemCard
             title="PinkMoon"
