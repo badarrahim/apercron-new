@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 // import { Stepper } from "react-form-stepper";
-
+import moment from "moment";
 import { Steps } from "antd";
-import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
+import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import { configEnv } from "../utils/configEnv";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentContractSelected } from "../store/web3-slice";
 import { verifyTokenAddress } from "../utils/web3-helpers";
+import { create as ipfsHttpClient } from 'ipfs-http-client';
+
+const client = ipfsHttpClient({ url: 'https://ipfs.infura.io:5001/api/v0' });
 
 const { Step } = Steps;
 
@@ -22,8 +25,19 @@ const CreateToken = () => {
   const [hardcap,setHardcap] = useState(0);
   const [isRefund,setIsRefund] = useState(true);
   const [startTime,setStartTime] = useState(0);
-  const [endTime,setEndTime] = useState(0);
-   
+  const [endTime, setEndTime] = useState(0);
+  const [logoUrl, setLogoUrl] = useState('');
+  const [website, setWebsite] = useState('');
+  const [facebook, setFacebook] = useState('');
+  const [twitter, setTwitter] = useState('');
+  const [github, setGithub] = useState('');
+  const [telegram, setTelegram] = useState('');
+  const [instagram, setInstagram] = useState('');
+  const [discord, setDiscord] = useState('');
+  const [reddit, setReddit] = useState('');
+  const [youtube, setYoutube] = useState('');
+  const [description, setDescription] = useState('');
+  const [uri, setUri] = useState('');
   const dispatch = useDispatch();
 
   return (
@@ -151,6 +165,10 @@ const CreateToken = () => {
         )}
 
         {currentStep == 1 && (
+          <Form onSubmit={(e) => {
+            e.preventDefault();
+            setCurrentStep(2);
+          }}>
           <Row>
             <Col xs="12">
               <span className="create-token__light">
@@ -160,7 +178,7 @@ const CreateToken = () => {
             <Col md="12" className="mt-2">
               <FormGroup>
                 <Label className="create-token__label">Presale rate*</Label>
-                <Input placeholder="0" />
+                  <Input placeholder="0" type='number' required min={1} onChange={(e) => setPresaleRate(e.target.value)} />
                 <p className="mb-0 create-token__danger">
                   Presale rate must be positive number
                 </p>
@@ -173,7 +191,7 @@ const CreateToken = () => {
             <Col md="6">
               <FormGroup>
                 <Label className="create-token__label">Softcap (cro)*</Label>
-                <Input />
+                  <Input type='number' required onChange={e => setSoftcap(e.target.value)} min={1} />
                 <span className="create-token__primary">
                   Softcap must be >=50% of hardcap
                 </span>
@@ -182,7 +200,7 @@ const CreateToken = () => {
             <Col md="6">
               <FormGroup>
                 <Label className="create-token__label">Hardcap (cro)*</Label>
-                <Input />
+                  <Input type="number" required onChange={e => setHardcap(e.target.value)} min={1} />
               </FormGroup>
             </Col>
 
@@ -216,13 +234,13 @@ const CreateToken = () => {
             <Col md="6">
               <FormGroup>
                 <Label className="create-token__label">Start time (UTC)*</Label>
-                <Input type="time" />
+                  <Input type="time" required onChange={e => setStartTime(moment().set("hour", e.target.value.split(':')[0]).set("minute", e.target.value.split(':')[1]).unix())} />
               </FormGroup>
             </Col>
             <Col md="6">
               <FormGroup>
                 <Label className="create-token__label">End time (UTC)*</Label>
-                <Input type="time" />
+                  <Input type="time" onChange={e => setEndTime(moment().set("hour", e.target.value.split(':')[0]).set("minute", e.target.value.split(':')[1]).unix())} />
               </FormGroup>
             </Col>
 
@@ -245,17 +263,39 @@ const CreateToken = () => {
               >
                 Back
               </Button>
-              <Button
-                onClick={() => setCurrentStep(2)}
+                <Button
+                  type="submit"
+                // onClick={() => setCurrentStep(2)}
                 className="custome-btn-lg"
               >
                 Next
               </Button>
             </Col>
-          </Row>
+            </Row></Form>
         )}
 
         {currentStep == 2 && (
+          <Form onSubmit={async (e) => {
+            e.preventDefault();
+            const data = {
+              logoUrl, website, facebook, twitter, github, telegram, instagram, discord, reddit, youtube, description
+            };
+            const parsed = JSON.stringify(data);
+            try {
+              const added1 = await client.add(parsed);
+              let tokenUri1 = `https://ipfs.infura.io/ipfs/${added1.path}`;
+              // this.setState({ tokenUri: tokenUri1 });
+              console.log({ tokenUri1 });
+              setUri(tokenUri1);
+              setCurrentStep(3);
+              /* after file is uploaded to IPFS, pass the URL to save it on Polygon */
+              // createSale(url)
+            } catch (error) {
+              alert('Error uploading file: ', error);
+              console.log('Error uploading file: ', error);
+              setCurrentStep(3);
+            }
+          }}>
           <Row>
             <Col xs="12">
               <span className="create-token__light">
@@ -265,7 +305,7 @@ const CreateToken = () => {
             <Col md="6">
               <FormGroup>
                 <Label className="create-token__label">Logo URL*</Label>
-                <Input />
+                  <Input type='text' required onChange={(e) => setLogoUrl(e.target.value)} />
                 <p className="create-token__primary mb-0">
                   URL must end with supported extension .png.jpg.jpej.gif you
                   can upload your image at{" "}
@@ -278,56 +318,56 @@ const CreateToken = () => {
             <Col md="6">
               <FormGroup>
                 <Label className="create-token__label">Website*</Label>
-                <Input />
+                  <Input type="text" required onChange={e => setWebsite(e.target.value)} />
               </FormGroup>
             </Col>
             <Col md="6">
               <FormGroup>
                 <Label className="create-token__label">Facebook</Label>
-                <Input />
+                  <Input type="text" onChange={e => setFacebook(e.target.value)} />
               </FormGroup>
             </Col>
             <Col md="6">
               <FormGroup>
                 <Label className="create-token__label">Twitter</Label>
-                <Input />
+                  <Input type="text" onChange={e => setTwitter(e.target.value)} />
               </FormGroup>
             </Col>
             <Col md="6">
               <FormGroup>
                 <Label className="create-token__label">Github</Label>
-                <Input />
+                  <Input type="text" onChange={e => setGithub(e.target.value)} />
               </FormGroup>
             </Col>
             <Col md="6">
               <FormGroup>
                 <Label className="create-token__label">Telegram</Label>
-                <Input />
+                  <Input type="text" onChange={e => setTelegram(e.target.value)} />
               </FormGroup>
             </Col>
             <Col md="6">
               <FormGroup>
                 <Label className="create-token__label">Instagram</Label>
-                <Input />
+                  <Input type="text" onChange={e => setInstagram(e.target.value)} />
               </FormGroup>
             </Col>
             <Col md="6">
               <FormGroup>
                 <Label className="create-token__label">Discord</Label>
-                <Input />
+                  <Input type="text" onChange={e => setDiscord(e.target.value)} />
               </FormGroup>
             </Col>
 
             <Col md="12">
               <FormGroup>
                 <Label className="create-token__label">Reddit</Label>
-                <Input />
+                  <Input type="text" onChange={e => setReddit(e.target.value)} />
               </FormGroup>
             </Col>
             <Col md="12">
               <FormGroup>
                 <Label className="create-token__label">Youtube video</Label>
-                <Input />
+                  <Input type="text" onChange={e => setYoutube(e.target.value)} />
                 <span className="create-token__primary">
                   input your your youtube URL, or youtube video ID.
                 </span>
@@ -337,7 +377,7 @@ const CreateToken = () => {
             <Col md="12">
               <FormGroup>
                 <Label className="create-token__label">Description</Label>
-                <Input type="textarea" rows="5" />
+                  <Input type="textarea" rows="5" onChange={e => setDescription(e.target.value)} />
               </FormGroup>
             </Col>
 
@@ -351,14 +391,15 @@ const CreateToken = () => {
               >
                 Back
               </Button>
-              <Button
-                onClick={() => setCurrentStep(3)}
+                <Button
+                  type='submit'
+                // onClick={() => setCurrentStep(3)}
                 className="custome-btn-lg"
               >
                 Next
               </Button>
             </Col>
-          </Row>
+            </Row></Form>
         )}
 
         {currentStep == 3 && (
@@ -392,7 +433,7 @@ const CreateToken = () => {
             </Col>
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">Preslae rate</span>
-              <span className="ml-auto create-token__primary">0</span>
+              <span className="ml-auto create-token__primary">{presaleRate}</span>
             </Col>
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">Sale method</span>
@@ -400,11 +441,11 @@ const CreateToken = () => {
             </Col>
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">Softcap</span>
-              <span className="ml-auto create-token__primary">0 cro</span>
+              <span className="ml-auto create-token__primary">{softcap} cro</span>
             </Col>
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">Hardcap</span>
-              <span className="ml-auto create-token__primary">0 cro</span>
+              <span className="ml-auto create-token__primary">{hardcap} cro</span>
             </Col>
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">Unsold tokens</span>
@@ -421,12 +462,12 @@ const CreateToken = () => {
 
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">Start time</span>
-              <span className="ml-auto create-token__primary">2022-09-03</span>
+              <span className="ml-auto create-token__primary">{moment.unix(startTime).format('L LT')}</span>
             </Col>
 
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">End time</span>
-              <span className="ml-auto create-token__primary">2022-09-09</span>
+              <span className="ml-auto create-token__primary">{moment.unix(endTime).format('L LT')}</span>
             </Col>
 
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
