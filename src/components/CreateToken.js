@@ -3,11 +3,22 @@ import React, { useState } from "react";
 
 import { Steps } from "antd";
 import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
+import { configEnv } from "../utils/configEnv";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentContractSelected } from "../store/web3-slice";
+import { verifyTokenAddress } from "../utils/web3-helpers";
 
 const { Step } = Steps;
 
 const CreateToken = () => {
   const [currentStep, setCurrentStep] = useState(0);
+  const {selectedChainID} = useSelector(state=>state?.web3Slice);
+  const [tokenAddress,setTokenAddress] = useState("");
+  const [currencySelected,setCurrencySelected] = useState(configEnv?.[selectedChainID]?.currency)
+  const [isContractValid,setContractValid] = useState(false);
+   
+  const dispatch = useDispatch();
+
   return (
     <div className="py-5">
       <div className="d-none d-lg-block">
@@ -66,7 +77,13 @@ const CreateToken = () => {
               <Button className="custome-btn">Create Token</Button>
             </Col>
             <Col xs="12" className="mt-3">
-              <Input placeholder="Apecron"></Input>
+              <Input placeholder="Apecron" value={tokenAddress} onChange={async (e)=>{
+                setTokenAddress(e?.target?.value);
+                const res = await verifyTokenAddress(e?.target?.value)
+                setContractValid(res?.success)
+
+              }}></Input>
+              {tokenAddress && !isContractValid && "Token address is invalid"}
             </Col>
             {/* <Col xs="12" className="mt-3">
             <span className="create-token__sub">Pool Creation free: 1 BNB</span>
@@ -76,71 +93,36 @@ const CreateToken = () => {
               <Label className="create-token__label">Currency</Label>
               <FormGroup check className="mt-1">
                 <Label check>
-                  <Input type="radio" name="radio1" />
-                  <span>CRO</span>
+                  <Input type="radio" name="radio1" value={configEnv?.[selectedChainID]?.currency} checked={currencySelected==configEnv?.[selectedChainID]?.currency}  onClick={()=>{
+                    setCurrencySelected('ETH');
+                    dispatch(setCurrentContractSelected('ApercronLaunchpadEth'))
+                    }}/>
+                  <span>{configEnv?.[selectedChainID]?.currency}</span>
                 </Label>
               </FormGroup>
               <FormGroup check className="mt-1">
                 <Label check>
-                  <Input type="radio" name="radio1" /> <span>BUSD</span>
+                  <Input type="radio" name="radio1" value='USDT' checked={currencySelected=='USDT'} onClick={()=>{
+                    setCurrencySelected('USDT');
+                    dispatch(setCurrentContractSelected('ApercronLaunchpadUSDT'))
+        }}/> <span>USDT</span>
                 </Label>
               </FormGroup>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" /> <span>USDT</span>
-                </Label>
-              </FormGroup>
-              <FormGroup check className="mb-3 mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" /> <span>USDC</span>
-                </Label>
-              </FormGroup>
+
 
               <span className="create-token__sub-label">
-                Users will pay with cro for your token
+                Users will pay with {currencySelected} for your token
               </span>
             </Col>
 
             <Col xs="12" className="mt-3">
-              <Label className="create-token__label">Free options</Label>
+              <Label className="create-token__label">Fee options</Label>
               <FormGroup check className="mt-1">
                 <Label check>
-                  <Input type="radio" name="radio1" />
-                  <span>3% cro raised only</span>
+                  <Input type="radio" name="radio2" checked/>{" "}
+                  <span>2% {currencySelected} raised + 3% tokens for distribution</span>
                 </Label>
               </FormGroup>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" />{" "}
-                  <span>2% cro raised + 3% tokens</span>
-                </Label>
-              </FormGroup>
-            </Col>
-
-            <Col xs="12" className="mt-3">
-              <Label className="create-token__label">Free options</Label>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" />
-                  <span>Auto Listening</span>
-                </Label>
-              </FormGroup>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" />{" "}
-                  <span>Manual Listening</span>
-                </Label>
-              </FormGroup>
-            </Col>
-
-            <Col
-              xs="12"
-              className="  mt-3 create-token__bottom d-flex justify-content-center align-items-center p-3 p-md-5 my-5"
-            >
-              <span>
-                For auto listing, after you finalize the pool your token will be
-                auto listed on DEX.
-              </span>
             </Col>
 
             <Col
@@ -148,7 +130,12 @@ const CreateToken = () => {
               className=" d-flex justify-content-center align-items-center p-3 mb-5"
             >
               <Button
-                onClick={() => setCurrentStep(1)}
+                onClick={() => {
+                  if(!tokenAddress || !isContractValid){
+                    return; 
+                  }
+                  setCurrentStep(1)
+                }}
                 className="custome-btn-lg"
               >
                 Next
@@ -185,7 +172,7 @@ const CreateToken = () => {
               <FormGroup check className="mt-1">
                 <Label check>
                   <Input type="radio" name="radio1" />
-                  <span>CRO</span>
+                  <span>{currencySelected}</span>
                 </Label>
               </FormGroup>
               <FormGroup check className="mt-1">
@@ -205,7 +192,7 @@ const CreateToken = () => {
               </FormGroup>
 
               <span className="create-token__sub-label">
-                Users will pay with cro for your token
+                Users will pay with {currencySelected} for your token
               </span>
             </Col>
 
@@ -214,13 +201,13 @@ const CreateToken = () => {
               <FormGroup check className="mt-1">
                 <Label check>
                   <Input type="radio" name="radio1" />
-                  <span>3% cro raised only</span>
+                  <span>3% {currencySelected} raised only</span>
                 </Label>
               </FormGroup>
               <FormGroup check className="mt-1">
                 <Label check>
                   <Input type="radio" name="radio1" />{" "}
-                  <span>2% cro raised + 3% tokens</span>
+                  <span>2% {currencySelected} raised + 3% tokens</span>
                 </Label>
               </FormGroup>
             </Col>
@@ -293,7 +280,7 @@ const CreateToken = () => {
               <FormGroup check className="mt-1">
                 <Label check>
                   <Input type="radio" name="radio1" />
-                  <span>CRO</span>
+                  <span>{currencySelected}</span>
                 </Label>
               </FormGroup>
               <FormGroup check className="mt-1">
@@ -313,7 +300,7 @@ const CreateToken = () => {
               </FormGroup>
 
               <span className="create-token__sub-label">
-                Users will pay with cro for your token
+                Users will pay with {currencySelected} for your token
               </span>
             </Col>
 
@@ -322,13 +309,13 @@ const CreateToken = () => {
               <FormGroup check className="mt-1">
                 <Label check>
                   <Input type="radio" name="radio1" />
-                  <span>3% cro raised only</span>
+                  <span>3% {currencySelected} raised only</span>
                 </Label>
               </FormGroup>
               <FormGroup check className="mt-1">
                 <Label check>
                   <Input type="radio" name="radio1" />{" "}
-                  <span>2% cro raised + 3% tokens</span>
+                  <span>2% {currencySelected} raised + 3% tokens</span>
                 </Label>
               </FormGroup>
             </Col>
@@ -401,7 +388,7 @@ const CreateToken = () => {
               <FormGroup check className="mt-1">
                 <Label check>
                   <Input type="radio" name="radio1" />
-                  <span>CRO</span>
+                  <span>{currencySelected}</span>
                 </Label>
               </FormGroup>
               <FormGroup check className="mt-1">
@@ -421,7 +408,7 @@ const CreateToken = () => {
               </FormGroup>
 
               <span className="create-token__sub-label">
-                Users will pay with cro for your token
+                Users will pay with {currencySelected} for your token
               </span>
             </Col>
 
@@ -430,13 +417,13 @@ const CreateToken = () => {
               <FormGroup check className="mt-1">
                 <Label check>
                   <Input type="radio" name="radio1" />
-                  <span>3% cro raised only</span>
+                  <span>3% {currencySelected} raised only</span>
                 </Label>
               </FormGroup>
               <FormGroup check className="mt-1">
                 <Label check>
                   <Input type="radio" name="radio1" />{" "}
-                  <span>2% cro raised + 3% tokens</span>
+                  <span>2% {currencySelected} raised + 3% tokens</span>
                 </Label>
               </FormGroup>
             </Col>

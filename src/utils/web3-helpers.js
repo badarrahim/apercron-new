@@ -4,6 +4,7 @@ import WalletConnectProvider from '@walletconnect/web3-provider';
 import { configEnv } from './configEnv';
 import { store as web3Store } from '../store';
 import { setWalletAddress } from '../store/web3-slice';
+import { TokenABI } from './abi/TokenABI';
 
 export let web3 = {};
 
@@ -70,3 +71,23 @@ export const connectWallet = async () => {
 		alert('error',err.message);
 	}
 };
+
+export const verifyTokenAddress = async(address)=>{
+	try{
+		
+		const state = web3Store.getState();
+
+		const tempWeb3 = new Web3(configEnv[state?.web3Slice?.selectedChainID]?.rpc)
+
+		const contract = new tempWeb3.eth.Contract(TokenABI,address);
+
+		const name = await contract.methods.name().call();
+
+		return {
+			success:true
+		}
+	}catch(err){
+		console.log(err);
+		return {success:false};
+	}
+}
