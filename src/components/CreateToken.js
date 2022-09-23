@@ -185,20 +185,6 @@ const CreateToken = () => {
                 <Input />
               </FormGroup>
             </Col>
-            <Col md="6">
-              <FormGroup>
-                <Label className="create-token__label">
-                  Minimum buy (cro)*
-                </Label>
-                <Input />
-              </FormGroup>
-            </Col>
-            <Col md="6">
-              <FormGroup>
-                <Label className="create-token__label">Maximum (cro)*</Label>
-                <Input />
-              </FormGroup>
-            </Col>
 
             <Col md="12">
               <FormGroup>
