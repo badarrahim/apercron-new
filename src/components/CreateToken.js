@@ -83,7 +83,7 @@ const CreateToken = () => {
                 setContractValid(res?.success)
 
               }}></Input>
-              {tokenAddress && !isContractValid && "Token address is invalid"}
+              {tokenAddress && !isContractValid && <div className="create-token_error">Token address is invalid</div>}
             </Col>
             {/* <Col xs="12" className="mt-3">
             <span className="create-token__sub">Pool Creation free: 1 BNB</span>

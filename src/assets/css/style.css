@@ -489,6 +489,12 @@ a.nav-link {
   color: #ffffff;
 }
 
+.create-token_error{
+  color:#ffffff;
+  font-size: 12px;
+  text-align: end;
+}
+
 .presale-card__sub-2 {
   font-family: "Poppins";
   font-style: normal;
