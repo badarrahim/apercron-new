@@ -109,7 +109,6 @@ const CreateToken = () => {
                 </Label>
               </FormGroup>
 
-
               <span className="create-token__sub-label">
                 Users will pay with {currencySelected} for your token
               </span>
@@ -151,97 +150,129 @@ const CreateToken = () => {
                 (*) is required field.
               </span>
             </Col>
-            <Col md="6" className="mt-2">
-              <span className="create-token__heading">Token Address*</span>
+            <Col md="12" className="mt-2">
+              <FormGroup>
+                <Label className="create-token__label">Presale rate*</Label>
+                <Input placeholder="0" />
+                <p className="mb-0 create-token__danger">
+                  Presale rate must be positive number
+                </p>
+                <span className="create-token__primary">
+                  If 1 spend 1 cro how many tokens i will receive?
+                </span>
+              </FormGroup>
             </Col>
-            <Col
-              md="6"
-              className="d-flex justify-content-start justify-content-md-end align-items-center mt-2"
-            >
-              <Button className="custome-btn">Create Token</Button>
-            </Col>
-            <Col xs="12" className="mt-3">
-              <Input placeholder="Apecron"></Input>
-            </Col>
-            {/* <Col xs="12" className="mt-3">
-            <span className="create-token__sub">Pool Creation free: 1 BNB</span>
-          </Col> */}
 
-            <Col xs="12" className="mt-3">
-              <Label className="create-token__label">Currency</Label>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" />
-                  <span>{currencySelected}</span>
-                </Label>
-              </FormGroup>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" /> <span>BUSD</span>
-                </Label>
-              </FormGroup>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" /> <span>USDT</span>
-                </Label>
-              </FormGroup>
-              <FormGroup check className="mb-3 mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" /> <span>USDC</span>
-                </Label>
-              </FormGroup>
-
-              <span className="create-token__sub-label">
-                Users will pay with {currencySelected} for your token
+            <Col xs="12" className="mt-3 d-flex flex-column">
+              <Label className="create-token__label">Whitelist</Label>
+              <div>
+                <FormGroup check inline>
+                  <Input type="radio" />
+                  <Label check className="ml-2">
+                    Disabled
+                  </Label>
+                </FormGroup>
+                <FormGroup check inline>
+                  <Input type="radio" />
+                  <Label check className="ml-2">
+                    Enabled
+                  </Label>
+                </FormGroup>
+              </div>
+              <span className="create-token__primary mb-4">
+                Your can enable/disable whitelist at any time
               </span>
             </Col>
 
-            <Col xs="12" className="mt-3">
-              <Label className="create-token__label">Free options</Label>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" />
-                  <span>3% {currencySelected} raised only</span>
-                </Label>
+            <Col md="6">
+              <FormGroup>
+                <Label className="create-token__label">Softcap (cro)*</Label>
+                <Input />
+                <span className="create-token__primary">
+                  Softcap must be >=50% of hardcap
+                </span>
               </FormGroup>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" />{" "}
-                  <span>2% {currencySelected} raised + 3% tokens</span>
+            </Col>
+            <Col md="6">
+              <FormGroup>
+                <Label className="create-token__label">Hardcap (cro)*</Label>
+                <Input />
+              </FormGroup>
+            </Col>
+            <Col md="6">
+              <FormGroup>
+                <Label className="create-token__label">
+                  Minimum buy (cro)*
                 </Label>
+                <Input />
+              </FormGroup>
+            </Col>
+            <Col md="6">
+              <FormGroup>
+                <Label className="create-token__label">Maximum (cro)*</Label>
+                <Input />
               </FormGroup>
             </Col>
 
-            <Col xs="12" className="mt-3">
-              <Label className="create-token__label">Free options</Label>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" />
-                  <span>Auto Listening</span>
-                </Label>
+            <Col md="12">
+              <FormGroup>
+                <Label className="create-token__label">Refund type</Label>
+                <Input type="select">
+                  <option default>Burn</option>
+                </Input>
               </FormGroup>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" />{" "}
-                  <span>Manual Listening</span>
+            </Col>
+
+            <Col md="12" className="my-4">
+              <span className="create-token__primary">
+                Enter the percentage of raised funds that should be allocating
+                to liquidity on (Min 51% Max 100%)
+              </span>
+              <br />
+              <span className="create-token__primary">
+                If i spend 1 cro on how many tokens will i receive? Usually this
+                amount is lower than presale rate to allow for a higher listing
+                price on
+              </span>
+            </Col>
+
+            <Col md="12">
+              <Label className="create-token__label">
+                Select start time & end time (UTC)*
+              </Label>
+            </Col>
+            <Col md="6">
+              <FormGroup>
+                <Label className="create-token__label">Start time (UTC)*</Label>
+                <Input type="time" />
+              </FormGroup>
+            </Col>
+            <Col md="6">
+              <FormGroup>
+                <Label className="create-token__label">End time (UTC)*</Label>
+                <Input type="time" />
+              </FormGroup>
+            </Col>
+
+            <Col xs="12">
+              <FormGroup check inline>
+                <Input type="checkbox" />
+                <Label check className="ml-3">
+                  Using vesting contributor?
                 </Label>
               </FormGroup>
             </Col>
 
             <Col
               xs="12"
-              className="  mt-3 create-token__bottom d-flex justify-content-center align-items-center p-3 p-md-5 my-5"
+              className=" d-flex justify-content-center align-items-center p-3 my-5"
             >
-              <span>
-                For auto listing, after you finalize the pool your token will be
-                auto listed on DEX.
-              </span>
-            </Col>
-
-            <Col
-              xs="12"
-              className=" d-flex justify-content-center align-items-center p-3 mb-5"
-            >
+              <Button
+                onClick={() => setCurrentStep(0)}
+                className="custome-btn-lg mr-2"
+              >
+                Back
+              </Button>
               <Button
                 onClick={() => setCurrentStep(2)}
                 className="custome-btn-lg"
@@ -259,97 +290,95 @@ const CreateToken = () => {
                 (*) is required field.
               </span>
             </Col>
-            <Col md="6" className="mt-2">
-              <span className="create-token__heading">Token Address*</span>
+            <Col md="6">
+              <FormGroup>
+                <Label className="create-token__label">Logo URL*</Label>
+                <Input />
+                <p className="create-token__primary mb-0">
+                  URL must end with supported extension .png.jpg.jpej.gif you
+                  can upload your image at{" "}
+                </p>
+                <a href="#" className="create-token__danger">
+                  https://apercron-da8ac.web.app/
+                </a>
+              </FormGroup>
             </Col>
-            <Col
-              md="6"
-              className="d-flex justify-content-start justify-content-md-end align-items-center mt-2"
-            >
-              <Button className="custome-btn">Create Token</Button>
+            <Col md="6">
+              <FormGroup>
+                <Label className="create-token__label">Website*</Label>
+                <Input />
+              </FormGroup>
             </Col>
-            <Col xs="12" className="mt-3">
-              <Input placeholder="Apecron"></Input>
+            <Col md="6">
+              <FormGroup>
+                <Label className="create-token__label">Facebook</Label>
+                <Input />
+              </FormGroup>
             </Col>
-            {/* <Col xs="12" className="mt-3">
-            <span className="create-token__sub">Pool Creation free: 1 BNB</span>
-          </Col> */}
-
-            <Col xs="12" className="mt-3">
-              <Label className="create-token__label">Currency</Label>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" />
-                  <span>{currencySelected}</span>
-                </Label>
+            <Col md="6">
+              <FormGroup>
+                <Label className="create-token__label">Twitter</Label>
+                <Input />
               </FormGroup>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" /> <span>BUSD</span>
-                </Label>
-              </FormGroup>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" /> <span>USDT</span>
-                </Label>
-              </FormGroup>
-              <FormGroup check className="mb-3 mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" /> <span>USDC</span>
-                </Label>
-              </FormGroup>
-
-              <span className="create-token__sub-label">
-                Users will pay with {currencySelected} for your token
-              </span>
             </Col>
-
-            <Col xs="12" className="mt-3">
-              <Label className="create-token__label">Free options</Label>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" />
-                  <span>3% {currencySelected} raised only</span>
-                </Label>
+            <Col md="6">
+              <FormGroup>
+                <Label className="create-token__label">Github</Label>
+                <Input />
               </FormGroup>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" />{" "}
-                  <span>2% {currencySelected} raised + 3% tokens</span>
-                </Label>
+            </Col>
+            <Col md="6">
+              <FormGroup>
+                <Label className="create-token__label">Telegram</Label>
+                <Input />
+              </FormGroup>
+            </Col>
+            <Col md="6">
+              <FormGroup>
+                <Label className="create-token__label">Instagram</Label>
+                <Input />
+              </FormGroup>
+            </Col>
+            <Col md="6">
+              <FormGroup>
+                <Label className="create-token__label">Discord</Label>
+                <Input />
               </FormGroup>
             </Col>
 
-            <Col xs="12" className="mt-3">
-              <Label className="create-token__label">Free options</Label>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" />
-                  <span>Auto Listening</span>
-                </Label>
+            <Col md="12">
+              <FormGroup>
+                <Label className="create-token__label">Reddit</Label>
+                <Input />
               </FormGroup>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" />{" "}
-                  <span>Manual Listening</span>
-                </Label>
+            </Col>
+            <Col md="12">
+              <FormGroup>
+                <Label className="create-token__label">Youtube video</Label>
+                <Input />
+                <span className="create-token__primary">
+                  input your your youtube URL, or youtube video ID.
+                </span>
               </FormGroup>
             </Col>
 
-            <Col
-              xs="12"
-              className="  mt-3 create-token__bottom d-flex justify-content-center align-items-center p-3 p-md-5 my-5"
-            >
-              <span>
-                For auto listing, after you finalize the pool your token will be
-                auto listed on DEX.
-              </span>
+            <Col md="12">
+              <FormGroup>
+                <Label className="create-token__label">Description</Label>
+                <Input type="textarea" rows="5" />
+              </FormGroup>
             </Col>
 
             <Col
               xs="12"
-              className=" d-flex justify-content-center align-items-center p-3 mb-5"
+              className=" d-flex justify-content-center align-items-center p-3 my-5"
             >
+              <Button
+                onClick={() => setCurrentStep(1)}
+                className="custome-btn-lg mr-2"
+              >
+                Back
+              </Button>
               <Button
                 onClick={() => setCurrentStep(3)}
                 className="custome-btn-lg"
@@ -361,87 +390,78 @@ const CreateToken = () => {
         )}
 
         {currentStep == 3 && (
-          <Row>
-            <Col xs="12">
-              <span className="create-token__light">
-                (*) is required field.
+          <Row className="create-token__last">
+            <Col xs="12" className="d-flex create-token__border-bottom py-2">
+              <span className="mr-auto text-white">Total token</span>
+              <span className="ml-auto create-token__danger">15000</span>
+            </Col>
+
+            <Col xs="12" className="d-flex create-token__border-bottom py-2">
+              <span className="mr-auto text-white">Factory address</span>
+              <div className="ml-auto d-flex align-items-center">
+                <span className=" create-token__primary">xxxxxxxx</span>
+                <i className="fa fa-copy create-token__danger ml-2"></i>
+              </div>
+            </Col>
+
+            <Col xs="12" className="d-flex create-token__border-bottom py-2">
+              <span className="mr-auto text-white">Total Name</span>
+              <span className="ml-auto create-token__primary">test</span>
+            </Col>
+
+            <Col xs="12" className="d-flex create-token__border-bottom py-2">
+              <span className="mr-auto text-white">Total symbol</span>
+              <span className="ml-auto create-token__primary">test</span>
+            </Col>
+
+            <Col xs="12" className="d-flex create-token__border-bottom py-2">
+              <span className="mr-auto text-white">Total decimal</span>
+              <span className="ml-auto create-token__primary">0</span>
+            </Col>
+            <Col xs="12" className="d-flex create-token__border-bottom py-2">
+              <span className="mr-auto text-white">Preslae rate</span>
+              <span className="ml-auto create-token__primary">0</span>
+            </Col>
+            <Col xs="12" className="d-flex create-token__border-bottom py-2">
+              <span className="mr-auto text-white">Sale method</span>
+              <span className="ml-auto create-token__primary">public</span>
+            </Col>
+            <Col xs="12" className="d-flex create-token__border-bottom py-2">
+              <span className="mr-auto text-white">Softcap</span>
+              <span className="ml-auto create-token__primary">0 cro</span>
+            </Col>
+            <Col xs="12" className="d-flex create-token__border-bottom py-2">
+              <span className="mr-auto text-white">Hardcap</span>
+              <span className="ml-auto create-token__primary">0 cro</span>
+            </Col>
+            <Col xs="12" className="d-flex create-token__border-bottom py-2">
+              <span className="mr-auto text-white">Unsold tokens</span>
+              <span className="ml-auto create-token__primary">Refunded</span>
+            </Col>
+            <Col xs="12" className="d-flex create-token__border-bottom py-2">
+              <span className="mr-auto text-white">Minimum buy</span>
+              <span className="ml-auto create-token__primary">0 cro</span>
+            </Col>
+            <Col xs="12" className="d-flex create-token__border-bottom py-2">
+              <span className="mr-auto text-white">Maximum buy</span>
+              <span className="ml-auto create-token__primary">0 cro</span>
+            </Col>
+
+            <Col xs="12" className="d-flex create-token__border-bottom py-2">
+              <span className="mr-auto text-white">Start time</span>
+              <span className="ml-auto create-token__primary">2022-09-03</span>
+            </Col>
+
+            <Col xs="12" className="d-flex create-token__border-bottom py-2">
+              <span className="mr-auto text-white">End time</span>
+              <span className="ml-auto create-token__primary">2022-09-09</span>
+            </Col>
+
+            <Col xs="12" className="d-flex create-token__border-bottom py-2">
+              <span className="mr-auto text-white">Website</span>
+              <span className="ml-auto create-token__danger">
+                https://apercron-da8ac.web.app/
               </span>
-            </Col>
-            <Col md="6" className="mt-2">
-              <span className="create-token__heading">Token Address*</span>
-            </Col>
-            <Col
-              md="6"
-              className="d-flex justify-content-start justify-content-md-end align-items-center mt-2"
-            >
-              <Button className="custome-btn">Create Token</Button>
-            </Col>
-            <Col xs="12" className="mt-3">
-              <Input placeholder="Apecron"></Input>
-            </Col>
-            {/* <Col xs="12" className="mt-3">
-            <span className="create-token__sub">Pool Creation free: 1 BNB</span>
-          </Col> */}
-
-            <Col xs="12" className="mt-3">
-              <Label className="create-token__label">Currency</Label>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" />
-                  <span>{currencySelected}</span>
-                </Label>
-              </FormGroup>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" /> <span>BUSD</span>
-                </Label>
-              </FormGroup>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" /> <span>USDT</span>
-                </Label>
-              </FormGroup>
-              <FormGroup check className="mb-3 mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" /> <span>USDC</span>
-                </Label>
-              </FormGroup>
-
-              <span className="create-token__sub-label">
-                Users will pay with {currencySelected} for your token
-              </span>
-            </Col>
-
-            <Col xs="12" className="mt-3">
-              <Label className="create-token__label">Free options</Label>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" />
-                  <span>3% {currencySelected} raised only</span>
-                </Label>
-              </FormGroup>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" />{" "}
-                  <span>2% {currencySelected} raised + 3% tokens</span>
-                </Label>
-              </FormGroup>
-            </Col>
-
-            <Col xs="12" className="mt-3">
-              <Label className="create-token__label">Free options</Label>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" />
-                  <span>Auto Listening</span>
-                </Label>
-              </FormGroup>
-              <FormGroup check className="mt-1">
-                <Label check>
-                  <Input type="radio" name="radio1" />{" "}
-                  <span>Manual Listening</span>
-                </Label>
-              </FormGroup>
             </Col>
 
             <Col
@@ -449,8 +469,10 @@ const CreateToken = () => {
               className="  mt-3 create-token__bottom d-flex justify-content-center align-items-center p-3 p-md-5 my-5"
             >
               <span>
-                For auto listing, after you finalize the pool your token will be
-                auto listed on DEX.
+                For tokens with burns,rebase or other special transfers please
+                ensure that you have a way to whitlist multiple addresses or
+                turn off the special transfer events (By setting fees to 0 for
+                example for the duration of the preslae)
               </span>
             </Col>
 
@@ -459,10 +481,16 @@ const CreateToken = () => {
               className=" d-flex justify-content-center align-items-center p-3 mb-5"
             >
               <Button
+                onClick={() => setCurrentStep(2)}
+                className="custome-btn-lg mr-2"
+              >
+                Back
+              </Button>
+              <Button
                 onClick={() => setCurrentStep(0)}
                 className="custome-btn-lg"
               >
-                Finish
+                Submit
               </Button>
             </Col>
           </Row>
