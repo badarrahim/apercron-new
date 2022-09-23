@@ -11,11 +11,18 @@ import { verifyTokenAddress } from "../utils/web3-helpers";
 const { Step } = Steps;
 
 const CreateToken = () => {
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(1);
   const {selectedChainID} = useSelector(state=>state?.web3Slice);
   const [tokenAddress,setTokenAddress] = useState("");
   const [currencySelected,setCurrencySelected] = useState(configEnv?.[selectedChainID]?.currency)
   const [isContractValid,setContractValid] = useState(false);
+
+  const [presaleRate,setPresaleRate] = useState(0);
+  const [softcap,setSoftcap] = useState(0);
+  const [hardcap,setHardcap] = useState(0);
+  const [isRefund,setIsRefund] = useState(true);
+  const [startTime,setStartTime] = useState(0);
+  const [endTime,setEndTime] = useState(0);
    
   const dispatch = useDispatch();
 
@@ -158,30 +165,9 @@ const CreateToken = () => {
                   Presale rate must be positive number
                 </p>
                 <span className="create-token__primary">
-                  If 1 spend 1 cro how many tokens i will receive?
+                  If 1 spend 1 {currencySelected} how many tokens i will receive?
                 </span>
               </FormGroup>
-            </Col>
-
-            <Col xs="12" className="mt-3 d-flex flex-column">
-              <Label className="create-token__label">Whitelist</Label>
-              <div>
-                <FormGroup check inline>
-                  <Input type="radio" />
-                  <Label check className="ml-2">
-                    Disabled
-                  </Label>
-                </FormGroup>
-                <FormGroup check inline>
-                  <Input type="radio" />
-                  <Label check className="ml-2">
-                    Enabled
-                  </Label>
-                </FormGroup>
-              </div>
-              <span className="create-token__primary mb-4">
-                Your can enable/disable whitelist at any time
-              </span>
             </Col>
 
             <Col md="6">
