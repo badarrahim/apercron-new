@@ -16,9 +16,12 @@ import {
   DropdownItem,
   Button,
 } from "reactstrap";
+import { useSelector } from "react-redux";
+import { connectWallet } from "../utils/web3-helpers";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const {userAddress} = useSelector(state=>state?.web3Slice);
   const toggle = () => {
     setIsOpen(!isOpen);
   };
@@ -58,7 +61,7 @@ const Header = () => {
             </NavItem>
             <NavItem>
               <NavLink>
-                <Button className="custome-btn">Connect</Button>
+                <Button className="custome-btn" onClick={()=>connectWallet()}>{userAddress?userAddress?.replace(userAddress?.slice(5,36),'***'):"Connect"}</Button>
               </NavLink>
             </NavItem>
           </Nav>
