@@ -18,12 +18,14 @@ import {
 } from "reactstrap";
 import { useState } from "react";
 import PresaleCard from "./PresaleCard";
+import { useSelector } from "react-redux";
 
 const CurrentPresales = () => {
   const [activeTab, setActiveTab] = useState("1");
   const toggle = (tab) => {
     setActiveTab(tab);
   };
+  const { launchPadsData } = useSelector(state => state?.web3Slice);
   return (
     <div className="current-presales px-md-3 py-5 px-2">
       <SectionTitle title="Current Presales" />
@@ -74,12 +76,16 @@ const CurrentPresales = () => {
           </Row>
 
           <Row className="mt-5">
-            <Col lg="6" className="mt-3 mt-lg-0">
+            {launchPadsData && launchPadsData.map(launchpad => {
+              return (
+                <Col lg="6" className="mt-3 mt-lg-0">
+                  <PresaleCard launchpad={launchpad} />
+                </Col>
+              );
+            })}
+            {/* <Col lg="6" className="mt-3 mt-lg-0">
               <PresaleCard />
-            </Col>
-            <Col lg="6" className="mt-3 mt-lg-0">
-              <PresaleCard />
-            </Col>
+            </Col> */}
           </Row>
         </TabPane>
         <TabPane tabId="2"></TabPane>

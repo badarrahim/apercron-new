@@ -52,13 +52,13 @@ const Header = () => {
             <NavItem>
               <NavLink>Launchpadlist</NavLink>
             </NavItem>
-            <NavItem>
+            {/* <NavItem>
               <NavLink>
                 <Button className="custome-btn">
                   <i className="fa fa-plus mr-2"></i> Create
                 </Button>
               </NavLink>
-            </NavItem>
+            </NavItem> */}
             <NavItem>
               <NavLink>
                 <Button className="custome-btn" onClick={()=>connectWallet()}>{userAddress?userAddress?.replace(userAddress?.slice(5,36),'***'):"Connect"}</Button>
