@@ -6,7 +6,8 @@ const initialState ={
     currentContractSelected: 'ApercronLaunchpadEth',
     ethLanuchPads: 0,
     usdtLanuchPads: 0,
-    launchPadsData: []
+    launchPadsData: [],
+    launchDataLoading: false,
 }
 
 const web3Slice = createSlice({
@@ -30,6 +31,9 @@ const web3Slice = createSlice({
         },
         setLaunchPadData (state, action) {
             state.launchPadsData = action.payload;
+        },
+        setLaunchDataLoading (state, action) {
+            state.launchDataLoading = action.payload;
         }
     }
 })
@@ -40,6 +44,7 @@ export const {
     setCurrentContractSelected,
     setEthLanuchPads,
     setUsdtLanuchPads,
-    setLaunchPadData
+    setLaunchPadData,
+    setLaunchDataLoading
 } = web3Slice.actions;
 export default web3Slice.reducer;

@@ -40,15 +40,47 @@ const CreateToken = () => {
   const [youtube, setYoutube] = useState('');
   const [description, setDescription] = useState('');
   const [uri, setUri] = useState('');
+  const [tokenName, setTokenName] = useState('');
+  const [tokenSymbol, setTokenSymbol] = useState('');
+  const [tokenDecimals, setTokenDecimals] = useState(0);
   const dispatch = useDispatch();
 
+  const clearFields = () => {
+    setTokenAddress("");
+    setContractValid(false);
+
+    setPresaleRate(0);
+    setTotalTokenForSale(0);
+    setSoftcap(0);
+    setHardcap(0);
+    setIsRefund(true);
+    setStartTime(0);
+    setEndTime(0);
+    setLogoUrl('');
+    setWebsite('');
+    setFacebook('');
+    setTwitter('');
+    setGithub('');
+    setTelegram('');
+    setInstagram('');
+    setDiscord('');
+    setReddit('');
+    setYoutube('');
+    setDescription('');
+    setUri('');
+    setTokenName('');
+    setTokenSymbol('');
+    setTokenDecimals(0);
+    document.getElementById("start-time").value = "";
+    document.getElementById("end-time").value = "";
+
+  };
 
   const addLaunchPadToken = async (obj) => {
     try {
-      console.log({ obj });
       const tempWeb3 = new Web3(Web3.givenProvider);
       const improvedWeb3 = new Web3(configEnv[selectedChainID]?.rpc);
-      let launchPadContract = currencySelected == 'ETH' ? configEnv[selectedChainID]?.ApercronLaunchpadUSDT : configEnv[selectedChainID]?.ApercronLaunchpadEth;
+      let launchPadContract = currencySelected == 'ETH' ? configEnv[selectedChainID]?.ApercronLaunchpadEth : configEnv[selectedChainID]?.ApercronLaunchpadUSDT;
       const address = userAddress;
 
       if (!address) {
@@ -68,20 +100,19 @@ const CreateToken = () => {
           console.log(result);
           await contract.methods.addTokenToLaunchpad(obj).send({ from: address })
             .on('receipt', function (response) {
-              // .then(response => {
               console.log("received", response);
-              // return {
-              // 	success: true
-              // };
+              clearFields();
+              setCurrentStep(0);
             }).on('error', err => {
               console.log('error', err);
+              clearFields();
+              setCurrentStep(0);
+
             });
         });
-
-
-
     } catch (err) {
       console.log(err);
+      setCurrentStep(0);
       // return { success: false };
     }
 
@@ -161,6 +192,9 @@ const CreateToken = () => {
                   setTokenAddress(e?.target?.value);
                   const res = await verifyTokenAddress(e?.target?.value);
                   setContractValid(res?.success);
+                  setTokenName(res.tokenName);
+                  setTokenSymbol(res.tokenSymbol);
+                  setTokenDecimals(res.tokenDecimals);
 
                 }}></Input>
                 {tokenAddress && !isContractValid && <div className="create-token_error">Token address is invalid</div>}
@@ -238,7 +272,7 @@ const CreateToken = () => {
               <Col md="12" className="mt-2">
                 <FormGroup>
                   <Label className="create-token__label">Presale rate*</Label>
-                  <Input placeholder="0" type='number' required min={1} onChange={(e) => setPresaleRate(e.target.value)} />
+                  <Input placeholder="0" type='number' required min={1} value={presaleRate} onChange={(e) => setPresaleRate(e.target.value)} />
                   <p className="mb-0 create-token__danger">
                     Presale rate must be positive number
                   </p>
@@ -250,7 +284,7 @@ const CreateToken = () => {
               <Col md="12" className="mt-2">
                 <FormGroup>
                   <Label className="create-token__label">Total Token For Sale *</Label>
-                  <Input placeholder="0" type='number' required min={1} onChange={(e) => setTotalTokenForSale(e.target.value)} />
+                  <Input placeholder="0" type='number' required min={1} value={totalTokenForSale} onChange={(e) => setTotalTokenForSale(e.target.value)} />
                   {/* <p className="mb-0 create-token__danger">
                     Presale rate must be positive number
                   </p>
@@ -263,7 +297,7 @@ const CreateToken = () => {
               <Col md="6">
                 <FormGroup>
                   <Label className="create-token__label">Softcap (cro)*</Label>
-                  <Input type='number' required onChange={e => setSoftcap(e.target.value)} min={1} />
+                  <Input type='number' required value={softcap} onChange={e => setSoftcap(e.target.value)} min={1} />
                   <span className="create-token__primary">
                   Softcap must be >=50% of hardcap
                   </span>
@@ -272,7 +306,7 @@ const CreateToken = () => {
               <Col md="6">
                 <FormGroup>
                   <Label className="create-token__label">Hardcap (cro)*</Label>
-                  <Input type="number" required onChange={e => setHardcap(e.target.value)} min={1} />
+                  <Input type="number" required value={hardcap} onChange={e => setHardcap(e.target.value)} min={1} />
                 </FormGroup>
               </Col>
 
@@ -306,13 +340,13 @@ const CreateToken = () => {
               <Col md="6">
                 <FormGroup>
                   <Label className="create-token__label">Start time (UTC)*</Label>
-                  <Input type="time" required onChange={e => setStartTime(moment().set("hour", e.target.value.split(':')[0]).set("minute", e.target.value.split(':')[1]).unix())} />
+                  <Input type="time" id="start-time" required onChange={e => setStartTime(moment().set("hour", e.target.value.split(':')[0]).set("minute", e.target.value.split(':')[1]).unix())} />
                 </FormGroup>
               </Col>
               <Col md="6">
                 <FormGroup>
                   <Label className="create-token__label">End time (UTC)*</Label>
-                  <Input type="time" onChange={e => setEndTime(moment().add(1, 'd').set("hour", e.target.value.split(':')[0]).set("minute", e.target.value.split(':')[1]).unix())} />
+                  <Input type="time" id="end-time" onChange={e => setEndTime(moment().add(1, 'd').set("hour", e.target.value.split(':')[0]).set("minute", e.target.value.split(':')[1]).unix())} />
                 </FormGroup>
               </Col>
 
@@ -369,7 +403,7 @@ const CreateToken = () => {
             } catch (error) {
               alert('Error uploading file: ', error);
               console.log('Error uploading file: ', error);
-              setCurrentStep(3);
+              // setCurrentStep(3);
             }
           }}>
             <Row>
@@ -381,7 +415,7 @@ const CreateToken = () => {
               <Col md="6">
                 <FormGroup>
                   <Label className="create-token__label">Logo URL*</Label>
-                  <Input type='text' required onChange={(e) => setLogoUrl(e.target.value)} />
+                  <Input type='text' required value={logoUrl} onChange={(e) => setLogoUrl(e.target.value)} />
                   <p className="create-token__primary mb-0">
                     URL must end with supported extension .png.jpg.jpej.gif you
                     can upload your image at{" "}
@@ -394,56 +428,56 @@ const CreateToken = () => {
               <Col md="6">
                 <FormGroup>
                   <Label className="create-token__label">Website*</Label>
-                  <Input type="text" required onChange={e => setWebsite(e.target.value)} />
+                  <Input type="text" required value={website} onChange={e => setWebsite(e.target.value)} />
                 </FormGroup>
               </Col>
               <Col md="6">
                 <FormGroup>
                   <Label className="create-token__label">Facebook</Label>
-                  <Input type="text" onChange={e => setFacebook(e.target.value)} />
+                  <Input type="text" value={facebook} onChange={e => setFacebook(e.target.value)} />
                 </FormGroup>
               </Col>
               <Col md="6">
                 <FormGroup>
                   <Label className="create-token__label">Twitter</Label>
-                  <Input type="text" onChange={e => setTwitter(e.target.value)} />
+                  <Input type="text" value={twitter} onChange={e => setTwitter(e.target.value)} />
                 </FormGroup>
               </Col>
               <Col md="6">
                 <FormGroup>
                   <Label className="create-token__label">Github</Label>
-                  <Input type="text" onChange={e => setGithub(e.target.value)} />
+                  <Input type="text" value={github} onChange={e => setGithub(e.target.value)} />
                 </FormGroup>
               </Col>
               <Col md="6">
                 <FormGroup>
                   <Label className="create-token__label">Telegram</Label>
-                  <Input type="text" onChange={e => setTelegram(e.target.value)} />
+                  <Input type="text" value={telegram} onChange={e => setTelegram(e.target.value)} />
                 </FormGroup>
               </Col>
               <Col md="6">
                 <FormGroup>
                   <Label className="create-token__label">Instagram</Label>
-                  <Input type="text" onChange={e => setInstagram(e.target.value)} />
+                  <Input type="text" value={instagram} onChange={e => setInstagram(e.target.value)} />
                 </FormGroup>
               </Col>
               <Col md="6">
                 <FormGroup>
                   <Label className="create-token__label">Discord</Label>
-                  <Input type="text" onChange={e => setDiscord(e.target.value)} />
+                  <Input type="text" value={discord} onChange={e => setDiscord(e.target.value)} />
                 </FormGroup>
               </Col>
 
               <Col md="12">
                 <FormGroup>
                   <Label className="create-token__label">Reddit</Label>
-                  <Input type="text" onChange={e => setReddit(e.target.value)} />
+                  <Input type="text" value={reddit} onChange={e => setReddit(e.target.value)} />
                 </FormGroup>
               </Col>
               <Col md="12">
                 <FormGroup>
                   <Label className="create-token__label">Youtube video</Label>
-                  <Input type="text" onChange={e => setYoutube(e.target.value)} />
+                  <Input type="text" value={youtube} onChange={e => setYoutube(e.target.value)} />
                   <span className="create-token__primary">
                     input your your youtube URL, or youtube video ID.
                   </span>
@@ -453,7 +487,7 @@ const CreateToken = () => {
               <Col md="12">
                 <FormGroup>
                   <Label className="create-token__label">Description</Label>
-                  <Input type="textarea" rows="5" onChange={e => setDescription(e.target.value)} />
+                  <Input type="textarea" rows="5" value={description} onChange={e => setDescription(e.target.value)} />
                 </FormGroup>
               </Col>
 
@@ -495,17 +529,17 @@ const CreateToken = () => {
 
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">Token Name</span>
-              <span className="ml-auto create-token__primary">test</span>
+              <span className="ml-auto create-token__primary">{tokenName}</span>
             </Col>
 
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">Token symbol</span>
-              <span className="ml-auto create-token__primary">test</span>
+              <span className="ml-auto create-token__primary">{tokenSymbol}</span>
             </Col>
 
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">Token decimal</span>
-              <span className="ml-auto create-token__primary">0</span>
+              <span className="ml-auto create-token__primary">{tokenDecimals}</span>
             </Col>
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">Preslae rate</span>
@@ -590,7 +624,7 @@ const CreateToken = () => {
                     uri
                   };
                   addLaunchPadToken(obj);
-                  setCurrentStep(0);
+
                 }}
                 className="custome-btn-lg"
               >
