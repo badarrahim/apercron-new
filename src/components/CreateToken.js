@@ -109,11 +109,11 @@ const CreateToken = () => {
                   <span>CRO</span>
                 </Label>
               </FormGroup>
-              <FormGroup check className="mt-1">
+              {/* <FormGroup check className="mt-1">
                 <Label check>
                   <Input type="radio" name="radio1" /> <span>BUSD</span>
                 </Label>
-              </FormGroup>
+              </FormGroup> */}
               <FormGroup check className="mt-1">
                 <Label check>
                   <Input type="radio" name="radio1" /> <span>USDT</span>
@@ -132,12 +132,12 @@ const CreateToken = () => {
 
             <Col xs="12" className="mt-3">
               <Label className="create-token__label">Free options</Label>
-              <FormGroup check className="mt-1">
+              {/* <FormGroup check className="mt-1">
                 <Label check>
                   <Input type="radio" name="radio1" />
                   <span>3% cro raised only</span>
                 </Label>
-              </FormGroup>
+              </FormGroup> */}
               <FormGroup check className="mt-1">
                 <Label check>
                   <Input type="radio" name="radio1" />{" "}
