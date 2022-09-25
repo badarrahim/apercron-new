@@ -11,7 +11,36 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCurrentContractSelected } from "../store/web3-slice";
 import { addTokenToLaunchPad, verifyTokenAddress } from "../utils/web3-helpers";
 import { TokenABI } from "../utils/abi/TokenABI";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
 const pinatabBearerToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiIzYzIxOWRmNi1kNzNiLTQwOTUtODY2Ni1iZDE4ZTYxZGQ4Y2EiLCJlbWFpbCI6Im11c3RhZmFidXR0MzEyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiI5N2Q1M2Y3MTQ4YmE2ODQxZGRlYyIsInNjb3BlZEtleVNlY3JldCI6IjhhYzJjMzI5ZGVjM2M4MzBkZTg1MTU2MjkyYmIyNTdhODk0ZDlmYjIxOWI0MzllYzZhYzk2YWUzMjczZGIzNmEiLCJpYXQiOjE2NjQwMTUyODJ9.BF5MYxvyJeCHijaF9ocXRc7RW_19-mrW-qXWDzLq0q4';
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: "100%",
+    color: "#ffffff",
+    background: "none",
+    borderRadius: "10px",
+    border: "1px solid rgba(198, 198, 198, 0.6) !important",
+    marginLeft: "0px !important",
+    marginRight: "0px !important",
+    padding: "0px !important",
+
+    // focused color for input with variant='outlined'
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: "transparent",
+      },
+    },
+  },
+}));
+
 const { Step } = Steps;
 
 const CreateToken = () => {
@@ -118,6 +147,7 @@ const CreateToken = () => {
 
   };
 
+  const classes = useStyles();
   return (
     <div className="py-5">
       <div className="d-none d-lg-block">
@@ -350,19 +380,107 @@ const CreateToken = () => {
                 </FormGroup>
               </Col>
 
-              <Col xs="12">
-                <FormGroup check inline>
-                  <Input type="checkbox" />
-                  <Label check className="ml-3">
-                    Using vesting contributor?
-                  </Label>
-                </FormGroup>
-              </Col>
+            <Col md="12">
+              <FormGroup>
+                <Label className="create-token__label">Refund type</Label>
+                <Input type="select">
+                  <option default value="burn">
+                    Burn
+                  </option>
+                  <option default value="refund">
+                    Refund
+                  </option>
+                </Input>
+              </FormGroup>
+            </Col>
 
-              <Col
-                xs="12"
-                className=" d-flex justify-content-center align-items-center p-3 my-5"
-              >
+            <Col md="12" className="my-4">
+              <span className="create-token__primary">
+                Enter the percentage of raised funds that should be allocating
+                to liquidity on (Min 51% Max 100%)
+              </span>
+              <br />
+              <span className="create-token__primary">
+                If i spend 1 cro on how many tokens will i receive? Usually this
+                amount is lower than presale rate to allow for a higher listing
+                price on
+              </span>
+            </Col>
+
+            <Col md="12">
+              <Label className="create-token__label">
+                Select start & end (date,time) (UTC)*
+              </Label>
+            </Col>
+            <Col md="6" className="mb-4">
+              <Label className="create-token__label">
+                Start date & time (UTC)*
+              </Label>
+              <br />
+              <TextField
+                id="datetime-local"
+                label=""
+                type="datetime-local"
+                defaultValue="2017-05-24T10:30"
+                className={classes.textField}
+                variant="outlined"
+                size="small"
+                InputProps={{
+                  style: {
+                    color: "white",
+                    border: "none ",
+                    padding: 0,
+                    margin: 0,
+                  },
+                }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              {/* <Input type="time" /> */}
+            </Col>
+            <Col md="6" className="mb-4">
+              <Label className="create-token__label">
+                End date & time (UTC)*
+              </Label>
+              <br />
+              <TextField
+                id="datetime-local"
+                label=""
+                type="datetime-local"
+                defaultValue="2017-05-24T10:30"
+                className={classes.textField}
+                variant="outlined"
+                size="small"
+                InputProps={{
+                  style: {
+                    color: "white",
+                    border: "none ",
+                    padding: 0,
+                    margin: 0,
+                  },
+                }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e) => console.log("Change", e.target.value)}
+              />
+            </Col>
+
+            <Col xs="12">
+              <FormGroup check inline>
+                <Input type="checkbox" />
+                <Label check className="ml-3">
+                  Using vesting contributor?
+                </Label>
+              </FormGroup>
+            </Col>
+
+            <Col
+              xs="12"
+              className=" d-flex justify-content-center align-items-center p-3 my-5"
+            >
+              
                 <Button
                   onClick={() => setCurrentStep(0)}
                   className="custome-btn-lg mr-2"

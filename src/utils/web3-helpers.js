@@ -6,6 +6,7 @@ import { store as web3Store } from '../store';
 import { setWalletAddress, setEthLanuchPads, setUsdtLanuchPads, setLaunchPadData, setLaunchDataLoading } from '../store/web3-slice';
 import { TokenABI } from './abi/TokenABI';
 import axios from 'axios';
+import bigNumber from 'big-number';
 
 export let web3 = {};
 
@@ -147,7 +148,7 @@ export const getTotalLaunchPads = async () => {
 				const tokenName = await tokencontract.methods.name().call();
 				const tokenSymbol = await tokencontract.methods.symbol().call();
 				// const tokenDecimals = await tokencontract.methods.decimals().call();
-				tempArray.push({ ...ethData, ...ipfsResponse, tokenName, tokenSymbol });
+				tempArray.push({ ...ethData, ...ipfsResponse, tokenName, tokenSymbol, contractType: 'ApercronLaunchpadEth' });
 				index++;
 			}
 		}
@@ -162,7 +163,7 @@ export const getTotalLaunchPads = async () => {
 				const tokenName = await tokencontract.methods.name().call();
 				const tokenSymbol = await tokencontract.methods.symbol().call();
 				// const tokenDecimals = await tokencontract.methods.decimals().call();
-				tempArray.push({ ...ethData, ...ipfsResponse, tokenName, tokenSymbol });
+				tempArray.push({ ...ethData, ...ipfsResponse, tokenName, tokenSymbol, contractType: 'ApercronLaunchpadUSDT' });
 				index++;
 			}
 		}
@@ -174,5 +175,35 @@ export const getTotalLaunchPads = async () => {
 		console.log(err);
 		web3Store.dispatch(setLaunchDataLoading(false));
 		// return { success: false };
+	}
+};
+
+export const buyToken = async (launchId, tokenAmount, tokenPerEth, contractType) => {
+	try {
+		const state = web3Store.getState();
+		const tempWeb3 = new Web3(Web3.givenProvider);
+		let launchPadContract = configEnv[state?.web3Slice?.selectedChainID][contractType];
+		const address = state?.web3Slice?.userAddress;
+		if (!address) {
+			alert('Please connect wallet address');
+			return;
+		}
+		let transferToken = bigNumber(tokenAmount).multiply(
+			bigNumber(String(10 ** 18))
+		);
+		let permaticAmount = JSON.stringify(Number(tokenAmount / tokenPerEth));
+		console.log("amount: " + permaticAmount);
+		let amountInWei = Web3.utils.toWei(permaticAmount, 'ether');
+
+		const contract = new tempWeb3.eth.Contract(launchPadContract.abi, launchPadContract.contractAddress);
+		await contract.methods.buyToken(launchId).send({ from: address, value: amountInWei }).on('receipt', function (result) {
+			console.log("received", result);
+		});
+		return { success: true };
+
+
+	} catch (err) {
+		console.log(err);
+		return { success: false };
 	}
 };

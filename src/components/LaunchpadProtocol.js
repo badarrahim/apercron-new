@@ -5,7 +5,7 @@ import ProtocolCard from "./ProtocolCard";
 
 const LaunchpadProtocl = () => {
   return (
-    <div className="launchpad-protocol px-md-3 py-5 px-2">
+    <div className="launchpad-protocol px-md-3 pt-5 px-2">
       <SectionTitle
         title="Apecron Launchpad"
         description="Apecron is the most 
