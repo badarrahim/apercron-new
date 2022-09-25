@@ -407,13 +407,97 @@ a.nav-link {
   border: 1px solid rgba(3, 49, 108, 0.75);
   border-radius: 114px;
 }
+
+.modal-content {
+  background: none !important;
+  border: 1px solid rgba(26, 130, 255, 0.3) !important;
+  box-shadow: 0px 4px 80px rgb(0 0 0 / 25%) !important;
+  border-radius: 10px !important;
+}
+.modal-body {
+  background: rgba(3, 49, 108, 0.75) !important;
+  border-radius: 10px !important;
+}
 .presale-card img {
   width: 50% !important;
+}
+
+.view-pool-card {
+  /* background: rgba(3, 49, 108, 0.75) !important; */
+  background: rgb(9 63 132) !important;
+  /* border: 1px solid rgba(26, 130, 255, 0.3); */
+  box-shadow: 0px 4px 80px rgb(0 0 0 / 25%);
+  border-radius: 10px;
+}
+
+.timer__card {
+  background: rgb(9 63 132) !important;
+  font-family: "Public Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center !important;
+  color: white !important;
+  letter-spacing: 0;
+  border-radius: 4px !important;
+  padding: 10px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 41px !important;
+  height: 44px !important;
+}
+
+.view-pool-card span {
+  font-family: "Public Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  text-align: center !important;
+  color: white !important;
+  letter-spacing: 0;
+}
+
+.timer-heading {
+  font-family: "Public Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  text-align: center !important;
+  color: white !important;
+  letter-spacing: 0;
 }
 
 .presale-card__status {
   background: rgba(26, 130, 255, 0.3);
   border-radius: 30px;
+}
+.view-pool__input {
+  border: 1px solid rgba(198, 198, 198, 0.6) !important;
+  filter: drop-shadow(0px 4px 90px rgba(0, 0, 0, 0.25)) !important;
+  border-radius: 10px !important;
+  background: none !important;
+  color: #ffffff !important;
+}
+.view-pool__btn {
+  /* background: rgb(9 63 132) !important; */
+  background: none !important;
+
+  border: 0.2px solid rgba(255, 255, 255, 0.83);
+  border-radius: 10px;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  /* line-height: 21px; */
+  text-align: center;
+  /* letter-spacing: 0.05em; */
+  color: #ffffff;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  font-family: "Raleway", sans-serif !important;
+  padding: 5px 40px !important;
 }
 
 .presale-card__status .fa-circle {
@@ -562,6 +646,14 @@ a.nav-link {
 .presale-card__pool-btn:hover {
   background: rgba(26, 130, 255, 0.3);
   border-radius: 30px;
+}
+.presale-card__pool-btn:active {
+  background: rgba(26, 130, 255, 0.3) !important;
+}
+
+.presale-card__pool-btn:focus,
+.presale-card__pool-btn {
+  background: rgba(26, 130, 255, 0.3) !important;
 }
 
 @media (max-width: 768px) {
