@@ -3,11 +3,40 @@ import React, { useState } from "react";
 
 import { Steps } from "antd";
 import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
+import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: "100%",
+    color: "#ffffff",
+    background: "none",
+    borderRadius: "10px",
+    border: "1px solid rgba(198, 198, 198, 0.6) !important",
+    marginLeft: "0px !important",
+    marginRight: "0px !important",
+    padding: "0px !important",
+
+    // focused color for input with variant='outlined'
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused fieldset": {
+        borderColor: "transparent",
+      },
+    },
+  },
+}));
 
 const { Step } = Steps;
 
 const CreateToken = () => {
   const [currentStep, setCurrentStep] = useState(0);
+  const classes = useStyles();
   return (
     <div className="py-5">
       <div className="d-none d-lg-block">
@@ -232,7 +261,12 @@ const CreateToken = () => {
               <FormGroup>
                 <Label className="create-token__label">Refund type</Label>
                 <Input type="select">
-                  <option default>Burn</option>
+                  <option default value="burn">
+                    Burn
+                  </option>
+                  <option default value="refund">
+                    Refund
+                  </option>
                 </Input>
               </FormGroup>
             </Col>
@@ -252,20 +286,62 @@ const CreateToken = () => {
 
             <Col md="12">
               <Label className="create-token__label">
-                Select start time & end time (UTC)*
+                Select start & end (date,time) (UTC)*
               </Label>
             </Col>
-            <Col md="6">
-              <FormGroup>
-                <Label className="create-token__label">Start time (UTC)*</Label>
-                <Input type="time" />
-              </FormGroup>
+            <Col md="6" className="mb-4">
+              <Label className="create-token__label">
+                Start date & time (UTC)*
+              </Label>
+              <br />
+              <TextField
+                id="datetime-local"
+                label=""
+                type="datetime-local"
+                defaultValue="2017-05-24T10:30"
+                className={classes.textField}
+                variant="outlined"
+                size="small"
+                InputProps={{
+                  style: {
+                    color: "white",
+                    border: "none ",
+                    padding: 0,
+                    margin: 0,
+                  },
+                }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              {/* <Input type="time" /> */}
             </Col>
-            <Col md="6">
-              <FormGroup>
-                <Label className="create-token__label">End time (UTC)*</Label>
-                <Input type="time" />
-              </FormGroup>
+            <Col md="6" className="mb-4">
+              <Label className="create-token__label">
+                End date & time (UTC)*
+              </Label>
+              <br />
+              <TextField
+                id="datetime-local"
+                label=""
+                type="datetime-local"
+                defaultValue="2017-05-24T10:30"
+                className={classes.textField}
+                variant="outlined"
+                size="small"
+                InputProps={{
+                  style: {
+                    color: "white",
+                    border: "none ",
+                    padding: 0,
+                    margin: 0,
+                  },
+                }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e) => console.log("Change", e.target.value)}
+              />
             </Col>
 
             <Col xs="12">

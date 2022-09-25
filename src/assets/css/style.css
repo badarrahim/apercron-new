@@ -778,6 +778,10 @@ a.nav-link {
   border-radius: 34px !important;
 }
 
+.create-token select option {
+  background: #3a3434 !important;
+}
+
 .create-token__last span {
   font-family: "Public Sans", sans-serif !important;
   font-size: 20px;
