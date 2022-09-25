@@ -165,7 +165,7 @@ function PresaleCard() {
                   xs="12"
                   className="d-flex create-token__border-bottom py-2 mb-2"
                 >
-                  <span className="mr-auto text-white">Status</span>
+                  <span className="mr-auto text-white">You Purchased</span>
                   <span className="ml-auto  ">0 cro</span>
                 </Col>
               </Card>
