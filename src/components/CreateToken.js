@@ -55,6 +55,7 @@ const CreateToken = () => {
   const [softcap, setSoftcap] = useState(0);
   const [hardcap, setHardcap] = useState(0);
   const [isRefund, setIsRefund] = useState(true);
+  const [isFairLaunch, setIsFairLaunch] = useState(false);
   const [startTime, setStartTime] = useState(0);
   const [endTime, setEndTime] = useState(0);
   const [logoUrl, setLogoUrl] = useState('');
@@ -83,6 +84,7 @@ const CreateToken = () => {
     setSoftcap(0);
     setHardcap(0);
     setIsRefund(true);
+    setIsFairLaunch(false);
     setStartTime(0);
     setEndTime(0);
     setLogoUrl('');
@@ -299,6 +301,14 @@ const CreateToken = () => {
                   (*) is required field.
                 </span>
               </Col>
+              <Col xs="12">
+                <FormGroup check inline>
+                  <Input type="checkbox" checked={isFairLaunch} onChange={e => setIsFairLaunch(e.target.checked)} />
+                  <Label check className="ml-3">
+                    Is Fair Launch?
+                  </Label>
+                </FormGroup>
+              </Col>
               <Col md="12" className="mt-2">
                 <FormGroup>
                   <Label className="create-token__label">Presale rate*</Label>
@@ -383,12 +393,12 @@ const CreateToken = () => {
               <Col md="12">
                 <FormGroup>
                   <Label className="create-token__label">Refund type</Label>
-                  <Input type="select">
-                    <option default value="burn">
-                      Burn
-                    </option>
-                    <option default value="refund">
+                  <Input type="select" onChange={e => setIsRefund(JSON.parse(e.target.value))}>
+                    <option default value="true">
                       Refund
+                    </option>
+                    <option value="false">
+                      Burn
                     </option>
                   </Input>
                 </FormGroup>
@@ -736,7 +746,7 @@ const CreateToken = () => {
                     tokenAddress,
                     totalTokenForSale: parseInt(totalTokenForSale),
                     tokenPerEth: parseInt(presaleRate),
-                    isFairLaunch: false,
+                    isFairLaunch,
                     softcap: parseInt(softcap),
                     hardcap: parseInt(hardcap),
                     isRefund,
