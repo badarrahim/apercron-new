@@ -346,7 +346,7 @@ const CreateToken = () => {
               <Col md="6">
                 <FormGroup>
                   <Label className="create-token__label">Hardcap (cro)*</Label>
-                  <Input type="number" required value={hardcap} onChange={e => setHardcap(e.target.value)} min={1} />
+                  <Input type="number" disabled={isFairLaunch} required={!isFairLaunch} value={hardcap} onChange={e => setHardcap(e.target.value)} min={1} />
                 </FormGroup>
               </Col>
 
