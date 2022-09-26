@@ -17,7 +17,7 @@ import {
 } from "reactstrap";
 import presale from "../assets/img/presale-img.png";
 import Timer from "./Timer";
-import { buyToken } from "../utils/web3-helpers";
+import { buyToken, buyTokenWithEth, buyTokenWithUSDT } from "../utils/web3-helpers";
 function PresaleCard ({ launchpad }) {
   const [viewPool, setViewPool] = useState(false);
   const [launchId, setLaunchId] = useState('');
@@ -108,12 +108,21 @@ function PresaleCard ({ launchpad }) {
         <ModalBody className="px-2 py-4 px-md-4">
           <Form onSubmit={(e) => {
             e.preventDefault();
-            buyToken(launchId, tokenAmount,tokenPerEth, contractType).then(() => {
-              setLaunchId('');
-              setTokenAmount(0);
-              setContractType('')
-              setTokenPerEth('')
-            })
+            if (contractType == "ApercronLaunchpadEth") {
+              buyTokenWithEth(launchId, tokenAmount, tokenPerEth, contractType).then(() => {
+                setLaunchId('');
+                setTokenAmount(0);
+                setContractType('');
+                setTokenPerEth('');
+              });
+            } else if (contractType == "ApercronLaunchpadUSDT") {
+              buyTokenWithUSDT(launchId, tokenAmount, tokenPerEth, contractType).then(() => {
+                setLaunchId('');
+                setTokenAmount(0);
+                setContractType('');
+                setTokenPerEth('');
+              });
+            }
           }}>
             <Row>
               <Col xs="12">

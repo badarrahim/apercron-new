@@ -100,8 +100,8 @@ const CreateToken = () => {
     setTokenName('');
     setTokenSymbol('');
     setTokenDecimals(0);
-    document.getElementById("start-time").value = "";
-    document.getElementById("end-time").value = "";
+    // document.getElementById("start-time").value = "";
+    // document.getElementById("end-time").value = "";
 
   };
 
@@ -340,7 +340,7 @@ const CreateToken = () => {
                 </FormGroup>
               </Col>
 
-              <Col md="12">
+              {/* <Col md="12">
                 <FormGroup>
                   <Label className="create-token__label">Refund type</Label>
                   <Input type="select">
@@ -378,109 +378,112 @@ const CreateToken = () => {
                   <Label className="create-token__label">End time (UTC)*</Label>
                   <Input type="time" id="end-time" onChange={e => setEndTime(moment().add(1, 'd').set("hour", e.target.value.split(':')[0]).set("minute", e.target.value.split(':')[1]).unix())} />
                 </FormGroup>
+              </Col> */}
+
+              <Col md="12">
+                <FormGroup>
+                  <Label className="create-token__label">Refund type</Label>
+                  <Input type="select">
+                    <option default value="burn">
+                      Burn
+                    </option>
+                    <option default value="refund">
+                      Refund
+                    </option>
+                  </Input>
+                </FormGroup>
               </Col>
 
-            <Col md="12">
-              <FormGroup>
-                <Label className="create-token__label">Refund type</Label>
-                <Input type="select">
-                  <option default value="burn">
-                    Burn
-                  </option>
-                  <option default value="refund">
-                    Refund
-                  </option>
-                </Input>
-              </FormGroup>
-            </Col>
+              <Col md="12" className="my-4">
+                <span className="create-token__primary">
+                  Enter the percentage of raised funds that should be allocating
+                  to liquidity on (Min 51% Max 100%)
+                </span>
+                <br />
+                <span className="create-token__primary">
+                  If i spend 1 cro on how many tokens will i receive? Usually this
+                  amount is lower than presale rate to allow for a higher listing
+                  price on
+                </span>
+              </Col>
 
-            <Col md="12" className="my-4">
-              <span className="create-token__primary">
-                Enter the percentage of raised funds that should be allocating
-                to liquidity on (Min 51% Max 100%)
-              </span>
-              <br />
-              <span className="create-token__primary">
-                If i spend 1 cro on how many tokens will i receive? Usually this
-                amount is lower than presale rate to allow for a higher listing
-                price on
-              </span>
-            </Col>
-
-            <Col md="12">
-              <Label className="create-token__label">
-                Select start & end (date,time) (UTC)*
-              </Label>
-            </Col>
-            <Col md="6" className="mb-4">
-              <Label className="create-token__label">
-                Start date & time (UTC)*
-              </Label>
-              <br />
-              <TextField
-                id="datetime-local"
-                label=""
-                type="datetime-local"
-                defaultValue="2017-05-24T10:30"
-                className={classes.textField}
-                variant="outlined"
-                size="small"
-                InputProps={{
-                  style: {
-                    color: "white",
-                    border: "none ",
-                    padding: 0,
-                    margin: 0,
-                  },
-                }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-              {/* <Input type="time" /> */}
-            </Col>
-            <Col md="6" className="mb-4">
-              <Label className="create-token__label">
-                End date & time (UTC)*
-              </Label>
-              <br />
-              <TextField
-                id="datetime-local"
-                label=""
-                type="datetime-local"
-                defaultValue="2017-05-24T10:30"
-                className={classes.textField}
-                variant="outlined"
-                size="small"
-                InputProps={{
-                  style: {
-                    color: "white",
-                    border: "none ",
-                    padding: 0,
-                    margin: 0,
-                  },
-                }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={(e) => console.log("Change", e.target.value)}
-              />
-            </Col>
-
-            <Col xs="12">
-              <FormGroup check inline>
-                <Input type="checkbox" />
-                <Label check className="ml-3">
-                  Using vesting contributor?
+              <Col md="12">
+                <Label className="create-token__label">
+                  Select start & end (date,time) (UTC)*
                 </Label>
-              </FormGroup>
-            </Col>
+              </Col>
+              <Col md="6" className="mb-4">
+                <Label className="create-token__label">
+                  Start date & time (UTC)*
+                </Label>
+                <br />
+                <TextField
+                  id="datetime-local"
+                  label=""
+                  type="datetime-local"
+                  // defaultValue="2017-05-24T10:30"
+                  className={classes.textField}
+                  required={true}
+                  variant="outlined"
+                  size="small"
+                  InputProps={{
+                    style: {
+                      color: "white",
+                      border: "none ",
+                      padding: 0,
+                      margin: 0,
+                    },
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={e => setStartTime(moment(e.target.value).unix())}
+                />
+                {/* <Input type="time" /> */}
+              </Col>
+              <Col md="6" className="mb-4">
+                <Label className="create-token__label">
+                  End date & time (UTC)*
+                </Label>
+                <br />
+                <TextField
+                  id="datetime-local"
+                  label=""
+                  type="datetime-local"
+                  // defaultValue="2017-05-24T10:30"
+                  className={classes.textField}
+                  variant="outlined"
+                  size="small"
+                  InputProps={{
+                    style: {
+                      color: "white",
+                      border: "none ",
+                      padding: 0,
+                      margin: 0,
+                    },
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  onChange={e => setEndTime(moment(e.target.value).unix())}
+                // onChange={(e) => console.log("Change", e.target.value)}
+                />
+              </Col>
 
-            <Col
-              xs="12"
-              className=" d-flex justify-content-center align-items-center p-3 my-5"
-            >
-              
+              <Col xs="12">
+                <FormGroup check inline>
+                  <Input type="checkbox" />
+                  <Label check className="ml-3">
+                    Using vesting contributor?
+                  </Label>
+                </FormGroup>
+              </Col>
+
+              <Col
+                xs="12"
+                className=" d-flex justify-content-center align-items-center p-3 my-5"
+              >
+
                 <Button
                   onClick={() => setCurrentStep(0)}
                   className="custome-btn-lg mr-2"

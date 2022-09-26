@@ -178,7 +178,7 @@ export const getTotalLaunchPads = async () => {
 	}
 };
 
-export const buyToken = async (launchId, tokenAmount, tokenPerEth, contractType) => {
+export const buyTokenWithEth = async (launchId, tokenAmount, tokenPerEth, contractType) => {
 	try {
 		const state = web3Store.getState();
 		const tempWeb3 = new Web3(Web3.givenProvider);
@@ -199,6 +199,41 @@ export const buyToken = async (launchId, tokenAmount, tokenPerEth, contractType)
 		await contract.methods.buyToken(launchId).send({ from: address, value: amountInWei }).on('receipt', function (result) {
 			console.log("received", result);
 		});
+		return { success: true };
+
+
+	} catch (err) {
+		console.log(err);
+		return { success: false };
+	}
+};
+export const buyTokenWithUSDT = async (launchId, tokenAmount, tokenPerEth, contractType) => {
+	try {
+		const state = web3Store.getState();
+		const tempWeb3 = new Web3(Web3.givenProvider);
+		let launchPadContract = configEnv[state?.web3Slice?.selectedChainID][contractType];
+		const address = state?.web3Slice?.userAddress;
+		if (!address) {
+			alert('Please connect wallet address');
+			return;
+		}
+		let transferToken = bigNumber(tokenAmount).multiply(
+			bigNumber(String(10 ** 18))
+		);
+		const contract = new tempWeb3.eth.Contract(launchPadContract.abi, launchPadContract.contractAddress);
+		let usdtAddress = await contract.methods.USDTAddress().call();
+		const contractApprove = new tempWeb3.eth.Contract(TokenABI, usdtAddress);
+		let permaticAmount = JSON.stringify(Number(tokenAmount / tokenPerEth));
+		console.log("amount: " + permaticAmount);
+		let amountInWei = Web3.utils.toWei(permaticAmount, 'ether');
+		await contractApprove.methods.approve(launchPadContract.contractAddress, transferToken).send({ from: address })
+			.on('receipt', async (result) => {
+				console.log(result);
+				await contract.methods.buyToken(launchId, amountInWei).send({ from: address }).on('receipt', function (result) {
+					console.log("received", result);
+				});
+			});
+
 		return { success: true };
 
 
