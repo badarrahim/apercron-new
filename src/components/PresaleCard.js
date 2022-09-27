@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import moment from "moment";
 import CountDown from "react-countdown";
-
+import Web3 from 'web3';
 import {
   Button,
   Card,
@@ -68,7 +68,7 @@ function PresaleCard ({ launchpad }) {
           <span className="presale-card__sub-1">Soft</span>
         </Col>
         <Col xs="12">
-          <span className="presale-card__sub-2">{launchpad?.totalTokenForSale} {launchpad?.tokenSymbol}</span>
+          <span className="presale-card__sub-2">{launchpad?.totalTokenForSale?.length > 17 ? Web3.utils.fromWei(launchpad?.totalTokenForSale, 'ether') : launchpad?.totalTokenForSale} {launchpad?.tokenSymbol}</span>
         </Col>
         <Col xs="12">
           <span className="presale-card__sub-3">Progress</span>
@@ -79,10 +79,10 @@ function PresaleCard ({ launchpad }) {
         </Col>
 
         <Col xs="6">
-          <span className="presale-card__light">{launchpad?.softcap} cro</span>
+          <span className="presale-card__light">{launchpad?.softcap?.length > 17 ? Web3.utils.fromWei(launchpad?.softcap, 'ether') : launchpad?.softcap} cro</span>
         </Col>
         <Col xs="6" className="d-flex justify-content-end align-items-center">
-          <span className="presale-card__light">{launchpad?.hardcap} cro</span>
+          <span className="presale-card__light">{launchpad?.hardcap?.length > 17 ? Web3.utils.fromWei(launchpad?.hardcap, 'ether') : launchpad?.hardcap} cro</span>
         </Col>
         <Col xs="6">
           <span className="presale-card__light">Liquidity</span>
@@ -207,7 +207,7 @@ function PresaleCard ({ launchpad }) {
                     className="d-flex create-token__border-bottom py-2"
                   >
                     <span className="mr-auto text-white">Current Rate</span>
-                    <span className="ml-auto ">1 cro={launchData?.tokenPerEth}</span>
+                    <span className="ml-auto ">1 cro={launchData?.tokenPerEth?.length > 17 ? Web3.utils.fromWei(launchData?.tokenPerEth, 'ether') : launchData?.tokenPerEth}</span>
                   </Col>
                   <Col
                     xs="12"

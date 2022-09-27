@@ -125,7 +125,11 @@ const CreateToken = () => {
       let transferToken = bigNumber(totalTokenForSale).multiply(
         bigNumber(String(10 ** 18))
       );
-      console.log(transferToken);
+      obj['tokenPerEth'] = Web3.utils.toWei(obj['tokenPerEth'].toString(), 'ether');
+      obj['totalTokenForSale'] = Web3.utils.toWei(obj['totalTokenForSale'].toString(), 'ether');
+      obj['softcap'] = Web3.utils.toWei(obj['softcap'].toString(), 'ether');
+      obj['hardcap'] = Web3.utils.toWei(obj['hardcap'].toString(), 'ether');
+      console.log({ obj });
       await contractApprove.methods.approve(launchPadContract.contractAddress, transferToken).send({ from: address })
         .on('receipt', async (result) => {
           console.log(result);
@@ -653,7 +657,7 @@ const CreateToken = () => {
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">Factory address</span>
               <div className="ml-auto d-flex align-items-center">
-                <span className=" create-token__primary">xxxxxxxx</span>
+                <span className=" create-token__primary">{tokenAddress}</span>
                 <i className="fa fa-copy create-token__danger ml-2"></i>
               </div>
             </Col>
