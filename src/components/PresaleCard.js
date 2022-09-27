@@ -20,19 +20,31 @@ import Timer from "./Timer";
 import { buyToken, buyTokenWithEth, buyTokenWithUSDT } from "../utils/web3-helpers";
 function PresaleCard ({ launchpad }) {
   const [viewPool, setViewPool] = useState(false);
+  const [launchData, setLaunchData] = useState(null);
   const [launchId, setLaunchId] = useState('');
   const [tokenAmount, setTokenAmount] = useState(0);
   const [contractType, setContractType] = useState('');
-  const [tokenPerEth,setTokenPerEth] = useState('')
+  const [tokenPerEth, setTokenPerEth] = useState('');
   const viewPoolToggle = () => {
     setViewPool(!viewPool);
   };
   let endTime = moment.unix(launchpad?.endTime);
   let startTime = moment.unix(launchpad?.launchTime);
   let diff = moment.duration(endTime.diff(startTime)).asDays();
-
+  let currentTime = moment().valueOf();
   const time = new Date();
   time.setSeconds(time.getSeconds() + 600);
+
+  const getStatus = (launchPad) => {
+    if (moment.unix(launchPad.launchTime).valueOf() > currentTime) {
+      return 'Upcoming';
+    } else if (moment.unix(launchPad.launchTime).valueOf() < currentTime && moment.unix(launchPad.endTime).valueOf() > currentTime) {
+      return 'Started';
+    } else if (moment.unix(launchPad.endTime).valueOf() < currentTime) {
+      return 'Ended';
+    }
+    console.log(moment().format("L LT"), moment.unix(launchPad.launchTime).format("L LT"), moment.unix(launchPad.endTime).format("L LT"));
+  }
   return (
     <div className="presale-card py-5">
       <Row className="px-5">
@@ -42,7 +54,7 @@ function PresaleCard ({ launchpad }) {
         <Col xs="6" className="d-flex justify-content-end align-items-center">
           <div className="d-flex justify-content-center align-items-center presale-card__status px-3 py-2">
             <i className="fa fa-circle mr-2" aria-hidden="true"></i>
-            <span>Upcoming</span>
+            <span>{launchpad && getStatus(launchpad)}</span>
           </div>
         </Col>
         <Col xs="12" className="mt-2">
@@ -97,6 +109,7 @@ function PresaleCard ({ launchpad }) {
             setLaunchId(launchpad?.id);
             setContractType(launchpad?.contractType);
             setTokenPerEth(launchpad?.tokenPerEth);
+            setLaunchData(launchpad)
             viewPoolToggle();
           }}>
             View Pool
@@ -108,20 +121,26 @@ function PresaleCard ({ launchpad }) {
         <ModalBody className="px-2 py-4 px-md-4">
           <Form onSubmit={(e) => {
             e.preventDefault();
-            if (contractType == "ApercronLaunchpadEth") {
-              buyTokenWithEth(launchId, tokenAmount, tokenPerEth, contractType).then(() => {
-                setLaunchId('');
-                setTokenAmount(0);
-                setContractType('');
-                setTokenPerEth('');
-              });
-            } else if (contractType == "ApercronLaunchpadUSDT") {
-              buyTokenWithUSDT(launchId, tokenAmount, tokenPerEth, contractType).then(() => {
-                setLaunchId('');
-                setTokenAmount(0);
-                setContractType('');
-                setTokenPerEth('');
-              });
+            if (launchData && getStatus(launchData) == 'Started') {
+              if (contractType == "ApercronLaunchpadEth") {
+                buyTokenWithEth(launchId, tokenAmount, tokenPerEth, contractType).then(() => {
+                  setLaunchId('');
+                  setTokenAmount(0);
+                  setContractType('');
+                  setTokenPerEth('');
+                });
+              } else if (contractType == "ApercronLaunchpadUSDT") {
+                buyTokenWithUSDT(launchId, tokenAmount, tokenPerEth, contractType).then(() => {
+                  setLaunchId('');
+                  setTokenAmount(0);
+                  setContractType('');
+                  setTokenPerEth('');
+                });
+              }
+            } else if (launchData && getStatus(launchData) == 'Upcoming') {
+              alert('Launch is not started yet.');
+            } else if (launchData && getStatus(launchData) == 'Ended') {
+              alert('Launch is ended')
             }
           }}>
             <Row>
@@ -130,10 +149,10 @@ function PresaleCard ({ launchpad }) {
                   <span>Make sure the website is apecron</span>
                 </Card>
               </Col>
-              <Col xs="12 d-flex justify-content-center align-items-center flex-column mt-2 ">
+              {/* <Col xs="12 d-flex justify-content-center align-items-center flex-column mt-2 ">
                 <span className="mb-1 timer-heading">Presale ends in</span>
                 <Timer expiryTimestamp={time} />
-              </Col>
+              </Col> */}
               <Col xs="12" className="mt-4">
                 <div
                   style={{
@@ -181,14 +200,14 @@ function PresaleCard ({ launchpad }) {
                     className="d-flex create-token__border-bottom py-2"
                   >
                     <span className="mr-auto text-white">Status</span>
-                    <span className="ml-auto ">in progress</span>
+                    <span className="ml-auto ">{launchData && getStatus(launchData)}</span>
                   </Col>
                   <Col
                     xs="12"
                     className="d-flex create-token__border-bottom py-2"
                   >
                     <span className="mr-auto text-white">Current Rate</span>
-                    <span className="ml-auto ">1 cro=399999</span>
+                    <span className="ml-auto ">1 cro={launchData?.tokenPerEth}</span>
                   </Col>
                   <Col
                     xs="12"
