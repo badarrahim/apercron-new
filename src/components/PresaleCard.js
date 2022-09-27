@@ -153,7 +153,7 @@ function PresaleCard ({ launchpad }) {
                 <span className="mb-1 timer-heading">Presale ends in</span>
                 <Timer expiryTimestamp={time} />
               </Col> */}
-              <Col xs="12" className="mt-4">
+              {/* <Col xs="12" className="mt-4">
                 <div
                   style={{
                     height: "17px",
@@ -172,14 +172,14 @@ function PresaleCard ({ launchpad }) {
                       textAlign: "right",
                     }}
                   >
-                    {/* <span style={progresstext}>{`${progress}%`}</span> */}
+                    <span style={progresstext}>{`${progress}%`}</span>
                   </div>
                 </div>
-              </Col>
-              <Col xs="12" className="d-flex  py-2">
+              </Col> */}
+              {/* <Col xs="12" className="d-flex  py-2">
                 <span className="mr-auto text-white">87.7 cros</span>
                 <span className="ml-auto create-token__primary">50 cros</span>
-              </Col>
+              </Col> */}
               <Col md="12">
                 <FormGroup>
                   <Label className="create-token__label">Amount</Label>
@@ -213,6 +213,13 @@ function PresaleCard ({ launchpad }) {
                     xs="12"
                     className="d-flex create-token__border-bottom py-2"
                   >
+                    <span className="mr-auto text-white">Total Sold</span>
+                    <span className="ml-auto ">{launchData && Web3.utils.fromWei(launchData?.totalSoldToken?.toString(), 'ether')}</span>
+                  </Col>
+                  {/* <Col
+                    xs="12"
+                    className="d-flex create-token__border-bottom py-2"
+                  >
                     <span className="mr-auto text-white">Total Contributors</span>
                     <span className="ml-auto ">0</span>
                   </Col>
@@ -222,7 +229,7 @@ function PresaleCard ({ launchpad }) {
                   >
                     <span className="mr-auto text-white">You Purchased</span>
                     <span className="ml-auto  ">0 cro</span>
-                  </Col>
+                  </Col> */}
                 </Card>
               </Col>
             </Row></Form>
