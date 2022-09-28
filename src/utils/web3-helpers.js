@@ -188,13 +188,14 @@ export const buyTokenWithEth = async (launchId, tokenAmount, tokenPerEth, contra
 			alert('Please connect wallet address');
 			return;
 		}
-		let transferToken = bigNumber(tokenAmount).multiply(
-			bigNumber(String(10 ** 18))
-		);
-		tokenPerEth = tokenPerEth?.toString().length > 17 ? Web3.utils.fromWei(tokenPerEth.toString(), 'ether') : tokenPerEth;
-		let permaticAmount = JSON.stringify(Number(tokenAmount / tokenPerEth));
-		console.log("amount: " + permaticAmount);
-		let amountInWei = Web3.utils.toWei(permaticAmount, 'ether');
+		// let transferToken = bigNumber(tokenAmount).multiply(
+		// 	bigNumber(String(10 ** 18))
+		// );
+		// tokenPerEth = tokenPerEth?.toString().length > 17 ? Web3.utils.fromWei(tokenPerEth.toString(), 'ether') : tokenPerEth;
+		// let permaticAmount = JSON.stringify(Number(tokenAmount / tokenPerEth));
+		// console.log("amount: " + permaticAmount);
+		let amountInWei = Web3.utils.toWei(tokenAmount, 'ether')
+			;
 
 		const contract = new tempWeb3.eth.Contract(launchPadContract.abi, launchPadContract.contractAddress);
 		await contract.methods.buyToken(launchId).send({ from: address, value: amountInWei }).on('receipt', function (result) {
@@ -224,11 +225,12 @@ export const buyTokenWithUSDT = async (launchId, tokenAmount, tokenPerEth, contr
 		const contract = new tempWeb3.eth.Contract(launchPadContract.abi, launchPadContract.contractAddress);
 		let usdtAddress = await contract.methods.USDTAddress().call();
 		const contractApprove = new tempWeb3.eth.Contract(TokenABI, usdtAddress);
-		tokenPerEth = tokenPerEth?.toString().length > 17 ? Web3.utils.fromWei(tokenPerEth.toString(), 'ether') : tokenPerEth;
-		let permaticAmount = JSON.stringify(Number(tokenAmount / tokenPerEth));
+		// tokenPerEth = tokenPerEth?.toString().length > 17 ? Web3.utils.fromWei(tokenPerEth.toString(), 'ether') : tokenPerEth;
+		// let permaticAmount = JSON.stringify(Number(tokenAmount / tokenPerEth));
+		let permaticAmount = JSON.stringify(Number(tokenAmount));
 		console.log("amount: " + permaticAmount);
 		let amountInWei = Web3.utils.toWei(permaticAmount, 'ether');
-		await contractApprove.methods.approve(launchPadContract.contractAddress, transferToken).send({ from: address })
+		await contractApprove.methods.approve(launchPadContract.contractAddress, amountInWei).send({ from: address })
 			.on('receipt', async (result) => {
 				console.log(result);
 				await contract.methods.buyToken(launchId, amountInWei).send({ from: address }).on('receipt', function (result) {

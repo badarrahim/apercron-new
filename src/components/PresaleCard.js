@@ -36,14 +36,13 @@ function PresaleCard ({ launchpad }) {
   time.setSeconds(time.getSeconds() + 600);
 
   const getStatus = (launchPad) => {
-    if (moment.unix(launchPad.launchTime).valueOf() > currentTime) {
+    if (moment.unix(launchPad?.launchTime).valueOf() > currentTime) {
       return 'Upcoming';
-    } else if (moment.unix(launchPad.launchTime).valueOf() < currentTime && moment.unix(launchPad.endTime).valueOf() > currentTime) {
+    } else if (moment.unix(launchPad?.launchTime).valueOf() < currentTime && moment.unix(launchPad?.endTime).valueOf() > currentTime) {
       return 'Started';
-    } else if (moment.unix(launchPad.endTime).valueOf() < currentTime) {
+    } else if (moment.unix(launchPad?.endTime).valueOf() < currentTime) {
       return 'Ended';
     }
-    console.log(moment().format("L LT"), moment.unix(launchPad.launchTime).format("L LT"), moment.unix(launchPad.endTime).format("L LT"));
   }
   return (
     <div className="presale-card py-5">
@@ -61,7 +60,7 @@ function PresaleCard ({ launchpad }) {
           <span className="presale-card__heading">{launchpad?.tokenName}</span>
         </Col>
         <Col xs="12">
-          <span className="presale-card__sub-heading">Fair Lunch</span>
+          <span className="presale-card__sub-heading">Fair Launch</span>
         </Col>
 
         <Col xs="12" className="mt-3">
@@ -79,10 +78,10 @@ function PresaleCard ({ launchpad }) {
         </Col>
 
         <Col xs="6">
-          <span className="presale-card__light">{launchpad?.softcap?.length > 17 ? Web3.utils.fromWei(launchpad?.softcap, 'ether') : launchpad?.softcap} cro</span>
+          <span className="presale-card__light">{launchpad?.softcap?.length > 17 ? Web3.utils.fromWei(launchpad?.softcap, 'ether') : launchpad?.softcap} {launchpad?.contractType == 'ApercronLaunchpadEth' ? 'ETH' : 'USDT'}</span>
         </Col>
         <Col xs="6" className="d-flex justify-content-end align-items-center">
-          <span className="presale-card__light">{launchpad?.hardcap?.length > 17 ? Web3.utils.fromWei(launchpad?.hardcap, 'ether') : launchpad?.hardcap} cro</span>
+          <span className="presale-card__light">{launchpad?.hardcap?.length > 17 ? Web3.utils.fromWei(launchpad?.hardcap, 'ether') : launchpad?.hardcap} {launchpad?.contractType == 'ApercronLaunchpadEth' ? 'ETH' : 'USDT'}</span>
         </Col>
         <Col xs="6">
           <span className="presale-card__light">Liquidity</span>
@@ -149,10 +148,21 @@ function PresaleCard ({ launchpad }) {
                   <span>Make sure the website is apecron</span>
                 </Card>
               </Col>
-              {/* <Col xs="12 d-flex justify-content-center align-items-center flex-column mt-2 ">
-                <span className="mb-1 timer-heading">Presale ends in</span>
-                <Timer expiryTimestamp={time} />
-              </Col> */}
+              {/* Ends in  */}
+              {moment.unix(launchData?.launchTime).valueOf() < moment().valueOf() && moment.unix(launchData?.endTime).valueOf() > moment().valueOf() &&
+                <Col xs="12 d-flex justify-content-center align-items-center flex-column mt-2 ">
+                  <span className="mb-1 timer-heading">Presale ends in</span>
+                  <Timer expiryTimestamp={new Date(moment.unix(launchData?.endTime))} />
+                </Col>
+              }
+              {/* Start in   */}
+              {moment.unix(launchData?.launchTime).valueOf() > moment().valueOf() &&
+                <Col xs="12 d-flex justify-content-center align-items-center flex-column mt-2 ">
+                  <span className="mb-1 timer-heading">Presale Starts in</span>
+                  <Timer expiryTimestamp={new Date(moment.unix(launchData?.launchTime))} />
+                </Col>
+              }
+
               {/* <Col xs="12" className="mt-4">
                 <div
                   style={{
