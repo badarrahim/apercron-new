@@ -64,6 +64,11 @@ const Header = () => {
                 <Button className="custome-btn" onClick={()=>connectWallet()}>{userAddress?userAddress?.replace(userAddress?.slice(5,36),'***'):"Connect"}</Button>
               </NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink>
+                <Button className="custome-btn" onClick={()=>connectWallet()}>Switch Network</Button>
+              </NavLink>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
