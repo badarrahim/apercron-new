@@ -126,7 +126,7 @@ const CreateToken = () => {
         bigNumber(String(10 ** 18))
       );
       obj['tokenPerEth'] = Web3.utils.toWei(obj['tokenPerEth'].toString(), 'ether');
-      obj['totalTokenForSale'] = Web3.utils.toWei(obj['totalTokenForSale'].toString(), 'ether');
+      obj['totalTokenForSale'] = obj['totalTokenForSale'].toString();
       obj['softcap'] = Web3.utils.toWei(obj['softcap'].toString(), 'ether');
       obj['hardcap'] = Web3.utils.toWei(obj['hardcap'].toString(), 'ether');
       console.log({ obj });
