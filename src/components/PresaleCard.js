@@ -189,7 +189,7 @@ function PresaleCard ({ launchpad }) {
 
               <Col xs="12 d-flex justify-content-center align-items-center mt-3">
                 <Button type="submit" className="view-pool__btn">
-                  <i className="fa fa-check ml-auto mr-2"></i>Buy with cros
+                  <i className="fa fa-check ml-auto mr-2"></i>Buy with {launchData?.contractType == 'ApercronLaunchpadEth' ? 'ETH' : 'USDT'}
                 </Button>
               </Col>
 
@@ -207,7 +207,7 @@ function PresaleCard ({ launchpad }) {
                     className="d-flex create-token__border-bottom py-2"
                   >
                     <span className="mr-auto text-white">Current Rate</span>
-                    <span className="ml-auto ">1 cro={launchData?.tokenPerEth?.length > 17 ? Web3.utils.fromWei(launchData?.tokenPerEth, 'ether') : launchData?.tokenPerEth}</span>
+                    <span className="ml-auto ">1 {launchData?.contractType == 'ApercronLaunchpadEth' ? 'ETH' : 'USDT'}={launchData?.tokenPerEth?.length > 17 ? Web3.utils.fromWei(launchData?.tokenPerEth, 'ether') : launchData?.tokenPerEth}</span>
                   </Col>
                   <Col
                     xs="12"
