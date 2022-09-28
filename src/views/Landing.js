@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Container } from "reactstrap";
 import CreateToken from "../components/CreateToken";
@@ -9,9 +10,10 @@ import TokenSales from "../components/TokenSales";
 import { getTotalLaunchPads } from "../utils/web3-helpers";
 
 const Landing = (props) => {
+  const {selectedChainID} = useSelector(state=>state?.web3Slice);
   useEffect(() => {
     getTotalLaunchPads();
-  })
+  },[selectedChainID])
 
   return (
     <>

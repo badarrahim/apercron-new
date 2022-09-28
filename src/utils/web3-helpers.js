@@ -2,8 +2,8 @@ import Web3 from 'web3';
 import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { configEnv } from './configEnv';
-import { store as web3Store } from '../store';
-import { setWalletAddress, setEthLanuchPads, setUsdtLanuchPads, setLaunchPadData, setLaunchDataLoading } from '../store/web3-slice';
+import { store, store as web3Store } from '../store';
+import { setWalletAddress, setEthLanuchPads, setUsdtLanuchPads, setLaunchPadData, setLaunchDataLoading, setSelectedNetwork } from '../store/web3-slice';
 import { TokenABI } from './abi/TokenABI';
 import axios from 'axios';
 import bigNumber from 'big-number';
@@ -11,6 +11,7 @@ import bigNumber from 'big-number';
 export let web3 = {};
 
 web3[80001] = new Web3(configEnv[80001]?.rpc);
+web3[4] = new Web3(configEnv[4]?.rpc);
 
 export const connectWallet = async () => {
 	try {
@@ -246,3 +247,28 @@ export const buyTokenWithUSDT = async (launchId, tokenAmount, tokenPerEth, contr
 		return { success: false };
 	}
 };
+
+export const switchNetwork = async (chainID)=>{
+	try{
+		if(window.ethereum){
+        
+			const hexChain = await web3[80001].utils.toHex(chainID);
+			if(!web3){
+				web3 = new Web3(window?.ethereum)
+			}
+			debugger
+			await window?.ethereum?.request({
+			method: 'wallet_switchEthereumChain',
+			params: [{
+				chainId:hexChain
+			}]
+		});
+
+		store.dispatch(setSelectedNetwork(chainID))
+	}
+	}
+	catch(err){
+		console.log(err);
+		throw new Error(err?.message);
+	}
+}

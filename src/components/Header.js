@@ -17,11 +17,11 @@ import {
   Button,
 } from "reactstrap";
 import { useSelector } from "react-redux";
-import { connectWallet } from "../utils/web3-helpers";
+import { connectWallet, switchNetwork } from "../utils/web3-helpers";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const {userAddress} = useSelector(state=>state?.web3Slice);
+  const {userAddress,selectedChainID} = useSelector(state=>state?.web3Slice);
   const toggle = () => {
     setIsOpen(!isOpen);
   };
@@ -66,7 +66,13 @@ const Header = () => {
             </NavItem>
             <NavItem>
               <NavLink>
-                <Button className="custome-btn" onClick={()=>connectWallet()}>Switch Network</Button>
+                <Button className="custome-btn" onClick={()=>{
+                  if(selectedChainID===80001){
+                    switchNetwork(4);
+                  }else{
+                    switchNetwork(80001);
+                  }
+                }}>Switch Network</Button>
               </NavLink>
             </NavItem>
           </Nav>
