@@ -133,8 +133,8 @@ const CreateToken = () => {
       obj['totalTokenForSale'] = Web3.utils.toWei(obj['totalTokenForSale'].toString(), 'ether');
       obj['softcap'] = Web3.utils.toWei(obj['softcap'].toString(), 'ether');
       obj['hardcap'] = Web3.utils.toWei(obj['hardcap'].toString(), 'ether');
-      obj['minBuy'] = Web3.utils.toWei(obj['minBuy'].toString(), 'ether');
-      obj['maxBuy'] = Web3.utils.toWei(obj['maxBuy'].toString(), 'ether');
+      // obj['minBuy'] = Web3.utils.toWei(obj['minBuy'].toString(), 'ether');
+      // obj['maxBuy'] = Web3.utils.toWei(obj['maxBuy'].toString(), 'ether');
       console.log({ obj });
       await contractApprove.methods.approve(launchPadContract.contractAddress, transferToken).send({ from: address })
         .on('receipt', async (result) => {
@@ -716,11 +716,11 @@ const CreateToken = () => {
             </Col>
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">Minimum buy</span>
-              <span className="ml-auto create-token__primary">0 {currencySelected}</span>
+              <span className="ml-auto create-token__primary">{minBuy} {currencySelected}</span>
             </Col>
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">Maximum buy</span>
-              <span className="ml-auto create-token__primary">0 {currencySelected}</span>
+              <span className="ml-auto create-token__primary">{maxBuy} {currencySelected}</span>
             </Col>
 
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
@@ -765,17 +765,17 @@ const CreateToken = () => {
               <Button
                 onClick={() => {
                   let obj = {
-                    tokenAddress,
-                    totalTokenForSale: parseInt(totalTokenForSale),
-                    tokenPerEth: parseInt(presaleRate),
-                    isFairLaunch,
-                    softcap: parseInt(softcap),
-                    hardcap: parseInt(hardcap),
-                    isRefund,
-                    launchTime: parseInt(startTime),
                     endTime: parseInt(endTime),
-                    minBuy: parseInt(minBuy),
-                    maxBuy: parseInt(maxBuy),
+                    launchTime: parseInt(startTime),
+                    tokenAddress,
+                    hardcap: parseInt(hardcap),
+                    softcap: parseInt(softcap),
+                    tokenPerEth: parseInt(presaleRate),
+                    totalTokenForSale: parseInt(totalTokenForSale),
+                    isFairLaunch,
+                    isRefund,
+                    // minBuy: parseInt(minBuy),
+                    // maxBuy: parseInt(maxBuy),
                     uri
                   };
                   addLaunchPadToken(obj);
