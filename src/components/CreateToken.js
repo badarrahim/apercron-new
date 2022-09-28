@@ -125,8 +125,8 @@ const CreateToken = () => {
       let transferToken = bigNumber(totalTokenForSale).multiply(
         bigNumber(String(10 ** 18))
       );
-      obj['tokenPerEth'] = Web3.utils.toWei(obj['tokenPerEth'].toString(), 'ether');
-      obj['totalTokenForSale'] = obj['totalTokenForSale'].toString();
+      obj['tokenPerEth'] =obj['tokenPerEth'].toString();
+      obj['totalTokenForSale'] = Web3.utils.toWei(obj['totalTokenForSale'].toString(), 'ether');
       obj['softcap'] = Web3.utils.toWei(obj['softcap'].toString(), 'ether');
       obj['hardcap'] = Web3.utils.toWei(obj['hardcap'].toString(), 'ether');
       console.log({ obj });
