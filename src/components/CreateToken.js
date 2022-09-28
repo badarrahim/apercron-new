@@ -73,6 +73,8 @@ const CreateToken = () => {
   const [tokenName, setTokenName] = useState('');
   const [tokenSymbol, setTokenSymbol] = useState('');
   const [tokenDecimals, setTokenDecimals] = useState(0);
+  const [minBuy, setMinBuy] = useState(0);
+  const [maxBuy, setMaxBuy] = useState(0);
   const dispatch = useDispatch();
 
   const clearFields = () => {
@@ -83,6 +85,8 @@ const CreateToken = () => {
     setTotalTokenForSale(0);
     setSoftcap(0);
     setHardcap(0);
+    setMinBuy(0);
+    setMaxBuy(0);
     setIsRefund(true);
     setIsFairLaunch(false);
     setStartTime(0);
@@ -111,7 +115,7 @@ const CreateToken = () => {
     try {
       const tempWeb3 = new Web3(Web3.givenProvider);
       const improvedWeb3 = new Web3(configEnv[selectedChainID]?.rpc);
-      let launchPadContract = currencySelected == 'ETH' ? configEnv[selectedChainID]?.ApercronLaunchpadEth : configEnv[selectedChainID]?.ApercronLaunchpadUSDT;
+      let launchPadContract = currencySelected == 'USDT' ? configEnv[selectedChainID]?.ApercronLaunchpadUSDT : configEnv[selectedChainID]?.ApercronLaunchpadEth;
       const address = userAddress;
 
       if (!address) {
@@ -129,6 +133,8 @@ const CreateToken = () => {
       obj['totalTokenForSale'] = Web3.utils.toWei(obj['totalTokenForSale'].toString(), 'ether');
       obj['softcap'] = Web3.utils.toWei(obj['softcap'].toString(), 'ether');
       obj['hardcap'] = Web3.utils.toWei(obj['hardcap'].toString(), 'ether');
+      obj['minBuy'] = Web3.utils.toWei(obj['minBuy'].toString(), 'ether');
+      obj['maxBuy'] = Web3.utils.toWei(obj['maxBuy'].toString(), 'ether');
       console.log({ obj });
       await contractApprove.methods.approve(launchPadContract.contractAddress, transferToken).send({ from: address })
         .on('receipt', async (result) => {
@@ -340,7 +346,7 @@ const CreateToken = () => {
 
               <Col md="6">
                 <FormGroup>
-                  <Label className="create-token__label">Softcap (cro)*</Label>
+                  <Label className="create-token__label">Softcap ({currencySelected})*</Label>
                   <Input type='number' required value={softcap} onChange={e => setSoftcap(e.target.value)} min={1} />
                   <span className="create-token__primary">
                   Softcap must be >=50% of hardcap
@@ -349,8 +355,20 @@ const CreateToken = () => {
               </Col>
               <Col md="6">
                 <FormGroup>
-                  <Label className="create-token__label">Hardcap (cro)*</Label>
+                  <Label className="create-token__label">Hardcap ({currencySelected})*</Label>
                   <Input type="number" disabled={isFairLaunch} required={!isFairLaunch} value={hardcap} onChange={e => setHardcap(e.target.value)} min={1} />
+                </FormGroup>
+              </Col>
+              <Col md="6">
+                <FormGroup>
+                  <Label className="create-token__label">Minimum Buy ({currencySelected})*</Label>
+                  <Input type='number' min={1} required value={minBuy} onChange={e => setMinBuy(e.target.value)} min={1} />
+                </FormGroup>
+              </Col>
+              <Col md="6">
+                <FormGroup>
+                  <Label className="create-token__label">Maximum Buy ({currencySelected})*</Label>
+                  <Input type="number" required min={minBuy + 1 || 1} value={maxBuy} onChange={e => setMaxBuy(e.target.value)} min={1} />
                 </FormGroup>
               </Col>
 
@@ -686,11 +704,11 @@ const CreateToken = () => {
             </Col>
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">Softcap</span>
-              <span className="ml-auto create-token__primary">{softcap} cro</span>
+              <span className="ml-auto create-token__primary">{softcap} {currencySelected}</span>
             </Col>
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">Hardcap</span>
-              <span className="ml-auto create-token__primary">{hardcap} cro</span>
+              <span className="ml-auto create-token__primary">{hardcap} {currencySelected}</span>
             </Col>
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">Unsold tokens</span>
@@ -698,11 +716,11 @@ const CreateToken = () => {
             </Col>
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">Minimum buy</span>
-              <span className="ml-auto create-token__primary">0 cro</span>
+              <span className="ml-auto create-token__primary">0 {currencySelected}</span>
             </Col>
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
               <span className="mr-auto text-white">Maximum buy</span>
-              <span className="ml-auto create-token__primary">0 cro</span>
+              <span className="ml-auto create-token__primary">0 {currencySelected}</span>
             </Col>
 
             <Col xs="12" className="d-flex create-token__border-bottom py-2">
@@ -756,6 +774,8 @@ const CreateToken = () => {
                     isRefund,
                     launchTime: parseInt(startTime),
                     endTime: parseInt(endTime),
+                    minBuy: parseInt(minBuy),
+                    maxBuy: parseInt(maxBuy),
                     uri
                   };
                   addLaunchPadToken(obj);

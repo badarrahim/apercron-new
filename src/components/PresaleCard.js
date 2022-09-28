@@ -18,6 +18,8 @@ import {
 import presale from "../assets/img/presale-img.png";
 import Timer from "./Timer";
 import { buyToken, buyTokenWithEth, buyTokenWithUSDT } from "../utils/web3-helpers";
+import { configEnv } from "../utils/configEnv";
+import { useSelector } from "react-redux";
 function PresaleCard ({ launchpad }) {
   const [viewPool, setViewPool] = useState(false);
   const [launchData, setLaunchData] = useState(null);
@@ -28,6 +30,8 @@ function PresaleCard ({ launchpad }) {
   const viewPoolToggle = () => {
     setViewPool(!viewPool);
   };
+  const { selectedChainID, userAddress } = useSelector(state => state?.web3Slice);
+
   let endTime = moment.unix(launchpad?.endTime);
   let startTime = moment.unix(launchpad?.launchTime);
   let diff = moment.duration(endTime.diff(startTime)).asDays();
@@ -78,10 +82,10 @@ function PresaleCard ({ launchpad }) {
         </Col>
 
         <Col xs="6">
-          <span className="presale-card__light">{launchpad?.softcap?.length > 17 ? Web3.utils.fromWei(launchpad?.softcap, 'ether') : launchpad?.softcap} {launchpad?.contractType == 'ApercronLaunchpadEth' ? 'ETH' : 'USDT'}</span>
+          <span className="presale-card__light">{launchpad?.softcap?.length > 17 ? Web3.utils.fromWei(launchpad?.softcap, 'ether') : launchpad?.softcap} {launchpad?.contractType == 'ApercronLaunchpadEth' ? configEnv[selectedChainID].currency : 'USDT'}</span>
         </Col>
         <Col xs="6" className="d-flex justify-content-end align-items-center">
-          <span className="presale-card__light">{launchpad?.hardcap?.length > 17 ? Web3.utils.fromWei(launchpad?.hardcap, 'ether') : launchpad?.hardcap} {launchpad?.contractType == 'ApercronLaunchpadEth' ? 'ETH' : 'USDT'}</span>
+          <span className="presale-card__light">{launchpad?.hardcap?.length > 17 ? Web3.utils.fromWei(launchpad?.hardcap, 'ether') : launchpad?.hardcap} {launchpad?.contractType == 'ApercronLaunchpadEth' ? configEnv[selectedChainID].currency : 'USDT'}</span>
         </Col>
         <Col xs="6">
           <span className="presale-card__light">Liquidity</span>
@@ -199,7 +203,7 @@ function PresaleCard ({ launchpad }) {
 
               <Col xs="12 d-flex justify-content-center align-items-center mt-3">
                 <Button type="submit" className="view-pool__btn">
-                  <i className="fa fa-check ml-auto mr-2"></i>Buy with {launchData?.contractType == 'ApercronLaunchpadEth' ? 'ETH' : 'USDT'}
+                  <i className="fa fa-check ml-auto mr-2"></i>Buy with {launchData?.contractType == 'ApercronLaunchpadEth' ? configEnv[selectedChainID].currency : 'USDT'}
                 </Button>
               </Col>
 
@@ -217,7 +221,7 @@ function PresaleCard ({ launchpad }) {
                     className="d-flex create-token__border-bottom py-2"
                   >
                     <span className="mr-auto text-white">Current Rate</span>
-                    <span className="ml-auto ">1 {launchData?.contractType == 'ApercronLaunchpadEth' ? 'ETH' : 'USDT'}={launchData?.tokenPerEth?.length > 17 ? Web3.utils.fromWei(launchData?.tokenPerEth, 'ether') : launchData?.tokenPerEth}</span>
+                    <span className="ml-auto ">1 {launchData?.contractType == 'ApercronLaunchpadEth' ? configEnv[selectedChainID].currency : 'USDT'}={launchData?.tokenPerEth?.length > 17 ? Web3.utils.fromWei(launchData?.tokenPerEth, 'ether') : launchData?.tokenPerEth}</span>
                   </Col>
                   <Col
                     xs="12"

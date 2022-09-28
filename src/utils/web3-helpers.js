@@ -101,7 +101,7 @@ export const addTokenToLaunchPad = async (obj, currencySelected) => {
 	try {
 		const state = web3Store.getState();
 		const tempWeb3 = new Web3(configEnv[state?.web3Slice?.selectedChainID]?.rpc);
-		let launchPadContract = currencySelected == 'ETH' ? configEnv[state?.web3Slice?.selectedChainID]?.ApercronLaunchpadUSDT : configEnv[state?.web3Slice?.selectedChainID]?.ApercronLaunchpadEth;
+		let launchPadContract = currencySelected == 'USDT' ? configEnv[state?.web3Slice?.selectedChainID]?.ApercronLaunchpadUSDT : configEnv[state?.web3Slice?.selectedChainID]?.ApercronLaunchpadEth;
 		const address = state?.web3Slice?.userAddress;
 
 		if (!address) {
@@ -168,6 +168,7 @@ export const getTotalLaunchPads = async () => {
 				index++;
 			}
 		}
+		console.log(tempArray)
 		web3Store.dispatch(setLaunchDataLoading(false));
 		web3Store.dispatch(setLaunchPadData(tempArray));
 
