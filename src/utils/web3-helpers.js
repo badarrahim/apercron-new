@@ -256,7 +256,6 @@ export const switchNetwork = async (chainID)=>{
 			if(!web3){
 				web3 = new Web3(window?.ethereum)
 			}
-			debugger
 			await window?.ethereum?.request({
 			method: 'wallet_switchEthereumChain',
 			params: [{
