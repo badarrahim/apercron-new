@@ -17,7 +17,7 @@ import {
 } from "reactstrap";
 import presale from "../assets/img/presale-img.png";
 import Timer from "./Timer";
-import { buyToken, buyTokenWithEth, buyTokenWithUSDT } from "../utils/web3-helpers";
+import { buyToken, buyTokenWithEth, buyTokenWithUSDT, getTotalLaunchPads } from "../utils/web3-helpers";
 import { configEnv } from "../utils/configEnv";
 import { useSelector } from "react-redux";
 function PresaleCard ({ launchpad }) {
@@ -64,7 +64,7 @@ function PresaleCard ({ launchpad }) {
           <span className="presale-card__heading">{launchpad?.tokenName}</span>
         </Col>
         <Col xs="12">
-          <span className="presale-card__sub-heading">Fair Launch</span>
+          <span className="presale-card__sub-heading">{launchpad?.isFairLaunch ? 'Fair Launch' : 'Pre Sale'}</span>
         </Col>
 
         <Col xs="12" className="mt-3">
@@ -126,18 +126,38 @@ function PresaleCard ({ launchpad }) {
             e.preventDefault();
             if (launchData && getStatus(launchData) == 'Started') {
               if (contractType == "ApercronLaunchpadEth") {
-                buyTokenWithEth(launchId, tokenAmount, tokenPerEth, contractType).then(() => {
-                  setLaunchId('');
-                  setTokenAmount(0);
-                  setContractType('');
-                  setTokenPerEth('');
+                buyTokenWithEth(launchId, tokenAmount, tokenPerEth, contractType).then((result) => {
+                  if (result?.success) {
+                    setLaunchId('');
+                    setTokenAmount(0);
+                    setContractType('');
+                    setTokenPerEth('');
+                    viewPoolToggle();
+                    getTotalLaunchPads();
+                  } else {
+                    setLaunchId('');
+                    setTokenAmount(0);
+                    setContractType('');
+                    setTokenPerEth('');
+                    viewPoolToggle();
+                  }
                 });
               } else if (contractType == "ApercronLaunchpadUSDT") {
-                buyTokenWithUSDT(launchId, tokenAmount, tokenPerEth, contractType).then(() => {
-                  setLaunchId('');
-                  setTokenAmount(0);
-                  setContractType('');
-                  setTokenPerEth('');
+                buyTokenWithUSDT(launchId, tokenAmount, tokenPerEth, contractType).then((result) => {
+                  if (result?.success) {
+                    setLaunchId('');
+                    setTokenAmount(0);
+                    setContractType('');
+                    setTokenPerEth('');
+                    viewPoolToggle();
+                    getTotalLaunchPads();
+                  } else {
+                    setLaunchId('');
+                    setTokenAmount(0);
+                    setContractType('');
+                    setTokenPerEth('');
+                    viewPoolToggle();
+                  }
                 });
               }
             } else if (launchData && getStatus(launchData) == 'Upcoming') {

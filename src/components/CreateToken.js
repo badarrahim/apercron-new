@@ -9,7 +9,7 @@ import { configEnv } from "../utils/configEnv";
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentContractSelected } from "../store/web3-slice";
-import { addTokenToLaunchPad, verifyTokenAddress } from "../utils/web3-helpers";
+import { addTokenToLaunchPad, getTotalLaunchPads, verifyTokenAddress } from "../utils/web3-helpers";
 import { TokenABI } from "../utils/abi/TokenABI";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -144,6 +144,8 @@ const CreateToken = () => {
               console.log("received", response);
               clearFields();
               setCurrentStep(0);
+              getTotalLaunchPads()
+
             }).on('error', err => {
               console.log('error', err);
               clearFields();
@@ -250,7 +252,7 @@ const CreateToken = () => {
                 <FormGroup check className="mt-1">
                   <Label check>
                     <Input type="radio" name="radio1" value={configEnv?.[selectedChainID]?.currency} checked={currencySelected == configEnv?.[selectedChainID]?.currency} onClick={() => {
-                      setCurrencySelected('ETH');
+                      setCurrencySelected('CRO');
                       dispatch(setCurrentContractSelected('ApercronLaunchpadEth'));
                     }} />
                     <span>{configEnv?.[selectedChainID]?.currency}</span>

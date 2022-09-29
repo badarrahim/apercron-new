@@ -59,7 +59,7 @@ export const connectWallet = async () => {
 
 			console.log(chainid);
 			if (chainid !== selectedChainID) {
-				alert("error", `Please connect to ${configEnv.AVAX_NETWORK_NAME}`);
+				alert(`error Please connect to ${selectedChainID == 80001 ? 'Mumbai Network' : 'Rinkeby Network'}`);
 				return;
 			}
 			const accounts = await web3.eth.getAccounts();
@@ -188,7 +188,7 @@ export const buyTokenWithEth = async (launchId, tokenAmount, tokenPerEth, contra
 		const address = state?.web3Slice?.userAddress;
 		if (!address) {
 			alert('Please connect wallet address');
-			return;
+			return { success: false };
 		}
 		// let transferToken = bigNumber(tokenAmount).multiply(
 		// 	bigNumber(String(10 ** 18))
@@ -219,7 +219,7 @@ export const buyTokenWithUSDT = async (launchId, tokenAmount, tokenPerEth, contr
 		const address = state?.web3Slice?.userAddress;
 		if (!address) {
 			alert('Please connect wallet address');
-			return;
+			return { success: false };
 		}
 		let transferToken = bigNumber(tokenAmount).multiply(
 			bigNumber(String(10 ** 18))
