@@ -18,6 +18,7 @@ export const connectWallet = async () => {
 		const state = web3Store.getState();
 		const address = state?.web3Slice?.userAddress;
 		const selectedChainID = state?.web3Slice?.selectedChainID;
+		await switchNetwork(selectedChainID);
 		if (!address) {
 			console.log('Connecting to wallet');
 			// /*
@@ -253,7 +254,7 @@ export const switchNetwork = async (chainID)=>{
 	try{
 		if(window.ethereum){
         
-			const hexChain = await web3[80001].utils.toHex(chainID);
+			const hexChain = await web3[chainID].utils.toHex(chainID);
 			if(!web3){
 				web3 = new Web3(window?.ethereum)
 			}

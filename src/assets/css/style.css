@@ -1120,3 +1120,13 @@ input[type="checkbox"] {
     font-size: 13px !important;
   }
 }
+
+.connect-button-dropdown>button{
+  background: transparent !important;
+  border:none !important;
+  padding: 0 !important;
+}
+
+.connect-button-container{
+  margin-right: 30px;
+}
