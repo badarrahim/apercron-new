@@ -18,6 +18,7 @@ export const connectWallet = async () => {
 		const state = web3Store.getState();
 		const address = state?.web3Slice?.userAddress;
 		const selectedChainID = state?.web3Slice?.selectedChainID;
+		await addNetwork(selectedChainID,configEnv[selectedChainID]?.rpc,configEnv[selectedChainID]?.networkName);
 		await switchNetwork(selectedChainID);
 		if (!address) {
 			console.log('Connecting to wallet');
@@ -263,6 +264,32 @@ export const switchNetwork = async (chainID)=>{
 			params: [{
 				chainId:hexChain
 			}]
+		});
+
+		store.dispatch(setSelectedNetwork(chainID))
+	}
+	}
+	catch(err){
+		console.log(err);
+		throw new Error(err?.message);
+	}
+}
+
+export const addNetwork = async (chainID,rpcUrl,chainName,)=>{
+	try{
+		if(window.ethereum){
+        
+			const hexChain = await web3[chainID].utils.toHex(chainID);
+			if(!web3){
+				web3 = new Web3(window?.ethereum)
+			}
+			await window?.ethereum?.request({
+			method: 'wallet_addEthereumChain',
+			params: [{
+				chainId:hexChain,
+				rpcUrls:[rpcUrl],
+				chainName:chainName,
+			}],
 		});
 
 		store.dispatch(setSelectedNetwork(chainID))
