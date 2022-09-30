@@ -18,7 +18,9 @@ export const connectWallet = async () => {
 		const state = web3Store.getState();
 		const address = state?.web3Slice?.userAddress;
 		const selectedChainID = state?.web3Slice?.selectedChainID;
-		await addNetwork(selectedChainID,configEnv[selectedChainID]?.rpc,configEnv[selectedChainID]?.networkName);
+		debugger
+		// await addNetwork(selectedChainID,configEnv[selectedChainID]?.rpc,configEnv[selectedChainID]?.networkName);
+		debugger
 		await switchNetwork(selectedChainID);
 		if (!address) {
 			console.log('Connecting to wallet');
@@ -270,6 +272,7 @@ export const switchNetwork = async (chainID)=>{
 	}
 	}
 	catch(err){
+		debugger
 		console.log(err);
 		throw new Error(err?.message);
 	}

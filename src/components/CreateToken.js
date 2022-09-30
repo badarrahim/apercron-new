@@ -129,13 +129,17 @@ const CreateToken = () => {
       let transferToken = bigNumber(totalTokenForSale).multiply(
         bigNumber(String(10 ** 18))
       );
+      debugger
       obj['tokenPerEth'] =obj['tokenPerEth'].toString();
       obj['totalTokenForSale'] = Web3.utils.toWei(obj['totalTokenForSale'].toString(), 'ether');
+      debugger
       obj['softcap'] = Web3.utils.toWei(obj['softcap'].toString(), 'ether');
       obj['hardcap'] = Web3.utils.toWei(obj['hardcap'].toString(), 'ether');
-      // obj['minBuy'] = Web3.utils.toWei(obj['minBuy'].toString(), 'ether');
-      // obj['maxBuy'] = Web3.utils.toWei(obj['maxBuy'].toString(), 'ether');
+      debugger
+      obj['minBuy'] = Web3.utils.toWei(obj['minBuy'].toString(), 'ether');
+      obj['maxBuy'] = Web3.utils.toWei(obj['maxBuy'].toString(), 'ether');
       console.log({ obj });
+      debugger
       await contractApprove.methods.approve(launchPadContract.contractAddress, transferToken).send({ from: address })
         .on('receipt', async (result) => {
           console.log(result);
@@ -776,8 +780,8 @@ const CreateToken = () => {
                     totalTokenForSale: parseInt(totalTokenForSale),
                     isFairLaunch,
                     isRefund,
-                    // minBuy: parseInt(minBuy),
-                    // maxBuy: parseInt(maxBuy),
+                    minBuy: parseInt(minBuy),
+                    maxBuy: parseInt(maxBuy),
                     uri
                   };
                   addLaunchPadToken(obj);
