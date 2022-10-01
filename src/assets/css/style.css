@@ -1155,6 +1155,10 @@ input[type="checkbox"] {
   background: #03316c !important;
   cursor: pointer !important;
 }
+
+.dropdown-item:focus {
+  background: #03316c !important;
+}
 @media (max-width: 768px) {
   .dropdown-menu {
     left: -64% !important;
