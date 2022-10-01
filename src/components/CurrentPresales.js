@@ -21,7 +21,7 @@ import PresaleCard from "./PresaleCard";
 import { useSelector } from "react-redux";
 import LoadingOverlay from "react-loading-overlay";
 import { DotLoader } from "react-spinners";
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 
 const CurrentPresales = () => {
   const [activeTab, setActiveTab] = useState("1");
@@ -30,11 +30,13 @@ const CurrentPresales = () => {
     setActiveTab(tab);
   };
   const override = css`
-  display: block;
-  margin: 100 auto;
-  border-color: red;
-`;
-  const { launchPadsData, launchDataLoading } = useSelector(state => state?.web3Slice);
+    display: block;
+    margin: 100 auto;
+    border-color: red;
+  `;
+  const { launchPadsData, launchDataLoading } = useSelector(
+    (state) => state?.web3Slice
+  );
   return (
     <div className="current-presales px-md-3 py-5 px-2">
       <SectionTitle title="Current Presales" />
@@ -69,7 +71,7 @@ const CurrentPresales = () => {
                 placeholder="Enter your token symbol"
                 className="token-input "
                 value={search}
-                onChange={e => setSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
               />
             </Col>
             <Col xs="6" lg="2">
@@ -88,23 +90,30 @@ const CurrentPresales = () => {
 
           <LoadingOverlay
             active={launchDataLoading}
-            spinner={<DotLoader color={'#ffffff'} css={override} size={50} />}
-          // text="Loading LaunchPad Tokens"
+            spinner={<DotLoader color={"#ffffff"} css={override} size={50} />}
+            // text="Loading LaunchPad Tokens"
           >
             <Row className="mt-5">
-              {launchPadsData && launchPadsData.filter(lpd => {
-                if (search) {
-                  return lpd?.tokenSymbol?.toLowerCase().includes(search?.toLowerCase());
-                } else {
-                  return true;
-                }
-              }).map(launchpad => {
-                return (
-                  <Col lg="6" className="mt-3 mt-lg-0">
-                    <PresaleCard launchpad={launchpad} />
-                  </Col>
-                );
-              })}
+              {launchPadsData &&
+                launchPadsData
+                  .filter((lpd) => {
+                    if (search) {
+                      return lpd?.tokenSymbol
+                        ?.toLowerCase()
+                        .includes(search?.toLowerCase());
+                    } else {
+                      return true;
+                    }
+                  })
+                  .map((launchpad) => {
+                    return (
+                      <>
+                        <Col lg="6" className="mt-3 mt-lg-0">
+                          <PresaleCard launchpad={launchpad} />
+                        </Col>
+                      </>
+                    );
+                  })}
               {/* <Col lg="6" className="mt-3 mt-lg-0">
               <PresaleCard />
             </Col> */}

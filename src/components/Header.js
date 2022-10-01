@@ -20,17 +20,20 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { connectWallet, switchNetwork } from "../utils/web3-helpers";
 import { setSelectedNetwork } from "../store/web3-slice";
+import { HashLink, NavHashLink } from "react-router-hash-link";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
-  const {userAddress,selectedChainID} = useSelector(state=>state?.web3Slice);
+  const { userAddress, selectedChainID } = useSelector(
+    (state) => state?.web3Slice
+  );
   const toggle = () => {
     setIsOpen(!isOpen);
   };
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = () => setDropdownOpen((prevState) => !prevState);
-
 
   return (
     <div className="header">
@@ -57,7 +60,36 @@ const Header = () => {
               <NavLink href="/components/">Home</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink>Launchpadlist</NavLink>
+              <HashLink
+                to="/#launchpadlist"
+                scroll={(el) => {
+                  el.scrollIntoView({
+                    behavior: "auto",
+                    block: "start",
+                  });
+                }}
+              >
+                Launchpadlist
+              </HashLink>
+              {/* <NavLink>Launchpadlist</NavLink> */}
+            </NavItem>
+            <NavItem>
+              <HashLink
+                to="/#createtoken"
+                scroll={(el) => {
+                  el.scrollIntoView({
+                    behavior: "auto",
+                    block: "start",
+                  });
+                }}
+              >
+                Sale/Token{" "}
+              </HashLink>
+            </NavItem>
+            <NavItem>
+              <NavLink tag={Link} to="/locker">
+                Locker
+              </NavLink>
             </NavItem>
             {/* <NavItem>
               <NavLink>
@@ -83,24 +115,41 @@ const Header = () => {
               </NavLink>
             </NavItem> */}
             <NavItem>
-              <NavLink className="custome-btn connect-button-container">
-              <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown} as={NavItem} className="connect-button-dropdown">
-        <DropdownToggle caret>{userAddress?userAddress?.replace(userAddress?.slice(5,36),'***'):"Connect"}</DropdownToggle>
-        <DropdownMenu>
-          <DropdownItem as={Button} onClick={()=>{
-            dispatch(setSelectedNetwork(4));
-            connectWallet();
-            setDropdownOpen(false);
-          }}>Connect to ETH</DropdownItem>
-          <DropdownItem as={Button} onClick={()=>{
-            dispatch(setSelectedNetwork(80001));
-            connectWallet();
-            setDropdownOpen(false);
-          }}>Connect to CRO</DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
-
-
+              <NavLink className="custome-btn connect-button-container ">
+                <Dropdown
+                  isOpen={dropdownOpen}
+                  toggle={toggleDropdown}
+                  as={NavItem}
+                  className="connect-button-dropdown position-relative"
+                >
+                  <DropdownToggle caret>
+                    {userAddress
+                      ? userAddress?.replace(userAddress?.slice(5, 36), "***")
+                      : "Connect"}
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem
+                      as={Button}
+                      onClick={() => {
+                        dispatch(setSelectedNetwork(4));
+                        connectWallet();
+                        setDropdownOpen(false);
+                      }}
+                    >
+                      Connect to ETH
+                    </DropdownItem>
+                    <DropdownItem
+                      as={Button}
+                      onClick={() => {
+                        dispatch(setSelectedNetwork(80001));
+                        connectWallet();
+                        setDropdownOpen(false);
+                      }}
+                    >
+                      Connect to CRO
+                    </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
               </NavLink>
             </NavItem>
           </Nav>

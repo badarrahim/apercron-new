@@ -47,6 +47,13 @@ a.nav-link {
   font-size: 16px !important;
 }
 
+.nav-item a {
+  color: #ffffff !important;
+  font-size: 16px !important;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
+
 .navbar-toggler {
   padding: 0px !important;
   margin: 0px !important;
@@ -406,6 +413,7 @@ a.nav-link {
   );
   border: 1px solid rgba(3, 49, 108, 0.75);
   border-radius: 114px;
+  height: 100% !important;
 }
 
 .modal-content {
@@ -573,8 +581,8 @@ a.nav-link {
   color: #ffffff;
 }
 
-.create-token_error{
-  color:#ffffff;
+.create-token_error {
+  color: #ffffff;
   font-size: 12px;
   text-align: end;
 }
@@ -1121,12 +1129,43 @@ input[type="checkbox"] {
   }
 }
 
-.connect-button-dropdown>button{
+.connect-button-dropdown > button {
   background: transparent !important;
-  border:none !important;
+  border: none !important;
   padding: 0 !important;
 }
 
-.connect-button-container{
-  margin-right: 30px;
+.connect-button-container {
+  /* margin-right: 30px; */
+}
+
+.dropdown-menu {
+  left: -100% !important;
+  transform: none !important;
+  top: 30px !important;
+  background: rgb(4 27 58 / 98%) !important;
+  border-radius: 10px !important;
+}
+.dropdown-item {
+  color: white !important;
+  font-family: "Raleway", sans-serif !important;
+  font-weight: 500 !important;
+}
+.dropdown-item:hover {
+  background: #03316c !important;
+  cursor: pointer !important;
+}
+@media (max-width: 768px) {
+  .dropdown-menu {
+    left: -64% !important;
+    transform: none !important;
+    top: 32px !important;
+  }
+  .navbar a {
+    padding: 0.5rem 1rem !important;
+  }
+  .connect-button-container {
+    margin-top: 5px !important;
+    margin-bottom: 10px !important;
+  }
 }

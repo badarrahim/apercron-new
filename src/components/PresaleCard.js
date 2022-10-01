@@ -1,8 +1,7 @@
-
 import React, { useState } from "react";
 import moment from "moment";
 import CountDown from "react-countdown";
-import Web3 from 'web3';
+import Web3 from "web3";
 import {
   Button,
   Card,
@@ -13,24 +12,31 @@ import {
   Modal,
   ModalBody,
   Row,
-  Form
+  Form,
 } from "reactstrap";
 import presale from "../assets/img/presale-img.png";
 import Timer from "./Timer";
-import { buyToken, buyTokenWithEth, buyTokenWithUSDT, getTotalLaunchPads } from "../utils/web3-helpers";
+import {
+  buyToken,
+  buyTokenWithEth,
+  buyTokenWithUSDT,
+  getTotalLaunchPads,
+} from "../utils/web3-helpers";
 import { configEnv } from "../utils/configEnv";
 import { useSelector } from "react-redux";
-function PresaleCard ({ launchpad }) {
+function PresaleCard({ launchpad }) {
   const [viewPool, setViewPool] = useState(false);
   const [launchData, setLaunchData] = useState(null);
-  const [launchId, setLaunchId] = useState('');
+  const [launchId, setLaunchId] = useState("");
   const [tokenAmount, setTokenAmount] = useState(0);
-  const [contractType, setContractType] = useState('');
-  const [tokenPerEth, setTokenPerEth] = useState('');
+  const [contractType, setContractType] = useState("");
+  const [tokenPerEth, setTokenPerEth] = useState("");
   const viewPoolToggle = () => {
     setViewPool(!viewPool);
   };
-  const { selectedChainID, userAddress } = useSelector(state => state?.web3Slice);
+  const { selectedChainID, userAddress } = useSelector(
+    (state) => state?.web3Slice
+  );
 
   let endTime = moment.unix(launchpad?.endTime);
   let startTime = moment.unix(launchpad?.launchTime);
@@ -41,18 +47,25 @@ function PresaleCard ({ launchpad }) {
 
   const getStatus = (launchPad) => {
     if (moment.unix(launchPad?.launchTime).valueOf() > currentTime) {
-      return 'Upcoming';
-    } else if (moment.unix(launchPad?.launchTime).valueOf() < currentTime && moment.unix(launchPad?.endTime).valueOf() > currentTime) {
-      return 'Started';
+      return "Upcoming";
+    } else if (
+      moment.unix(launchPad?.launchTime).valueOf() < currentTime &&
+      moment.unix(launchPad?.endTime).valueOf() > currentTime
+    ) {
+      return "Started";
     } else if (moment.unix(launchPad?.endTime).valueOf() < currentTime) {
-      return 'Ended';
+      return "Ended";
     }
-  }
+  };
   return (
     <div className="presale-card py-5">
       <Row className="px-5">
-        <Col xs="6">
-          <img src={launchpad?.logoUrl || presale} />
+        <Col xs="6" style={{ minHeight: "99px" }}>
+          {launchpad.logoUrl ? (
+            <img src={launchpad.logoUrl} />
+          ) : (
+            <img src={presale} />
+          )}
         </Col>
         <Col xs="6" className="d-flex justify-content-end align-items-center">
           <div className="d-flex justify-content-center align-items-center presale-card__status px-3 py-2">
@@ -64,14 +77,21 @@ function PresaleCard ({ launchpad }) {
           <span className="presale-card__heading">{launchpad?.tokenName}</span>
         </Col>
         <Col xs="12">
-          <span className="presale-card__sub-heading">{launchpad?.isFairLaunch ? 'Fair Launch' : 'Pre Sale'}</span>
+          <span className="presale-card__sub-heading">
+            {launchpad?.isFairLaunch ? "Fair Launch" : "Pre Sale"}
+          </span>
         </Col>
 
         <Col xs="12" className="mt-3">
           <span className="presale-card__sub-1">Soft</span>
         </Col>
         <Col xs="12">
-          <span className="presale-card__sub-2">{launchpad?.totalTokenForSale?.length > 17 ? Web3.utils.fromWei(launchpad?.totalTokenForSale, 'ether') : launchpad?.totalTokenForSale} {launchpad?.tokenSymbol}</span>
+          <span className="presale-card__sub-2">
+            {launchpad?.totalTokenForSale?.length > 17
+              ? Web3.utils.fromWei(launchpad?.totalTokenForSale, "ether")
+              : launchpad?.totalTokenForSale}{" "}
+            {launchpad?.tokenSymbol}
+          </span>
         </Col>
         <Col xs="12">
           <span className="presale-card__sub-3">Progress</span>
@@ -82,10 +102,24 @@ function PresaleCard ({ launchpad }) {
         </Col>
 
         <Col xs="6">
-          <span className="presale-card__light">{launchpad?.softcap?.length > 17 ? Web3.utils.fromWei(launchpad?.softcap, 'ether') : launchpad?.softcap} {launchpad?.contractType == 'ApercronLaunchpadEth' ? configEnv[selectedChainID].currency : 'USDT'}</span>
+          <span className="presale-card__light">
+            {launchpad?.softcap?.length > 17
+              ? Web3.utils.fromWei(launchpad?.softcap, "ether")
+              : launchpad?.softcap}{" "}
+            {launchpad?.contractType == "ApercronLaunchpadEth"
+              ? configEnv[selectedChainID].currency
+              : "USDT"}
+          </span>
         </Col>
         <Col xs="6" className="d-flex justify-content-end align-items-center">
-          <span className="presale-card__light">{launchpad?.hardcap?.length > 17 ? Web3.utils.fromWei(launchpad?.hardcap, 'ether') : launchpad?.hardcap} {launchpad?.contractType == 'ApercronLaunchpadEth' ? configEnv[selectedChainID].currency : 'USDT'}</span>
+          <span className="presale-card__light">
+            {launchpad?.hardcap?.length > 17
+              ? Web3.utils.fromWei(launchpad?.hardcap, "ether")
+              : launchpad?.hardcap}{" "}
+            {launchpad?.contractType == "ApercronLaunchpadEth"
+              ? configEnv[selectedChainID].currency
+              : "USDT"}
+          </span>
         </Col>
         <Col xs="6">
           <span className="presale-card__light">Liquidity</span>
@@ -105,16 +139,24 @@ function PresaleCard ({ launchpad }) {
         <Col xs="6">
           <span className="presale-card__white">Sales starts in</span>
           <br />
-          <span className="presale-card__light"> <CountDown date={new Date(parseInt(launchpad?.launchTime) * 1000)}><span>Already Started</span></CountDown></span>
+          <span className="presale-card__light">
+            {" "}
+            <CountDown date={new Date(parseInt(launchpad?.launchTime) * 1000)}>
+              <span>Already Started</span>
+            </CountDown>
+          </span>
         </Col>
         <Col xs="6" className="d-flex justify-content-end align-items-center">
-          <Button className="presale-card__pool-btn" onClick={() => {
-            setLaunchId(launchpad?.id);
-            setContractType(launchpad?.contractType);
-            setTokenPerEth(launchpad?.tokenPerEth);
-            setLaunchData(launchpad)
-            viewPoolToggle();
-          }}>
+          <Button
+            className="presale-card__pool-btn"
+            onClick={() => {
+              setLaunchId(launchpad?.id);
+              setContractType(launchpad?.contractType);
+              setTokenPerEth(launchpad?.tokenPerEth);
+              setLaunchData(launchpad);
+              viewPoolToggle();
+            }}
+          >
             View Pool
           </Button>
         </Col>
@@ -122,50 +164,62 @@ function PresaleCard ({ launchpad }) {
 
       <Modal toggle={viewPoolToggle} isOpen={viewPool} className="px-2">
         <ModalBody className="px-2 py-4 px-md-4">
-          <Form onSubmit={(e) => {
-            e.preventDefault();
-            if (launchData && getStatus(launchData) == 'Started') {
-              if (contractType == "ApercronLaunchpadEth") {
-                buyTokenWithEth(launchId, tokenAmount, tokenPerEth, contractType).then((result) => {
-                  if (result?.success) {
-                    setLaunchId('');
-                    setTokenAmount(0);
-                    setContractType('');
-                    setTokenPerEth('');
-                    viewPoolToggle();
-                    getTotalLaunchPads();
-                  } else {
-                    setLaunchId('');
-                    setTokenAmount(0);
-                    setContractType('');
-                    setTokenPerEth('');
-                    viewPoolToggle();
-                  }
-                });
-              } else if (contractType == "ApercronLaunchpadUSDT") {
-                buyTokenWithUSDT(launchId, tokenAmount, tokenPerEth, contractType).then((result) => {
-                  if (result?.success) {
-                    setLaunchId('');
-                    setTokenAmount(0);
-                    setContractType('');
-                    setTokenPerEth('');
-                    viewPoolToggle();
-                    getTotalLaunchPads();
-                  } else {
-                    setLaunchId('');
-                    setTokenAmount(0);
-                    setContractType('');
-                    setTokenPerEth('');
-                    viewPoolToggle();
-                  }
-                });
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (launchData && getStatus(launchData) == "Started") {
+                if (contractType == "ApercronLaunchpadEth") {
+                  buyTokenWithEth(
+                    launchId,
+                    tokenAmount,
+                    tokenPerEth,
+                    contractType
+                  ).then((result) => {
+                    if (result?.success) {
+                      setLaunchId("");
+                      setTokenAmount(0);
+                      setContractType("");
+                      setTokenPerEth("");
+                      viewPoolToggle();
+                      getTotalLaunchPads();
+                    } else {
+                      setLaunchId("");
+                      setTokenAmount(0);
+                      setContractType("");
+                      setTokenPerEth("");
+                      viewPoolToggle();
+                    }
+                  });
+                } else if (contractType == "ApercronLaunchpadUSDT") {
+                  buyTokenWithUSDT(
+                    launchId,
+                    tokenAmount,
+                    tokenPerEth,
+                    contractType
+                  ).then((result) => {
+                    if (result?.success) {
+                      setLaunchId("");
+                      setTokenAmount(0);
+                      setContractType("");
+                      setTokenPerEth("");
+                      viewPoolToggle();
+                      getTotalLaunchPads();
+                    } else {
+                      setLaunchId("");
+                      setTokenAmount(0);
+                      setContractType("");
+                      setTokenPerEth("");
+                      viewPoolToggle();
+                    }
+                  });
+                }
+              } else if (launchData && getStatus(launchData) == "Upcoming") {
+                alert("Launch is not started yet.");
+              } else if (launchData && getStatus(launchData) == "Ended") {
+                alert("Launch is ended");
               }
-            } else if (launchData && getStatus(launchData) == 'Upcoming') {
-              alert('Launch is not started yet.');
-            } else if (launchData && getStatus(launchData) == 'Ended') {
-              alert('Launch is ended')
-            }
-          }}>
+            }}
+          >
             <Row>
               <Col xs="12">
                 <Card className="view-pool-card  p-2 px-md-3">
@@ -173,19 +227,31 @@ function PresaleCard ({ launchpad }) {
                 </Card>
               </Col>
               {/* Ends in  */}
-              {moment.unix(launchData?.launchTime).valueOf() < moment().valueOf() && moment.unix(launchData?.endTime).valueOf() > moment().valueOf() &&
-                <Col xs="12 d-flex justify-content-center align-items-center flex-column mt-2 ">
-                  <span className="mb-1 timer-heading">Presale ends in</span>
-                  <Timer expiryTimestamp={new Date(moment.unix(launchData?.endTime))} />
-                </Col>
-              }
+              {moment.unix(launchData?.launchTime).valueOf() <
+                moment().valueOf() &&
+                moment.unix(launchData?.endTime).valueOf() >
+                  moment().valueOf() && (
+                  <Col xs="12 d-flex justify-content-center align-items-center flex-column mt-2 ">
+                    <span className="mb-1 timer-heading">Presale ends in</span>
+                    <Timer
+                      expiryTimestamp={
+                        new Date(moment.unix(launchData?.endTime))
+                      }
+                    />
+                  </Col>
+                )}
               {/* Start in   */}
-              {moment.unix(launchData?.launchTime).valueOf() > moment().valueOf() &&
+              {moment.unix(launchData?.launchTime).valueOf() >
+                moment().valueOf() && (
                 <Col xs="12 d-flex justify-content-center align-items-center flex-column mt-2 ">
                   <span className="mb-1 timer-heading">Presale Starts in</span>
-                  <Timer expiryTimestamp={new Date(moment.unix(launchData?.launchTime))} />
+                  <Timer
+                    expiryTimestamp={
+                      new Date(moment.unix(launchData?.launchTime))
+                    }
+                  />
                 </Col>
-              }
+              )}
 
               {/* <Col xs="12" className="mt-4">
                 <div
@@ -217,13 +283,23 @@ function PresaleCard ({ launchpad }) {
               <Col md="12">
                 <FormGroup>
                   <Label className="create-token__label">Amount</Label>
-                  <Input type="number" className="view-pool__input" value={tokenAmount} required min={1} onChange={e => setTokenAmount(e.target.value)} />
+                  <Input
+                    type="number"
+                    className="view-pool__input"
+                    value={tokenAmount}
+                    required
+                    min={1}
+                    onChange={(e) => setTokenAmount(e.target.value)}
+                  />
                 </FormGroup>
               </Col>
 
               <Col xs="12 d-flex justify-content-center align-items-center mt-3">
                 <Button type="submit" className="view-pool__btn">
-                  <i className="fa fa-check ml-auto mr-2"></i>Buy with {launchData?.contractType == 'ApercronLaunchpadEth' ? configEnv[selectedChainID].currency : 'USDT'}
+                  <i className="fa fa-check ml-auto mr-2"></i>Buy with{" "}
+                  {launchData?.contractType == "ApercronLaunchpadEth"
+                    ? configEnv[selectedChainID].currency
+                    : "USDT"}
                 </Button>
               </Col>
 
@@ -234,21 +310,38 @@ function PresaleCard ({ launchpad }) {
                     className="d-flex create-token__border-bottom py-2"
                   >
                     <span className="mr-auto text-white">Status</span>
-                    <span className="ml-auto ">{launchData && getStatus(launchData)}</span>
+                    <span className="ml-auto ">
+                      {launchData && getStatus(launchData)}
+                    </span>
                   </Col>
                   <Col
                     xs="12"
                     className="d-flex create-token__border-bottom py-2"
                   >
                     <span className="mr-auto text-white">Current Rate</span>
-                    <span className="ml-auto ">1 {launchData?.contractType == 'ApercronLaunchpadEth' ? configEnv[selectedChainID].currency : 'USDT'}={launchData?.tokenPerEth?.length > 17 ? Web3.utils.fromWei(launchData?.tokenPerEth, 'ether') : launchData?.tokenPerEth}</span>
+                    <span className="ml-auto ">
+                      1{" "}
+                      {launchData?.contractType == "ApercronLaunchpadEth"
+                        ? configEnv[selectedChainID].currency
+                        : "USDT"}
+                      =
+                      {launchData?.tokenPerEth?.length > 17
+                        ? Web3.utils.fromWei(launchData?.tokenPerEth, "ether")
+                        : launchData?.tokenPerEth}
+                    </span>
                   </Col>
                   <Col
                     xs="12"
                     className="d-flex create-token__border-bottom py-2"
                   >
                     <span className="mr-auto text-white">Total Sold</span>
-                    <span className="ml-auto ">{launchData && Web3.utils.fromWei(launchData?.totalSoldToken?.toString(), 'ether')}</span>
+                    <span className="ml-auto ">
+                      {launchData &&
+                        Web3.utils.fromWei(
+                          launchData?.totalSoldToken?.toString(),
+                          "ether"
+                        )}
+                    </span>
                   </Col>
                   {/* <Col
                     xs="12"
@@ -266,7 +359,8 @@ function PresaleCard ({ launchpad }) {
                   </Col> */}
                 </Card>
               </Col>
-            </Row></Form>
+            </Row>
+          </Form>
         </ModalBody>
       </Modal>
     </div>

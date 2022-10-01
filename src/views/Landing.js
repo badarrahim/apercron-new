@@ -10,10 +10,10 @@ import TokenSales from "../components/TokenSales";
 import { getTotalLaunchPads } from "../utils/web3-helpers";
 
 const Landing = (props) => {
-  const {selectedChainID} = useSelector(state=>state?.web3Slice);
+  const { selectedChainID } = useSelector((state) => state?.web3Slice);
   useEffect(() => {
     getTotalLaunchPads();
-  },[selectedChainID])
+  }, [selectedChainID]);
 
   return (
     <>
@@ -24,13 +24,13 @@ const Landing = (props) => {
           <Ecosystem />
         </Container>
       </div>
-      <div className="bottom-section">
+      <div className="bottom-section" id="launchpadlist">
         <Container>
           <CurrentPresales />
         </Container>
       </div>
 
-      <div className="token-section">
+      <div className="token-section" id="createtoken">
         <Container>
           <CreateToken />
         </Container>
