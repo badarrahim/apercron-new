@@ -57,10 +57,12 @@ const Header = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className={`ml-auto ${isOpen ? "mt-2" : ""}`} navbar>
             <NavItem>
-              <NavLink href="/components/">Home</NavLink>
+              <NavLink tag={Link} to="/">
+                Home
+              </NavLink>
             </NavItem>
             <NavItem>
-              <HashLink
+              {/* <HashLink
                 to="/#launchpadlist"
                 scroll={(el) => {
                   el.scrollIntoView({
@@ -70,11 +72,16 @@ const Header = () => {
                 }}
               >
                 Launchpadlist
-              </HashLink>
-              {/* <NavLink>Launchpadlist</NavLink> */}
+              </HashLink> */}
+              <NavLink tag={Link} to="/launchpads">
+                Launchpadlist
+              </NavLink>
             </NavItem>
             <NavItem>
-              <HashLink
+              <NavLink tag={Link} to="/createtoken">
+                Create/Sale
+              </NavLink>
+              {/* <HashLink
                 to="/#createtoken"
                 scroll={(el) => {
                   el.scrollIntoView({
@@ -84,7 +91,7 @@ const Header = () => {
                 }}
               >
                 Sale/Token{" "}
-              </HashLink>
+              </HashLink> */}
             </NavItem>
             <NavItem>
               <NavLink tag={Link} to="/locker">

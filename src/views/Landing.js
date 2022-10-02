@@ -24,17 +24,17 @@ const Landing = (props) => {
           <Ecosystem />
         </Container>
       </div>
-      <div className="bottom-section" id="launchpadlist">
+      {/* <div className="bottom-section" id="launchpadlist">
         <Container>
           <CurrentPresales />
         </Container>
-      </div>
+      </div> */}
 
-      <div className="token-section" id="createtoken">
+      {/* <div className="token-section" id="createtoken">
         <Container>
           <CreateToken />
         </Container>
-      </div>
+      </div> */}
     </>
   );
 };
