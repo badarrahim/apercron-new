@@ -22,6 +22,8 @@ import { useSelector } from "react-redux";
 import LoadingOverlay from "react-loading-overlay";
 import { DotLoader } from "react-spinners";
 import { css } from "@emotion/react";
+import { useEffect } from "react";
+import { getTotalLaunchPads } from "../utils/web3-helpers";
 
 const CurrentPresales = () => {
   const [activeTab, setActiveTab] = useState("1");
@@ -34,9 +36,13 @@ const CurrentPresales = () => {
     margin: 100 auto;
     border-color: red;
   `;
-  const { launchPadsData, launchDataLoading } = useSelector(
+  const { launchPadsData, launchDataLoading, selectedChainID } = useSelector(
     (state) => state?.web3Slice
   );
+
+  useEffect(() => {
+    getTotalLaunchPads();
+  }, [selectedChainID]);
   return (
     <div className="current-presales px-md-3 py-5 px-2">
       <SectionTitle title="Current Presales" />
@@ -91,7 +97,7 @@ const CurrentPresales = () => {
           <LoadingOverlay
             active={launchDataLoading}
             spinner={<DotLoader color={"#ffffff"} css={override} size={50} />}
-            // text="Loading LaunchPad Tokens"
+          // text="Loading LaunchPad Tokens"
           >
             <Row className="mt-5">
               {launchPadsData &&

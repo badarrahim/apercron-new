@@ -11,9 +11,9 @@ import { getTotalLaunchPads } from "../utils/web3-helpers";
 
 const Landing = (props) => {
   const { selectedChainID } = useSelector((state) => state?.web3Slice);
-  useEffect(() => {
-    getTotalLaunchPads();
-  }, [selectedChainID]);
+  // useEffect(() => {
+  //   getTotalLaunchPads();
+  // }, [selectedChainID]);
 
   return (
     <>

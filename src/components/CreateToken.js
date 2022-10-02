@@ -13,6 +13,7 @@ import { addTokenToLaunchPad, getTotalLaunchPads, verifyTokenAddress } from "../
 import { TokenABI } from "../utils/abi/TokenABI";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import { useEffect } from "react";
 const pinatabBearerToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiIzYzIxOWRmNi1kNzNiLTQwOTUtODY2Ni1iZDE4ZTYxZGQ4Y2EiLCJlbWFpbCI6Im11c3RhZmFidXR0MzEyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiI5N2Q1M2Y3MTQ4YmE2ODQxZGRlYyIsInNjb3BlZEtleVNlY3JldCI6IjhhYzJjMzI5ZGVjM2M4MzBkZTg1MTU2MjkyYmIyNTdhODk0ZDlmYjIxOWI0MzllYzZhYzk2YWUzMjczZGIzNmEiLCJpYXQiOjE2NjQwMTUyODJ9.BF5MYxvyJeCHijaF9ocXRc7RW_19-mrW-qXWDzLq0q4';
 
 const useStyles = makeStyles((theme) => ({
@@ -129,17 +130,17 @@ const CreateToken = () => {
       let transferToken = bigNumber(totalTokenForSale).multiply(
         bigNumber(String(10 ** 18))
       );
-      debugger
-      obj['tokenPerEth'] =obj['tokenPerEth'].toString();
+      debugger;
+      obj['tokenPerEth'] = obj['tokenPerEth'].toString();
       obj['totalTokenForSale'] = Web3.utils.toWei(obj['totalTokenForSale'].toString(), 'ether');
-      debugger
+      debugger;
       obj['softcap'] = Web3.utils.toWei(obj['softcap'].toString(), 'ether');
       obj['hardcap'] = Web3.utils.toWei(obj['hardcap'].toString(), 'ether');
-      debugger
+      debugger;
       obj['minBuy'] = Web3.utils.toWei(obj['minBuy'].toString(), 'ether');
       obj['maxBuy'] = Web3.utils.toWei(obj['maxBuy'].toString(), 'ether');
       console.log({ obj });
-      debugger
+      debugger;
       await contractApprove.methods.approve(launchPadContract.contractAddress, transferToken).send({ from: address })
         .on('receipt', async (result) => {
           console.log(result);
@@ -148,7 +149,7 @@ const CreateToken = () => {
               console.log("received", response);
               clearFields();
               setCurrentStep(0);
-              getTotalLaunchPads()
+              getTotalLaunchPads();
 
             }).on('error', err => {
               console.log('error', err);
@@ -164,6 +165,12 @@ const CreateToken = () => {
     }
 
   };
+
+  useEffect(() => {
+    if (currencySelected != 'USDT') {
+      setCurrencySelected(configEnv?.[selectedChainID]?.currency);
+    }
+  }, [selectedChainID]);
 
   const classes = useStyles();
   return (
@@ -256,7 +263,7 @@ const CreateToken = () => {
                 <FormGroup check className="mt-1">
                   <Label check>
                     <Input type="radio" name="radio1" value={configEnv?.[selectedChainID]?.currency} checked={currencySelected == configEnv?.[selectedChainID]?.currency} onClick={() => {
-                      setCurrencySelected('CRO');
+                      setCurrencySelected(configEnv?.[selectedChainID]?.currency);
                       dispatch(setCurrentContractSelected('ApercronLaunchpadEth'));
                     }} />
                     <span>{configEnv?.[selectedChainID]?.currency}</span>
