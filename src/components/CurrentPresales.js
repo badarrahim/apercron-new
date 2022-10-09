@@ -36,7 +36,7 @@ const CurrentPresales = () => {
     margin: 100 auto;
     border-color: red;
   `;
-  const { launchPadsData, launchDataLoading, selectedChainID } = useSelector(
+  const { launchPadsData, launchDataLoading, selectedChainID, contributionLaunchadData } = useSelector(
     (state) => state?.web3Slice
   );
 
@@ -141,7 +141,39 @@ const CurrentPresales = () => {
             fugiat iusto fuga praesentium optio, eaque rerum! Provident
             similique accusantium nemo autem.
           </span>
+
         </Col>
+        <LoadingOverlay
+            active={launchDataLoading}
+            spinner={<DotLoader color={"#ffffff"} css={override} size={50} />}
+          // text="Loading LaunchPad Tokens"
+          >
+            <Row className="mt-5">
+              {contributionLaunchadData &&
+                contributionLaunchadData
+                  ?.filter((lpd) => {
+                    if (search) {
+                      return lpd?.tokenSymbol
+                        ?.toLowerCase()
+                        .includes(search?.toLowerCase());
+                    } else {
+                      return true;
+                    }
+                  })
+                  .map((launchpad) => {
+                    return (
+                      <>
+                        <Col lg="6" className="mt-3 mt-lg-0">
+                          <PresaleCard launchpad={launchpad} />
+                        </Col>
+                      </>
+                    );
+                  })}
+              {/* <Col lg="6" className="mt-3 mt-lg-0">
+              <PresaleCard />
+            </Col> */}
+            </Row>
+          </LoadingOverlay>
       </Row>
     </div>
   );

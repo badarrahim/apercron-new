@@ -3,7 +3,7 @@ import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { configEnv } from './configEnv';
 import { store, store as web3Store } from '../store';
-import { setWalletAddress, setEthLanuchPads, setUsdtLanuchPads, setLaunchPadData, setLaunchDataLoading, setSelectedNetwork } from '../store/web3-slice';
+import { setWalletAddress, setEthLanuchPads, setUsdtLanuchPads, setLaunchPadData, setLaunchDataLoading, setSelectedNetwork, setContributionLaunchData } from '../store/web3-slice';
 import { TokenABI } from './abi/TokenABI';
 import axios from 'axios';
 import bigNumber from 'big-number';
@@ -53,6 +53,7 @@ export const connectWallet = async () => {
 			provider.on('accountsChanged', async accounts => {
 				console.log('Accounts', accounts);
 				web3Store.dispatch(setWalletAddress(accounts[0]));
+				getMyContributionLaunpads(accounts[0])
 			});
 
 			web3 = new Web3(provider);
@@ -70,6 +71,7 @@ export const connectWallet = async () => {
 			console.log('Acount is', accounts[0]);
 
 			web3Store.dispatch(setWalletAddress(accounts[0]));
+			getMyContributionLaunpads(accounts[0])
 		} else {
 			console.log('Already connected');
 		}
@@ -186,6 +188,89 @@ export const getTotalLaunchPads = async () => {
 	} catch (err) {
 		console.log(err);
 		web3Store.dispatch(setLaunchDataLoading(false));
+		// return { success: false };
+	}
+};
+
+export const getMyContributionLaunpads = async (address) => {
+	try {
+		const state = web3Store.getState();
+		web3Store.dispatch(setLaunchDataLoading(true));
+		const tempWeb3 = new Web3(configEnv[state?.web3Slice?.selectedChainID]?.rpc);
+		let usdtlaunchPadContract = configEnv[state?.web3Slice?.selectedChainID]?.ApercronLaunchpadUSDT;
+		let ethlaunchPadContract = configEnv[state?.web3Slice?.selectedChainID]?.ApercronLaunchpadEth;
+		const ethcontract = new tempWeb3.eth.Contract(ethlaunchPadContract.abi, ethlaunchPadContract.contractAddress);
+		const usdtcontract = new tempWeb3.eth.Contract(usdtlaunchPadContract.abi, usdtlaunchPadContract.contractAddress);
+		const totalEth = await ethcontract.methods.currentLaunchID().call();
+		const totalUsdt = await usdtcontract.methods.currentLaunchID().call();
+		
+		const ethContributions = [];
+		const usdtContributions = [];
+		let cond = true;
+		let ethCount = 0;
+		while(cond){
+			try{
+			const launchId = await ethcontract.methods.myContributions(address,ethCount).call();
+			ethContributions.push(launchId);
+			ethCount++;
+			}catch(err){
+				console.log(err);
+				cond = false;
+			}
+		}
+		
+		cond = true;
+		while(cond){
+			try{
+			const launchId = await usdtcontract.methods.myContributions(address,ethCount).call();
+			usdtContributions.push(launchId);
+			ethCount++;
+			}catch(err){
+				console.log(err);
+				cond = false;
+			}
+		}
+		
+		let tempArray = [];
+		if (totalEth > 0) {
+			let tempEthArr = new Array(parseInt(totalEth)).fill('hello');
+			console.log(tempEthArr);
+			for await (let value of ethContributions) {
+				const ethData = await ethcontract.methods.launchData(value).call();
+				const uri = await await ethcontract.methods.getUri(value).call();
+				const { data: ipfsResponse } = await axios.get(`https://gateway.pinata.cloud/ipfs/${uri}`);
+				const tokencontract = new tempWeb3.eth.Contract(TokenABI, ethData?.tokenAddress);
+				const tokenName = await tokencontract.methods.name().call();
+				const tokenSymbol = await tokencontract.methods.symbol().call();
+				const minBuy =  tempWeb3.utils.fromWei(await ethcontract.methods.minBuy(value).call());
+				const maxBuy =  tempWeb3.utils.fromWei(await ethcontract.methods.maxBuy(value).call());
+				// const tokenDecimals = await tokencontract.methods.decimals().call();
+				tempArray.push({ ...ethData, ...ipfsResponse, minBuy,maxBuy,tokenName, tokenSymbol, contractType: 'ApercronLaunchpadEth' });
+			}
+		}
+		if (totalUsdt > 0) {
+			let tempUsdtArr = new Array(parseInt(totalUsdt)).fill('hello');
+			for await (let value of usdtContributions) {
+				const ethData = await usdtcontract.methods.launchData(value).call();
+				const uri = await await usdtcontract.methods.getUri(value).call();
+				const { data: ipfsResponse } = await axios.get(`https://gateway.pinata.cloud/ipfs/${uri}`);
+				const tokencontract = new tempWeb3.eth.Contract(TokenABI, ethData?.tokenAddress);
+				const tokenName = await tokencontract.methods.name().call();
+				const tokenSymbol = await tokencontract.methods.symbol().call();
+				const minBuy = tempWeb3.utils.fromWei(await usdtcontract.methods.minBuy(value).call(),'ether');
+				const maxBuy = tempWeb3.utils.fromWei(await usdtcontract.methods.maxBuy(value).call(),'ether');
+				// const tokenDecimals = await tokencontract.methods.decimals().call();
+				tempArray.push({ ...ethData, ...ipfsResponse, minBuy,maxBuy, tokenName, tokenSymbol, contractType: 'ApercronLaunchpadUSDT' });
+			}
+		}
+		console.log(tempArray)
+		// web3Store.dispatch(setLaunchDataLoading(false));
+		web3Store.dispatch(setContributionLaunchData(tempArray));
+
+
+	} catch (err) {
+		console.log(err);
+		// web3Store.dispatch(setLaunchDataLoading(false));
 		// return { success: false };
 	}
 };
