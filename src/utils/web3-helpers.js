@@ -18,9 +18,9 @@ export const connectWallet = async () => {
 		const state = web3Store.getState();
 		const address = state?.web3Slice?.userAddress;
 		const selectedChainID = state?.web3Slice?.selectedChainID;
-		debugger
+		
 		// await addNetwork(selectedChainID,configEnv[selectedChainID]?.rpc,configEnv[selectedChainID]?.networkName);
-		debugger
+		
 		await switchNetwork(selectedChainID);
 		if (!address) {
 			console.log('Connecting to wallet');
@@ -138,6 +138,8 @@ export const getTotalLaunchPads = async () => {
 		const usdtcontract = new tempWeb3.eth.Contract(usdtlaunchPadContract.abi, usdtlaunchPadContract.contractAddress);
 		const totalEth = await ethcontract.methods.currentLaunchID().call();
 		const totalUsdt = await usdtcontract.methods.currentLaunchID().call();
+		
+		
 		web3Store.dispatch(setEthLanuchPads(totalEth));
 		web3Store.dispatch(setUsdtLanuchPads(totalUsdt));
 		let tempArray = [];
@@ -152,8 +154,10 @@ export const getTotalLaunchPads = async () => {
 				const tokencontract = new tempWeb3.eth.Contract(TokenABI, ethData?.tokenAddress);
 				const tokenName = await tokencontract.methods.name().call();
 				const tokenSymbol = await tokencontract.methods.symbol().call();
+				const minBuy =  tempWeb3.utils.fromWei(await ethcontract.methods.minBuy(index).call());
+				const maxBuy =  tempWeb3.utils.fromWei(await ethcontract.methods.maxBuy(index).call());
 				// const tokenDecimals = await tokencontract.methods.decimals().call();
-				tempArray.push({ ...ethData, ...ipfsResponse, tokenName, tokenSymbol, contractType: 'ApercronLaunchpadEth' });
+				tempArray.push({ ...ethData, ...ipfsResponse, minBuy,maxBuy,tokenName, tokenSymbol, contractType: 'ApercronLaunchpadEth' });
 				index++;
 			}
 		}
@@ -167,8 +171,10 @@ export const getTotalLaunchPads = async () => {
 				const tokencontract = new tempWeb3.eth.Contract(TokenABI, ethData?.tokenAddress);
 				const tokenName = await tokencontract.methods.name().call();
 				const tokenSymbol = await tokencontract.methods.symbol().call();
+				const minBuy = tempWeb3.utils.fromWei(await usdtcontract.methods.minBuy(index).call(),'ether');
+				const maxBuy = tempWeb3.utils.fromWei(await usdtcontract.methods.maxBuy(index).call(),'ether');
 				// const tokenDecimals = await tokencontract.methods.decimals().call();
-				tempArray.push({ ...ethData, ...ipfsResponse, tokenName, tokenSymbol, contractType: 'ApercronLaunchpadUSDT' });
+				tempArray.push({ ...ethData, ...ipfsResponse, minBuy,maxBuy, tokenName, tokenSymbol, contractType: 'ApercronLaunchpadUSDT' });
 				index++;
 			}
 		}
@@ -272,7 +278,7 @@ export const switchNetwork = async (chainID)=>{
 	}
 	}
 	catch(err){
-		debugger
+		
 		console.log(err);
 		throw new Error(err?.message);
 	}

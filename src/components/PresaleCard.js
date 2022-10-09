@@ -133,6 +133,18 @@ function PresaleCard({ launchpad }) {
         <Col xs="6" className="d-flex justify-content-end align-items-center">
           <span className="presale-card__light">{Math.ceil(diff)} days</span>
         </Col>
+        <Col xs="6">
+          <span className="presale-card__light">Minimum Buy</span>
+        </Col>
+        <Col xs="6" className="d-flex justify-content-end align-items-center">
+          <span className="presale-card__light">{launchpad?.minBuy}</span>
+        </Col>
+        <Col xs="6">
+          <span className="presale-card__light">Maximum Buy</span>
+        </Col>
+        <Col xs="6" className="d-flex justify-content-end align-items-center">
+        <span className="presale-card__light">{launchpad?.maxBuy}</span>
+        </Col>
       </Row>
 
       <Row className="mt-4 px-5 ">
