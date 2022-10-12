@@ -53,6 +53,7 @@ const CreateToken = () => {
 
   const [presaleRate, setPresaleRate] = useState(0);
   const [totalTokenForSale, setTotalTokenForSale] = useState(0);
+  const [liquidityPercentage, setLiquidityPercentage] = useState(0);
   const [softcap, setSoftcap] = useState(0);
   const [hardcap, setHardcap] = useState(0);
   const [isRefund, setIsRefund] = useState(true);
@@ -133,7 +134,7 @@ const CreateToken = () => {
       ;
       obj['tokenPerEth'] = obj['tokenPerEth'].toString();
       obj['totalTokenForSale'] = Web3.utils.toWei(obj['totalTokenForSale'].toString(), 'ether');
-      ;
+      obj['liquidityPercentage'] = liquidityPercentage;
       obj['softcap'] = Web3.utils.toWei(obj['softcap'].toString(), 'ether');
       obj['hardcap'] = Web3.utils.toWei(obj['hardcap'].toString(), 'ether');
       ;
@@ -356,7 +357,18 @@ const CreateToken = () => {
                   </span> */}
                 </FormGroup>
               </Col>
-
+              <Col md="12" className="mt-2">
+                <FormGroup>
+                  <Label className="create-token__label">Liquidity Percentage *</Label>
+                  <Input placeholder="0" type='number' required min={1} max={100} value={liquidityPercentage} onChange={(e) => setLiquidityPercentage(e.target.value)} />
+                  {/* <p className="mb-0 create-token__danger">
+                    Presale rate must be positive number
+                  </p>
+                  <span className="create-token__primary">
+                    If 1 spend 1 {currencySelected} how many tokens i will receive?
+                  </span> */}
+                </FormGroup>
+              </Col>
               <Col md="6">
                 <FormGroup>
                   <Label className="create-token__label">Softcap ({currencySelected})*</Label>

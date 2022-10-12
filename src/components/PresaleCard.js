@@ -125,7 +125,7 @@ function PresaleCard({ launchpad }) {
           <span className="presale-card__light">Liquidity</span>
         </Col>
         <Col xs="6" className="d-flex justify-content-end align-items-center">
-          <span className="presale-card__light">55%</span>
+          <span className="presale-card__light">{launchpad?.liquidityPercentage}%</span>
         </Col>
         <Col xs="6">
           <span className="presale-card__light">Lockup time</span>

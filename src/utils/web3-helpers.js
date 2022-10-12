@@ -158,8 +158,9 @@ export const getTotalLaunchPads = async () => {
 				const tokenSymbol = await tokencontract.methods.symbol().call();
 				const minBuy =  tempWeb3.utils.fromWei(await ethcontract.methods.minBuy(index).call());
 				const maxBuy =  tempWeb3.utils.fromWei(await ethcontract.methods.maxBuy(index).call());
+				const liquidityPercentage = await ethcontract.methods.liquidityPercentage(index).call();
 				// const tokenDecimals = await tokencontract.methods.decimals().call();
-				tempArray.push({ ...ethData, ...ipfsResponse, minBuy,maxBuy,tokenName, tokenSymbol, contractType: 'ApercronLaunchpadEth' });
+				tempArray.push({ ...ethData, ...ipfsResponse, minBuy,maxBuy,tokenName,liquidityPercentage, tokenSymbol, contractType: 'ApercronLaunchpadEth' });
 				index++;
 			}
 		}
@@ -175,8 +176,9 @@ export const getTotalLaunchPads = async () => {
 				const tokenSymbol = await tokencontract.methods.symbol().call();
 				const minBuy = tempWeb3.utils.fromWei(await usdtcontract.methods.minBuy(index).call(),'ether');
 				const maxBuy = tempWeb3.utils.fromWei(await usdtcontract.methods.maxBuy(index).call(),'ether');
+				const liquidityPercentage = await ethcontract.methods.liquidityPercentage(index).call();
 				// const tokenDecimals = await tokencontract.methods.decimals().call();
-				tempArray.push({ ...ethData, ...ipfsResponse, minBuy,maxBuy, tokenName, tokenSymbol, contractType: 'ApercronLaunchpadUSDT' });
+				tempArray.push({ ...ethData, ...ipfsResponse, minBuy,maxBuy,liquidityPercentage, tokenName, tokenSymbol, contractType: 'ApercronLaunchpadUSDT' });
 				index++;
 			}
 		}
