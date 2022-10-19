@@ -96,6 +96,7 @@ const CurrentPresales = () => {
             <Row className="mt-5">
               {launchPadsData &&
                 launchPadsData
+                .filter(item=>item?.isApproved)
                   .filter((lpd) => {
                     if (search) {
                       return lpd?.tokenSymbol

@@ -17,6 +17,7 @@ import {
 import presale from "../assets/img/presale-img.png";
 import Timer from "./Timer";
 import {
+  approveLaunch,
   buyToken,
   buyTokenWithEth,
   buyTokenWithUSDT,
@@ -24,7 +25,7 @@ import {
 } from "../utils/web3-helpers";
 import { configEnv } from "../utils/configEnv";
 import { useSelector } from "react-redux";
-function PresaleCard({ launchpad }) {
+function PresaleCard({ launchpad,isAdmin }) {
   const [viewPool, setViewPool] = useState(false);
   const [launchData, setLaunchData] = useState(null);
   const [launchId, setLaunchId] = useState("");
@@ -125,7 +126,7 @@ function PresaleCard({ launchpad }) {
           <span className="presale-card__light">Liquidity</span>
         </Col>
         <Col xs="6" className="d-flex justify-content-end align-items-center">
-          <span className="presale-card__light">55%</span>
+          <span className="presale-card__light">{launchpad?.liquidityPercentage}%</span>
         </Col>
         <Col xs="6">
           <span className="presale-card__light">Lockup time</span>
@@ -147,6 +148,19 @@ function PresaleCard({ launchpad }) {
           </span>
         </Col>
         <Col xs="6" className="d-flex justify-content-end align-items-center">
+          {isAdmin?
+          <Button
+           className="presale-card__pool-btn"
+           onClick={async()=>{
+              setLaunchId(launchpad?.id);
+              setContractType(launchpad?.contractType);
+              await approveLaunch(launchpad?.id,launchpad?.contractType)
+              getTotalLaunchPads()
+           }}
+          >
+            Approve Launch
+          </Button>
+          :
           <Button
             className="presale-card__pool-btn"
             onClick={() => {
@@ -159,6 +173,7 @@ function PresaleCard({ launchpad }) {
           >
             View Pool
           </Button>
+}
         </Col>
       </Row>
 

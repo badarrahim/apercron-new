@@ -22,6 +22,7 @@ import { connectWallet, switchNetwork } from "../utils/web3-helpers";
 import { setSelectedNetwork } from "../store/web3-slice";
 import { HashLink, NavHashLink } from "react-router-hash-link";
 import { Link } from "react-router-dom";
+import { configEnv } from "../utils/configEnv";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -98,6 +99,14 @@ const Header = () => {
                 Locker
               </NavLink>
             </NavItem>
+            {userAddress?.toLowerCase()===configEnv.ownerAddress &&
+            <NavItem>
+            <NavLink tag={Link} to='/admin'>
+              Approve Launches
+            </NavLink>
+          </NavItem>
+            }
+            
             {/* <NavItem>
               <NavLink>
                 <Button className="custome-btn">

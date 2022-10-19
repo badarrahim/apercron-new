@@ -75,6 +75,7 @@ const CreateToken = () => {
   const [tokenDecimals, setTokenDecimals] = useState(0);
   const [minBuy, setMinBuy] = useState(0);
   const [maxBuy, setMaxBuy] = useState(0);
+  const [liquidityPercentage,setLiquidityPercentage] = useState(1);
   const dispatch = useDispatch();
 
   const clearFields = () => {
@@ -138,11 +139,13 @@ const CreateToken = () => {
       debugger
       obj['minBuy'] = Web3.utils.toWei(obj['minBuy'].toString(), 'ether');
       obj['maxBuy'] = Web3.utils.toWei(obj['maxBuy'].toString(), 'ether');
+      obj['liquidityPercentage'] = liquidityPercentage;
       console.log({ obj });
       debugger
       await contractApprove.methods.approve(launchPadContract.contractAddress, transferToken).send({ from: address })
         .on('receipt', async (result) => {
           console.log(result);
+          debugger
           await contract.methods.addTokenToLaunchpad(obj).send({ from: address })
             .on('receipt', function (response) {
               console.log("received", response);
@@ -432,6 +435,12 @@ const CreateToken = () => {
                 </FormGroup>
               </Col>
 
+              <Col md="12">
+                <FormGroup>
+                  <Label className="create-token__label">Liquidity Percentage</Label>
+                  <Input type="number" min={1} max={100} value={liquidityPercentage} onChange={e => setLiquidityPercentage(e?.target?.value)} />
+                </FormGroup>
+              </Col>
               <Col md="12" className="my-4">
                 <span className="create-token__primary">
                   Enter the percentage of raised funds that should be allocating
