@@ -130,7 +130,7 @@ const CurrentPresales = () => {
         <TabPane tabId="2"></TabPane>
       </TabContent>
 
-      <Row>
+      <Row >
         <Col
           xs="12"
           className="d-flex justify-content-center align-items-center mt-5"
