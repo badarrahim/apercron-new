@@ -134,6 +134,18 @@ function PresaleCard({ launchpad,isAdmin }) {
         <Col xs="6" className="d-flex justify-content-end align-items-center">
           <span className="presale-card__light">{Math.ceil(diff)} days</span>
         </Col>
+        <Col xs="6">
+          <span className="presale-card__light">Minimum Buy</span>
+        </Col>
+        <Col xs="6" className="d-flex justify-content-end align-items-center">
+          <span className="presale-card__light">{launchpad?.minBuy}</span>
+        </Col>
+        <Col xs="6">
+          <span className="presale-card__light">Maximum Buy</span>
+        </Col>
+        <Col xs="6" className="d-flex justify-content-end align-items-center">
+        <span className="presale-card__light">{launchpad?.maxBuy}</span>
+        </Col>
       </Row>
 
       <Row className="mt-4 px-5 ">
@@ -356,6 +368,106 @@ function PresaleCard({ launchpad,isAdmin }) {
                           launchData?.totalSoldToken?.toString(),
                           "ether"
                         )}
+                    </span>
+                  </Col>
+                  <Col
+                    xs="12"
+                    className="d-flex create-token__border-bottom py-2"
+                  >
+                    <span className="mr-auto text-white">Website</span>
+                    <span className="ml-auto ">
+                      {launchData &&
+                        launchData?.website ? launchData?.website : "N/A"}
+                    </span>
+                  </Col>
+                  <Col
+                    xs="12"
+                    className="d-flex create-token__border-bottom py-2"
+                  >
+                    <span className="mr-auto text-white">Facebook</span>
+                    <span className="ml-auto ">
+                      {launchData &&
+                        launchData?.facebook ? launchData?.facebook : "N/A"}
+                    </span>
+                  </Col>
+                  <Col
+                    xs="12"
+                    className="d-flex create-token__border-bottom py-2"
+                  >
+                    <span className="mr-auto text-white">Twitter</span>
+                    <span className="ml-auto ">
+                      {launchData &&
+                        launchData?.twitter ? launchData?.twitter : "N/A"}
+                    </span>
+                  </Col>
+                  <Col
+                    xs="12"
+                    className="d-flex create-token__border-bottom py-2"
+                  >
+                    <span className="mr-auto text-white">Github</span>
+                    <span className="ml-auto ">
+                      {launchData &&
+                        launchData?.github ? launchData?.github : "N/A"}
+                    </span>
+                  </Col>
+                  <Col
+                    xs="12"
+                    className="d-flex create-token__border-bottom py-2"
+                  >
+                    <span className="mr-auto text-white">Telegram</span>
+                    <span className="ml-auto ">
+                      {launchData &&
+                        launchData?.telegram ? launchData?.telegram : "N/A"}
+                    </span>
+                  </Col>
+                  <Col
+                    xs="12"
+                    className="d-flex create-token__border-bottom py-2"
+                  >
+                    <span className="mr-auto text-white">Instagram</span>
+                    <span className="ml-auto ">
+                      {launchData &&
+                        launchData?.instagram ? launchData?.instagram : "N/A"}
+                    </span>
+                  </Col>
+                  <Col
+                    xs="12"
+                    className="d-flex create-token__border-bottom py-2"
+                  >
+                    <span className="mr-auto text-white">Discord</span>
+                    <span className="ml-auto ">
+                      {launchData &&
+                        launchData?.discord ? launchData?.discord : "N/A"}
+                    </span>
+                  </Col>
+                  <Col
+                    xs="12"
+                    className="d-flex create-token__border-bottom py-2"
+                  >
+                    <span className="mr-auto text-white">Reddit</span>
+                    <span className="ml-auto ">
+                      {launchData &&
+                        launchData?.reddit ? launchData?.reddit : "N/A"}
+                    </span>
+                  </Col>
+                  <Col
+                    xs="12"
+                    className="d-flex create-token__border-bottom py-2"
+                  >
+                    <span className="mr-auto text-white">Youtube</span>
+                    <span className="ml-auto ">
+                      {launchData &&
+                        launchData?.youtube ? launchData?.youtube : "N/A"}
+                    </span>
+                  </Col>
+                  <Col
+                    xs="12"
+                    className="d-flex create-token__border-bottom py-2"
+                  >
+                    <span className="mr-auto text-white">Description</span>
+                    <span className="ml-auto ">
+                      {launchData &&
+                        launchData?.description ? launchData?.description : "N/A"}
                     </span>
                   </Col>
                   {/* <Col

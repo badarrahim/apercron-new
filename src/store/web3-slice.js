@@ -8,6 +8,7 @@ const initialState ={
     usdtLanuchPads: 0,
     launchPadsData: [],
     launchDataLoading: false,
+    contributionLaunchadData:[],
 }
 
 const web3Slice = createSlice({
@@ -32,6 +33,9 @@ const web3Slice = createSlice({
         setLaunchPadData (state, action) {
             state.launchPadsData = action.payload;
         },
+        setContributionLaunchData (state, action) {
+            state.contributionLaunchadData = action.payload;
+        },
         setLaunchDataLoading (state, action) {
             state.launchDataLoading = action.payload;
         }
@@ -45,6 +49,7 @@ export const {
     setEthLanuchPads,
     setUsdtLanuchPads,
     setLaunchPadData,
-    setLaunchDataLoading
+    setLaunchDataLoading,
+    setContributionLaunchData,
 } = web3Slice.actions;
 export default web3Slice.reducer;
