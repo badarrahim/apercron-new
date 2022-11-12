@@ -145,11 +145,12 @@ export const getTotalLaunchPads = async () => {
 		web3Store.dispatch(setEthLanuchPads(totalEth));
 		web3Store.dispatch(setUsdtLanuchPads(totalUsdt));
 		let tempArray = [];
-		if (totalEth > 0) {
+		if (parseInt(totalEth) > 0) {
 			let tempEthArr = new Array(parseInt(totalEth)).fill('hello');
 			console.log(tempEthArr);
 			let index = 1;
 			for await (let value of tempEthArr) {
+				try{
 				const ethData = await ethcontract.methods.launchData(index).call();
 				const uri = await await ethcontract.methods.getUri(index).call();
 				const { data: ipfsResponse } = await axios.get(`https://gateway.pinata.cloud/ipfs/${uri}`);
@@ -159,9 +160,12 @@ export const getTotalLaunchPads = async () => {
 				const minBuy =  tempWeb3.utils.fromWei(await ethcontract.methods.minBuy(index).call());
 				const maxBuy =  tempWeb3.utils.fromWei(await ethcontract.methods.maxBuy(index).call());
 				const liquidityPercentage = await ethcontract.methods.liquidityPercentage(index).call();
-				const isApproved = await ethcontract.methods.isLaunchApproved(index).call();
+				const isApproved = true;
 				// const tokenDecimals = await tokencontract.methods.decimals().call();
 				tempArray.push({ ...ethData, ...ipfsResponse,isApproved, minBuy,maxBuy,tokenName,liquidityPercentage, tokenSymbol, contractType: 'ApercronLaunchpadEth' });
+				}catch(err){
+					console.log(err);
+				}
 				index++;
 			}
 		}
@@ -178,7 +182,7 @@ export const getTotalLaunchPads = async () => {
 				const minBuy = tempWeb3.utils.fromWei(await usdtcontract.methods.minBuy(index).call(),'ether');
 				const maxBuy = tempWeb3.utils.fromWei(await usdtcontract.methods.maxBuy(index).call(),'ether');
 				const liquidityPercentage = await ethcontract.methods.liquidityPercentage(index).call();
-				const isApproved = await ethcontract.methods.isLaunchApproved(index).call();
+				const isApproved = true;
 				// const tokenDecimals = await tokencontract.methods.decimals().call();
 				tempArray.push({ ...ethData, ...ipfsResponse,isApproved, minBuy,maxBuy,liquidityPercentage, tokenName, tokenSymbol, contractType: 'ApercronLaunchpadUSDT' });
 				index++;
@@ -240,6 +244,7 @@ export const getMyContributionLaunpads = async (address) => {
 			let tempEthArr = new Array(parseInt(totalEth)).fill('hello');
 			console.log(tempEthArr);
 			for await (let value of ethContributions) {
+				try{
 				const ethData = await ethcontract.methods.launchData(value).call();
 				const uri = await await ethcontract.methods.getUri(value).call();
 				const { data: ipfsResponse } = await axios.get(`https://gateway.pinata.cloud/ipfs/${uri}`);
@@ -250,11 +255,15 @@ export const getMyContributionLaunpads = async (address) => {
 				const maxBuy =  tempWeb3.utils.fromWei(await ethcontract.methods.maxBuy(value).call());
 				// const tokenDecimals = await tokencontract.methods.decimals().call();
 				tempArray.push({ ...ethData, ...ipfsResponse, minBuy,maxBuy,tokenName, tokenSymbol, contractType: 'ApercronLaunchpadEth' });
+				}catch(err){
+					console.log(err);
+				}
 			}
 		}
 		if (totalUsdt > 0) {
 			let tempUsdtArr = new Array(parseInt(totalUsdt)).fill('hello');
 			for await (let value of usdtContributions) {
+				try{
 				const ethData = await usdtcontract.methods.launchData(value).call();
 				const uri = await await usdtcontract.methods.getUri(value).call();
 				const { data: ipfsResponse } = await axios.get(`https://gateway.pinata.cloud/ipfs/${uri}`);
@@ -265,6 +274,9 @@ export const getMyContributionLaunpads = async (address) => {
 				const maxBuy = tempWeb3.utils.fromWei(await usdtcontract.methods.maxBuy(value).call(),'ether');
 				// const tokenDecimals = await tokencontract.methods.decimals().call();
 				tempArray.push({ ...ethData, ...ipfsResponse, minBuy,maxBuy, tokenName, tokenSymbol, contractType: 'ApercronLaunchpadUSDT' });
+				}catch(err){
+					console.log(err)
+				}
 			}
 		}
 		console.log(tempArray)
