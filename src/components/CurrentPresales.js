@@ -102,6 +102,7 @@ const CurrentPresales = () => {
             <Row className="mt-5">
               {launchPadsData &&
                 launchPadsData
+                .filter(item=>item?.isApproved)
                   .filter((lpd) => {
                     if (search) {
                       return lpd?.tokenSymbol
@@ -129,7 +130,7 @@ const CurrentPresales = () => {
         <TabPane tabId="2"></TabPane>
       </TabContent>
 
-      <Row>
+      <Row >
         <Col
           xs="12"
           className="d-flex justify-content-center align-items-center mt-5"

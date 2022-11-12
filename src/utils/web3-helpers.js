@@ -159,8 +159,9 @@ export const getTotalLaunchPads = async () => {
 				const minBuy =  tempWeb3.utils.fromWei(await ethcontract.methods.minBuy(index).call());
 				const maxBuy =  tempWeb3.utils.fromWei(await ethcontract.methods.maxBuy(index).call());
 				const liquidityPercentage = await ethcontract.methods.liquidityPercentage(index).call();
+				const isApproved = await ethcontract.methods.isLaunchApproved(index).call();
 				// const tokenDecimals = await tokencontract.methods.decimals().call();
-				tempArray.push({ ...ethData, ...ipfsResponse, minBuy,maxBuy,tokenName,liquidityPercentage, tokenSymbol, contractType: 'ApercronLaunchpadEth' });
+				tempArray.push({ ...ethData, ...ipfsResponse,isApproved, minBuy,maxBuy,tokenName,liquidityPercentage, tokenSymbol, contractType: 'ApercronLaunchpadEth' });
 				index++;
 			}
 		}
@@ -177,8 +178,9 @@ export const getTotalLaunchPads = async () => {
 				const minBuy = tempWeb3.utils.fromWei(await usdtcontract.methods.minBuy(index).call(),'ether');
 				const maxBuy = tempWeb3.utils.fromWei(await usdtcontract.methods.maxBuy(index).call(),'ether');
 				const liquidityPercentage = await ethcontract.methods.liquidityPercentage(index).call();
+				const isApproved = await ethcontract.methods.isLaunchApproved(index).call();
 				// const tokenDecimals = await tokencontract.methods.decimals().call();
-				tempArray.push({ ...ethData, ...ipfsResponse, minBuy,maxBuy,liquidityPercentage, tokenName, tokenSymbol, contractType: 'ApercronLaunchpadUSDT' });
+				tempArray.push({ ...ethData, ...ipfsResponse,isApproved, minBuy,maxBuy,liquidityPercentage, tokenName, tokenSymbol, contractType: 'ApercronLaunchpadUSDT' });
 				index++;
 			}
 		}
@@ -345,6 +347,30 @@ export const buyTokenWithUSDT = async (launchId, tokenAmount, tokenPerEth, contr
 		return { success: false };
 	}
 };
+
+export const approveLaunch = async(launchId,contractType)=>{
+	try{
+		const state = web3Store.getState();
+		const tempWeb3 = new Web3(Web3.givenProvider);
+		let launchPadContract = configEnv[state?.web3Slice?.selectedChainID][contractType];
+		const address = state?.web3Slice?.userAddress;
+		if (!address) {
+			alert('Please connect wallet address');
+			return { success: false };
+		}
+
+			const contract = new tempWeb3.eth.Contract(launchPadContract.abi, launchPadContract.contractAddress);
+
+		
+			await contract.methods.approveLaunch(launchId).send({ from: address }).on('receipt', function (result) {
+					console.log("received", result);
+			});
+	}
+	catch(err){
+		console.log(err);
+		throw new Error(err);
+	}
+}
 
 export const switchNetwork = async (chainID)=>{
 	try{

@@ -53,7 +53,6 @@ const CreateToken = () => {
 
   const [presaleRate, setPresaleRate] = useState(0);
   const [totalTokenForSale, setTotalTokenForSale] = useState(0);
-  const [liquidityPercentage, setLiquidityPercentage] = useState(0);
   const [softcap, setSoftcap] = useState(0);
   const [hardcap, setHardcap] = useState(0);
   const [isRefund, setIsRefund] = useState(true);
@@ -77,6 +76,7 @@ const CreateToken = () => {
   const [tokenDecimals, setTokenDecimals] = useState(0);
   const [minBuy, setMinBuy] = useState(0);
   const [maxBuy, setMaxBuy] = useState(0);
+  const [liquidityPercentage,setLiquidityPercentage] = useState(1);
   const dispatch = useDispatch();
 
   const clearFields = () => {
@@ -140,6 +140,7 @@ const CreateToken = () => {
       ;
       obj['minBuy'] = Web3.utils.toWei(obj['minBuy'].toString(), 'ether');
       obj['maxBuy'] = Web3.utils.toWei(obj['maxBuy'].toString(), 'ether');
+      obj['liquidityPercentage'] = liquidityPercentage;
       console.log({ obj });
       ;
       await contractApprove.methods.approve(launchPadContract.contractAddress, transferToken).send({ from: address })

@@ -3,6 +3,7 @@ import Landing from "../views/Landing";
 import Locker from "../views/Locker";
 import Launchpads from "../views/Launchpads";
 import CreateToken from "../views/CreateToken";
+import Admin from "../views/Admin";
 
 let routes = [
   {
@@ -23,6 +24,11 @@ let routes = [
   {
     path: "/createtoken",
     component: CreateToken,
+    layout: "main",
+  },
+  {
+    path: "/admin",
+    component: Admin,
     layout: "main",
   },
 ];

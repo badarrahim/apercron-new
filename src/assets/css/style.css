@@ -1173,3 +1173,8 @@ input[type="checkbox"] {
     margin-bottom: 10px !important;
   }
 }
+
+  .approve-launches-section {
+    background: #03316C;
+    height: 100vh;
+}
